@@ -1,0 +1,8 @@
+﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  LessonX.cpp
+D:\microsoft visual studio\2019\community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1288,5): warning MSB8012: TargetPath(D:\Documents\Code\funcode\PvZ\SourceCode\VCProject2015\VCProject2015\Debug\VCProject2015.exe) does not match the Linker's OutputFile property value (D:\Documents\Code\funcode\PvZ\Bin\Game.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+D:\microsoft visual studio\2019\community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1290,5): warning MSB8012: TargetName(VCProject2015) does not match the Linker's OutputFile property value (Game). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+LessonX.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+CommonClass_2015.lib(CommonClass.obj) : warning LNK4099: PDB 'CommonClass_2015.pdb' was not found with 'CommonClass_2015.lib(CommonClass.obj)' or at 'D:\Documents\Code\funcode\PvZ\SourceCode\VCProject2015\VCProject2015\Debug\CommonClass_2015.pdb'; linking object as if no debug info
+  VCProject2015.vcxproj -> D:\Documents\Code\funcode\PvZ\SourceCode\VCProject2015\VCProject2015\Debug\VCProject2015.exe
