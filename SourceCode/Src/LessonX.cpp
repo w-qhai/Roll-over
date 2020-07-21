@@ -23,8 +23,8 @@ CGameMain::CGameMain() :
 	m_iGameState(1),
 	timer(0),
 	t_ord_zombie(new OrdinaryZombie("OrdinaryZombie")),
-	t_pea_shooter(new PeaShooter("PeaShooter")),
-	pea(new Pea("Pea"))
+	t_pea_shooter(new PeaShooter("PeaShooter", nullptr)),
+	t_pea(new Pea("Pea"))
 {
 
 }
@@ -82,19 +82,22 @@ void CGameMain::GameInit()
 	OrdinaryZombie* zombie = new OrdinaryZombie(CSystem::MakeSpriteName("OrdinaryZombie", vec_ord_zombie.size()));
 	vec_ord_zombie.push_back(zombie);
 	name_to_sprite[zombie->GetName()] = zombie;
-	//zombie->AnimateSpritePlayAnimation()
 	zombie->CloneSprite(t_ord_zombie->GetName());
 	zombie->SetSpritePosition(40, 0);
 	zombie->move();
 
+	Pea* pea = new Pea(CSystem::MakeSpriteName("Pea", vec_pea.size()));
+	vec_pea.push_back(pea);
+	name_to_sprite[pea->GetName()] = pea;
+	pea->CloneSprite(t_pea->GetName());
 
-
-	PeaShooter* pshtr = new PeaShooter(CSystem::MakeSpriteName("PeaShooter", vec_pea_shooter.size()));
+	PeaShooter* pshtr = new PeaShooter(CSystem::MakeSpriteName("PeaShooter", vec_pea_shooter.size()), pea);
 	vec_pea_shooter.push_back(pshtr);
 	name_to_sprite[pshtr->GetName()] = pshtr;
 
 	pshtr->CloneSprite(t_pea_shooter->GetName());
 	pshtr->SetSpritePosition(-40, 0);
+	pea->SetSpritePosition(pshtr->GetSpritePositionX(), pshtr->GetSpritePositionY());
 }
 //=============================================================================
 //

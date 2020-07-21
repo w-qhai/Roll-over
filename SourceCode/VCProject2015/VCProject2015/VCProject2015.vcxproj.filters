@@ -24,15 +24,6 @@
     <ClCompile Include="Arms.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OrdinaryZombie.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pea.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PeaShooter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Plant.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -51,12 +42,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Arms.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pea.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PeaShooter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Plant.h">

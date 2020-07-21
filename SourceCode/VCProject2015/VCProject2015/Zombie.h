@@ -1,8 +1,8 @@
 #pragma once
 #include "PvZSprite.h"
 
-class Zombie : public PvZSprite {
 
+class Zombie : public PvZSprite {
 public:
     Zombie(const char* sprite_name, int health, int speed);
 
@@ -15,4 +15,12 @@ protected:
     int health;
     int move_speed;
     static const char* type;
+};
+
+class OrdinaryZombie : public Zombie {
+public:
+    OrdinaryZombie(const char* zombie_name);
+    void move() override;
+    void eat_plant() override;
+    void die() override;
 };

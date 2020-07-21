@@ -9,6 +9,7 @@
 // 主函数入口
 //
 //////////////////////////////////////////////////////////////////////////////////////////
+
 int PASCAL WinMain(HINSTANCE hInstance,
                    HINSTANCE hPrevInstance,
                    LPSTR     lpCmdLine,
@@ -91,14 +92,15 @@ void CSystem::OnSpriteColSprite( const char *szSrcName, const char *szTarName )
 	PvZSprite* src = g_GameMain.get_sprite_by_name(szSrcName);
 	PvZSprite* tar = g_GameMain.get_sprite_by_name(szTarName);
 	std::cout << szSrcName << " " << szTarName << std::endl;
-	if (src->get_type() == "Zombie" && tar->get_type() == "Plant") {
-		src->AnimateSpritePlayAnimation("BoomDieAnimation", false);
-		src->SetSpriteLinearVelocityX(0);
-	}
+	if (src && tar) {
+		if (src->get_type() == "Zombie" && tar->get_type() == "Plant") {
 
-	if (src->get_type() == "Zombie" && tar->get_type() == "Plant") {
-		src->AnimateSpritePlayAnimation("BoomDieAnimation", false);
-		reinterpret_cast<Zombie*>(src)->die(); // 指针强转
+		}
+
+		if (src->get_type() == "Arms" && tar->get_type() == "Zombie") {
+			reinterpret_cast<Arms*>(src)->after_hit();  // 指针强转
+			reinterpret_cast<Zombie*>(tar)->die();		// 指针强转
+		}
 	}
 }
 

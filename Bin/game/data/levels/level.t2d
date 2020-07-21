@@ -65,32 +65,6 @@
       WorldLimitMax = "50.000 37.500";
          mountID = "4";
    };
-   new t2dStaticSprite(Pea) {
-      imageMap = "PeaImageMap";
-      frame = "0";
-      useSourceRect = "0";
-      sourceRect = "0 0 0 0";
-      canSaveDynamicFields = "1";
-      Position = "-3.522 -48.820";
-      size = "3.000 3.000";
-      WorldLimitMin = "-50.000 -37.500";
-      WorldLimitMax = "50.000 37.500";
-      CollisionActiveSend = "1";
-      CollisionActiveReceive = "1";
-         mountID = "5";
-   };
-   new t2dStaticSprite(PeaBulletHit) {
-      imageMap = "PeaBulletHitImageMap";
-      frame = "0";
-      useSourceRect = "0";
-      sourceRect = "0 0 0 0";
-      canSaveDynamicFields = "1";
-      Position = "12.680 -49.665";
-      size = "6.375 5.625";
-      WorldLimitMin = "-50.000 -37.500";
-      WorldLimitMax = "50.000 37.500";
-         mountID = "6";
-   };
    new t2dAnimatedSprite(OrdinaryZombie) {
       animationName = "OrdinaryZombieAnimation";
       canSaveDynamicFields = "1";
@@ -100,7 +74,7 @@
       WorldLimitMax = "50.000 37.500";
       CollisionActiveSend = "1";
       CollisionActiveReceive = "1";
-         mountID = "7";
+         mountID = "5";
    };
    new t2dAnimatedSprite(PeaShooter) {
       animationName = "PeaShooterAnimation";
@@ -110,6 +84,45 @@
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
       CollisionActiveReceive = "1";
+         mountID = "6";
+   };
+   new t2dAnimatedSprite(Pea) {
+      animationName = "PeaAnimation";
+      canSaveDynamicFields = "1";
+      Position = "32.969 -48.256";
+      size = "3.000 3.000";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+      CollisionActiveSend = "1";
+         mountID = "7";
+   };
+   new t2dAnimatedSprite(PeaBulletHit) {
+      animationName = "PeaBulletHitAnimation";
+      canSaveDynamicFields = "1";
+      Position = "15.639 -49.524";
+      size = "6.375 5.625";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+      CollisionActiveSend = "1";
+      CollisionActiveReceive = "1";
          mountID = "8";
+   };
+   new t2dAnimatedSprite() {
+      animationName = "BoomAnimation";
+      canSaveDynamicFields = "1";
+      Position = "45.650 -48.256";
+      size = "7.500 7.500";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+         mountID = "9";
+   };
+   new t2dAnimatedSprite() {
+      animationName = "ZombieDieAnimation";
+      canSaveDynamicFields = "1";
+      Position = "-2.254 -50.313";
+      size = "20.625 10.625";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+         mountID = "10";
    };
 };

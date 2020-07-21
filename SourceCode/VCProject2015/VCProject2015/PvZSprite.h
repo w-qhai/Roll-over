@@ -1,5 +1,6 @@
 #pragma once
 #include "CommonClass.h"
+#include <iostream>
 
 class PvZSprite : public CAnimateSprite
 {
