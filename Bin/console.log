@@ -1,7 +1,6 @@
-//-------------------------- 7/20/2020 -- 19:33:30 -----
+//-------------------------- 7/20/2020 -- 21:17:57 -----
 Processor Init:
    Intel (unknown, Pentium Pro/II/III family), ~1.80 Ghz
-     (timed at roughly 1.78 Ghz)
    FPU detected
    MMX detected
    SSE detected
@@ -20,10 +19,10 @@ Initializing chunk mappings...
    o 'TEXT' maps to TextChunk
    o 'SCHK' maps to UnknownChunk
    o 'SCHK' maps to SimChunk
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/main.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/game/main.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/main.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/game/main.cs.
  % - Initializing Common
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/preferences/defaultPrefs.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/preferences/defaultPrefs.cs.
 Reading Display Device information...
    Primary Display Device Found:
       Vendor Id: VEN_0000
@@ -31,12 +30,12 @@ Reading Display Device information...
 
 Using OpenGL rendering. Fullscreen: 0
 
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/xml.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/properties.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/common.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/audio.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/canvas.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/cursor.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/xml.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/properties.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/common.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/audio.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/canvas.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/cursor.cs.
 Video Init:
    Accelerated OpenGL display device detected.
    Accelerated D3D device not detected.
@@ -54,7 +53,7 @@ Making the new rendering context current...
 OpenGL driver information:
   Vendor: Intel
   Renderer: Intel(R) UHD Graphics 620
-  Version: 4.5.0 - Build 23.20.16.4973
+  Version: 4.5.0 - Build 22.20.16.4771
 OpenGL Init: Enabled Extensions
   ARB_multitexture (Max Texture Units: 8)
   EXT_blend_color
@@ -68,59 +67,66 @@ OpenGL Init: Enabled Extensions
   3DFX_texture_compression_FXT1
   (ARB|EXT)_texture_env_add
   EXT_texture_filter_anisotropic (Max anisotropy: 16)
-  WGL_EXT_swap_control
 OpenGL Init: Disabled Extensions
   EXT_paletted_texture
   NV_vertex_array_range
+  WGL_EXT_swap_control
 
 Max Texture Size reported as: 16384
 Setting screen mode to 800x600x32 (w)...
 OpenAL Driver Init:
    Failed to initialize driver.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/profiles.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/cursors.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/messageBoxOk.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/messageBoxYesNo.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/messageBoxYesNoCancel.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/messageBoxOKCancel.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/messageBoxOKCancelDetailsDlg.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/messagePopup.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/options.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/remap.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/console.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/NetworkMenu.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/startServer.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/joinServer.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/waitingForServer.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/helpDlg.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/messageBox.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/help.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gui/chatGui.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/screenshot.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/metrics.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/Gui/FrameOverlayGui.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/scriptDoc.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/keybindings.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/options.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/levelManagement.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/projectManagement.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/projectResources.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/common/gameScripts/align.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/profiles.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/cursors.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/messageBoxOk.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/messageBoxYesNo.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/messageBoxYesNoCancel.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/messageBoxOKCancel.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/messageBoxOKCancelDetailsDlg.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/messagePopup.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/options.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/remap.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/console.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/NetworkMenu.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/startServer.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/joinServer.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/waitingForServer.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/helpDlg.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/messageBox.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/help.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gui/chatGui.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/screenshot.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/metrics.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/Gui/FrameOverlayGui.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/scriptDoc.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/keybindings.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/options.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/levelManagement.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/projectManagement.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/projectResources.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/common/gameScripts/align.cs.
 
 FunCode (v1.7.5) initialized...
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/game/managed/datablocks.cs.
+Compiling C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/game/managed/datablocks.cs...
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/game/managed/datablocks.cs.
 t2dAnimationDatablock::onAdd() - ImageMap Datablock is invalid, cannot create animation! (UNKNOWN!)
-game/managed/datablocks.cs (0): Register object failed for object butterflyfishsheetImageMapAnimation of class t2dAnimationDatablock.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/game/managed/persistent.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/game/managed/brushes.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/game/gameScripts/datablocks.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/game/gameScripts/guiProfiles.cs.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/game/gui/mainScreen.gui.
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/game/gameScripts/game.cs.
+game/managed/datablocks.cs (0): Register object failed for object ZombieAnimation of class t2dAnimationDatablock.
+t2dAnimationDatablock::onAdd() - ImageMap Datablock is invalid, cannot create animation! (UNKNOWN!)
+game/managed/datablocks.cs (0): Register object failed for object SunFlowerAnimation of class t2dAnimationDatablock.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/game/managed/persistent.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/game/managed/brushes.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/game/gameScripts/datablocks.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/game/gameScripts/guiProfiles.cs.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/game/gui/mainScreen.gui.
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/game/gameScripts/game.cs.
 Activating DirectInput...
 DirectInput joystick failed to enable!
-Compiling D:/Documents/Code/funcode/Roll-over/Bin/game/data/levels/level.t2d...
-Loading compiled script D:/Documents/Code/funcode/Roll-over/Bin/game/data/levels/level.t2d.
+Compiling C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/game/data/levels/level.t2d...
+Loading compiled script C:/Users/Devhui/Desktop/cpp/Roll-over/Bin/game/data/levels/level.t2d.
+t2dAnimationController::playAnimation() - Invalid t2dAnimationDatablock datablock (ZombieAnimation)
+t2dAnimationController::playAnimation() - Invalid t2dAnimationDatablock datablock (SunFlowerAnimation)
+DirectInput deactivated.
+Activating DirectInput...
 DirectInput deactivated.
 Shutting down the OpenGL display device...
 Making the GL rendering context not current...
