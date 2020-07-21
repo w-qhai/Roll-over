@@ -22,7 +22,7 @@ Pea::Pea(const char* arms_name) :
 }
 
 /// <summary>
-/// 攻击之后的特效一些效果
+/// 攻击之后的特效
 /// </summary>
 void Pea::after_hit() {
     this->AnimateSpritePlayAnimation("BoomAnimation", false);

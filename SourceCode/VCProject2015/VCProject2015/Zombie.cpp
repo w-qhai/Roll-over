@@ -37,6 +37,9 @@ void OrdinaryZombie::eat_plant() {
 
 }
 
+/// <summary>
+/// ±»»÷µ¹ºó
+/// </summary>
 void OrdinaryZombie::die() {
     this->AnimateSpritePlayAnimation("ZombieDieAnimation", false);
     this->SetSpriteWidth(20.625);

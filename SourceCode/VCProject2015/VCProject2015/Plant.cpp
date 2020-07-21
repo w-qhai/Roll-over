@@ -23,7 +23,7 @@ PeaShooter::PeaShooter(const char* plant_name, Pea* pea) :
 }
 
 /// <summary>
-/// 时间间隔积累到到一定程度后，进攻
+/// 时间间隔积累到到一定程度后 开始进攻
 /// </summary>
 /// <param name="delta_time">每次时间间隔</param>
 void PeaShooter::attack(float delta_time) {
