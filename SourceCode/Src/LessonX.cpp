@@ -19,9 +19,14 @@ CGameMain		g_GameMain;
 //==============================================================================
 //
 // 构造函数
-CGameMain::CGameMain(): sprite(new CAnimateSprite("Zombie"))
+CGameMain::CGameMain() :
+	m_iGameState(1),
+	timer(0),
+	t_ord_zombie(new OrdinaryZombie("OrdinaryZombie")),
+	t_pea_shooter(new PeaShooter("PeaShooter")),
+	pea(new Pea("Pea"))
 {
-	m_iGameState			=	1;
+
 }
 //==============================================================================
 //
@@ -74,18 +79,46 @@ void CGameMain::GameMainLoop( float	fDeltaTime )
 // 每局开始前进行初始化，清空上一局相关数据
 void CGameMain::GameInit()
 {
-	
+	OrdinaryZombie* zombie = new OrdinaryZombie(CSystem::MakeSpriteName("OrdinaryZombie", vec_ord_zombie.size()));
+	vec_ord_zombie.push_back(zombie);
+	name_to_sprite[zombie->GetName()] = zombie;
+	//zombie->AnimateSpritePlayAnimation()
+	zombie->CloneSprite(t_ord_zombie->GetName());
+	zombie->SetSpritePosition(40, 0);
+	zombie->move();
+
+
+
+	PeaShooter* pshtr = new PeaShooter(CSystem::MakeSpriteName("PeaShooter", vec_pea_shooter.size()));
+	vec_pea_shooter.push_back(pshtr);
+	name_to_sprite[pshtr->GetName()] = pshtr;
+
+	pshtr->CloneSprite(t_pea_shooter->GetName());
+	pshtr->SetSpritePosition(-40, 0);
 }
 //=============================================================================
 //
 // 每局游戏进行中
 void CGameMain::GameRun( float fDeltaTime )
 {
-	sprite->SetSpriteLinearVelocity(-10.f, 0);
+	timer += fDeltaTime;
+	for (PeaShooter* pshtr : vec_pea_shooter) {
+		pshtr->attack(fDeltaTime);
+	}
 }
 //=============================================================================
 //
 // 本局游戏结束
 void CGameMain::GameEnd()
 {
+}
+
+// 用精灵名字映射精灵对象
+PvZSprite* CGameMain::get_sprite_by_name(const std::string& sprite_name) {
+	if (name_to_sprite.count(sprite_name)) {
+		return name_to_sprite.at(sprite_name);
+	}
+	else {
+		return nullptr;
+	}
 }

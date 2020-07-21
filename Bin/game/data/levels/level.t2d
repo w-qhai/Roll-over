@@ -37,25 +37,17 @@
       cameraPosition = "0 0";
       cameraSize = "100 75";
 
-   new t2dScroller() {
+   new t2dScroller(map) {
       imageMap = "day_yard_bgImageMap1";
       useSourceRect = "0";
       sourceRect = "2.36011e-039 0 2.36011e-039 6.2071e-039";
       canSaveDynamicFields = "1";
-      Position = "10.740 -0.000";
+      Position = "10.740 0.000";
       size = "175.000 75.000";
+      Layer = "10";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
          mountID = "2";
-   };
-   new t2dAnimatedSprite() {
-      animationName = "DandanTargetAnimation1";
-      canSaveDynamicFields = "1";
-      Position = "0.850 3.287";
-      size = "8.300 10.113";
-      WorldLimitMin = "-50.000 -37.500";
-      WorldLimitMax = "50.000 37.500";
-         mountID = "3";
    };
    new t2dAnimatedSprite() {
       canSaveDynamicFields = "1";
@@ -63,7 +55,7 @@
       size = "8.678 12.525";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
-         mountID = "4";
+         mountID = "3";
    };
    new t2dAnimatedSprite() {
       canSaveDynamicFields = "1";
@@ -71,33 +63,53 @@
       size = "9.125 9.250";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
+         mountID = "4";
+   };
+   new t2dStaticSprite(Pea) {
+      imageMap = "PeaImageMap";
+      frame = "0";
+      useSourceRect = "0";
+      sourceRect = "0 0 0 0";
+      canSaveDynamicFields = "1";
+      Position = "-3.522 -48.820";
+      size = "3.000 3.000";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+      CollisionActiveSend = "1";
+      CollisionActiveReceive = "1";
          mountID = "5";
    };
-   new t2dAnimatedSprite() {
-      animationName = "PeaShooterAnimation";
+   new t2dStaticSprite(PeaBulletHit) {
+      imageMap = "PeaBulletHitImageMap";
+      frame = "0";
+      useSourceRect = "0";
+      sourceRect = "0 0 0 0";
       canSaveDynamicFields = "1";
-      Position = "-30.046 2.203";
-      size = "7.875 8.750";
+      Position = "12.680 -49.665";
+      size = "6.375 5.625";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
          mountID = "6";
    };
-   new t2dAnimatedSprite() {
-      animationName = "ZombieAnimation";
+   new t2dAnimatedSprite(OrdinaryZombie) {
+      animationName = "OrdinaryZombieAnimation";
       canSaveDynamicFields = "1";
-      Position = "57.797 4.805";
+      Position = "-23.952 -50.933";
       size = "10.875 15.500";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
+      CollisionActiveSend = "1";
+      CollisionActiveReceive = "1";
          mountID = "7";
    };
-   new t2dAnimatedSprite() {
-      animationName = "SnowPeaShooterAnimation";
+   new t2dAnimatedSprite(PeaShooter) {
+      animationName = "PeaShooterAnimation";
       canSaveDynamicFields = "1";
-      Position = "-29.913 11.844";
-      size = "8.875 8.875";
+      Position = "-45.227 -48.115";
+      size = "7.875 8.750";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
+      CollisionActiveReceive = "1";
          mountID = "8";
    };
 };

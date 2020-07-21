@@ -16,7 +16,6 @@ def split_gif(image_name):
     max_width = 0
     max_heigth = 0
     for frame in ImageSequence.Iterator(gif):
-        # frame = ImageSequence.Iterator(gif)[1]
         real_img = frame.crop(frame.getbbox())
         width, height = real_img.size
         max_width = max(max_width, width)

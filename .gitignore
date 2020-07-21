@@ -29,7 +29,13 @@
 *.out
 *.app
 
+
 *.log
 *.dso
-VCProject2015.tlog
-AutoPCH
+
+# dirs
+images/*
+.vs
+Debug
+tools/*.gif
+tools/*.png

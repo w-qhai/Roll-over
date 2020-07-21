@@ -100,12 +100,23 @@
   <ItemGroup>
     <ClCompile Include="..\..\Src\LessonX.cpp" />
     <ClCompile Include="..\..\Src\Main.cpp" />
-    <ClCompile Include="..\..\Src\Zombie.cpp" />
+    <ClCompile Include="Arms.cpp" />
+    <ClCompile Include="OrdinaryZombie.cpp" />
+    <ClCompile Include="Pea.cpp" />
+    <ClCompile Include="PeaShooter.cpp" />
+    <ClCompile Include="Plant.cpp" />
+    <ClCompile Include="PvZSprite.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\CommonClass.h" />
-    <ClInclude Include="..\..\Header\Zombie.h" />
     <ClInclude Include="..\..\Header\LessonX.h" />
+    <ClInclude Include="Arms.h" />
+    <ClInclude Include="Pea.h" />
+    <ClInclude Include="PeaShooter.h" />
+    <ClInclude Include="Plant.h" />
+    <ClInclude Include="PvZSprite.h" />
+    <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VCTemplate.rc" />

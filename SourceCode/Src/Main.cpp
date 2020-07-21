@@ -15,17 +15,16 @@ int PASCAL WinMain(HINSTANCE hInstance,
                    int       nCmdShow)
 {
 	//开启控制台，方便调试信息输出
-	//FILE* stream;
-	//AllocConsole();
-	//freopen_s(&stream, "CONOUT$", "a+", stdout);
+	FILE* stream;
+	AllocConsole();
+	freopen_s(&stream, "CONOUT$", "a+", stdout);
 
 	// 初始化游戏引擎
 	if( !CSystem::InitGameEngine( hInstance, lpCmdLine ) )
 		return 0;
 
 	// To do : 在此使用API更改窗口标题
-	std::cout << "Lesson" << std::endl;
-	CSystem::SetWindowTitle("Lesson");
+	CSystem::SetWindowTitle("PvZ");
 
 	// 引擎主循环，处理屏幕图像刷新等工作
 	while( CSystem::EngineMainLoop() )
@@ -89,6 +88,18 @@ void CSystem::OnKeyUp( const int iKey )
 // 引擎捕捉到精灵与精灵碰撞之后，调用此函数
 void CSystem::OnSpriteColSprite( const char *szSrcName, const char *szTarName )
 {
+	PvZSprite* src = g_GameMain.get_sprite_by_name(szSrcName);
+	PvZSprite* tar = g_GameMain.get_sprite_by_name(szTarName);
+	std::cout << szSrcName << " " << szTarName << std::endl;
+	if (src->get_type() == "Zombie" && tar->get_type() == "Plant") {
+		src->AnimateSpritePlayAnimation("BoomDieAnimation", false);
+		src->SetSpriteLinearVelocityX(0);
+	}
+
+	if (src->get_type() == "Zombie" && tar->get_type() == "Plant") {
+		src->AnimateSpritePlayAnimation("BoomDieAnimation", false);
+		reinterpret_cast<Zombie*>(src)->die(); // 指针强转
+	}
 }
 
 //===========================================================================
