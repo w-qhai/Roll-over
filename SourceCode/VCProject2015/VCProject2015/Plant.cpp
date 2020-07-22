@@ -2,7 +2,7 @@
 
 const char* Plant::type = "Plant";
 
-Plant::Plant(const char* sprite_name, int health, int attack_interval) :
+Plant::Plant(const char* sprite_name, double health, int attack_interval) :
     PvZSprite(sprite_name),
     health(health), 
     next_attack(0),
@@ -16,7 +16,7 @@ const char* Plant::get_type() {
 
 /* --------------------------------------------------- */
 PeaShooter::PeaShooter(const char* plant_name, Pea* pea) :
-    Plant(plant_name, 200, 500),
+    Plant(plant_name, 300, 2),
     pea(pea)
 {
     
@@ -27,11 +27,13 @@ PeaShooter::PeaShooter(const char* plant_name, Pea* pea) :
 /// </summary>
 /// <param name="delta_time">每次时间间隔</param>
 void PeaShooter::attack(float delta_time) {
+    std::cout << "next_attack" << next_attack << std::endl;
     if ((next_attack -= delta_time) <= 0) {
+        std::cout << "shoot" << std::endl;
         pea->CloneSprite("Pea");
         // 微调位置一下 从嘴部发出
         pea->SetSpritePosition(this->GetSpritePositionX() + 1, this->GetSpritePositionY() - 2);
-        pea->SetSpriteLinearVelocityX(30);
+        pea->SetSpriteLinearVelocityX(40);
         next_attack = attack_interval;
     }
 }
@@ -43,7 +45,9 @@ void PeaShooter::attack(float delta_time) {
 /// <returns>true:被咬死； false：还没被咬死</returns>
 bool PeaShooter::attacked_by(Zombie* zombie) {
     this->health -= zombie->get_power();
+    std::cout << this->health << std::endl;
     if (this->health <= 0) {
+        this->DeleteSprite();
         return true;
     }
     else {

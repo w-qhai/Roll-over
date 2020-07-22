@@ -20,7 +20,7 @@ const char* Arms::get_type() {
 ///////////////////////////////////////
 
 Pea::Pea(const char* arms_name) :
-    Arms(arms_name, 40)
+    Arms(arms_name, 20)
 {
 
 }

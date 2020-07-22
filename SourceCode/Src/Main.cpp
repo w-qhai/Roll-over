@@ -96,18 +96,15 @@ void CSystem::OnSpriteColSprite( const char *szSrcName, const char *szTarName )
 		// 僵尸吃植物
 		if (src->get_type() == "Zombie" && tar->get_type() == "Plant") {
 			std::cout << szSrcName << " " << szTarName << std::endl;
-			// 保证不会跃层吃植物
-			if (abs(src->GetSpritePositionY() - tar->GetSpritePositionY()) < 5) {
-				Zombie* z = reinterpret_cast<Zombie*>(src);  // 指针强转
-				Plant* p = reinterpret_cast<Plant*>(tar);
-				z->stop();
+			Zombie* z = reinterpret_cast<Zombie*>(src);  // 指针强转
+			Plant* p = reinterpret_cast<Plant*>(tar);
+			//z->stop();
+			if (!z->is_eating()) {
 				z->eat_plant();
-				if (p->attacked_by(z)) {
-					// 吃完植物接着走
-					z->move();
-				}
 			}
-			
+			if (p->attacked_by(z)) {
+				z->move();
+			}		
 		}
 
 		// 子弹打僵尸

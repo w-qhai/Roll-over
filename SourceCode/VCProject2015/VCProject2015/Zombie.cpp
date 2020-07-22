@@ -2,13 +2,14 @@
 
 const char* Zombie::type = "Zombie";
 
-Zombie::Zombie(const char* sprite_name, int health, int move_speed, int power) :
+Zombie::Zombie(const char* sprite_name, int health, int move_speed, double power) :
     PvZSprite(sprite_name),
     health(health),
     move_speed(move_speed),
     power(power),
     next_attack(0),
     attack_interval(500),
+    eating(false)
 {
 
 }
@@ -16,12 +17,14 @@ Zombie::Zombie(const char* sprite_name, int health, int move_speed, int power) :
 const char* Zombie::get_type() {
     return type;
 }
-
+bool Zombie::is_eating() {
+    return eating;
+}
 
 /////////////////////////
 
 OrdinaryZombie::OrdinaryZombie(const char* zombie_name) :
-    Zombie(zombie_name, 200, 3, 50)
+    Zombie(zombie_name, 200, 3, 0.5)
 {
 
 }
@@ -30,35 +33,18 @@ OrdinaryZombie::OrdinaryZombie(const char* zombie_name) :
 /// ÈÃ½©Ê¬¿ªÊ¼ÒÆ¶¯
 /// </summary>
 void OrdinaryZombie::move() {
+    this->eating = false;
+    this->set_status();
     this->SetSpriteLinearVelocityX(-this->move_speed);
-    if (this->health < 100) {
-        this->AnimateSpritePlayAnimation("ZombieLoseHeadAnimation", false);
-        this->SetSpriteWidth(10.000);
-        this->SetSpriteHeight(11.875);
-    }
-    else {
-        this->AnimateSpritePlayAnimation("OrdinaryZombieAnimation", false);
-        this->SetSpriteWidth(10.875);
-        this->SetSpriteHeight(15.500);
-    }
 }
 
 void OrdinaryZombie::stop() {
+    this->set_status();
     this->SetSpriteLinearVelocityX(0);
-    if (this->health < 100) {
-        this->AnimateSpritePlayAnimation("ZombieLoseHeadAnimation", false);
-        this->SetSpriteWidth(10.000);
-        this->SetSpriteHeight(11.875);
-    }
-    else {
-        this->AnimateSpritePlayAnimation("OrdinaryZombieAnimation", false);
-        this->SetSpriteWidth(10.875);
-        this->SetSpriteHeight(15.500);
-    }
 }
 
 void OrdinaryZombie::eat_plant() {
-    this->SetSpriteLinearVelocityX(0);
+    eating = true;
     if (this->health > 100) {
         this->AnimateSpritePlayAnimation("ZombieAttackAnimation", false);
     }
@@ -70,11 +56,14 @@ void OrdinaryZombie::eat_plant() {
 }
 
 
-void OrdinaryZombie::attacked_by(Arms* arm) {
-    this->health -= arm->get_power();
-    arm->after_hit();
+void OrdinaryZombie::attacked_by(Arms* arms) {
+    this->health -= arms->get_power();
+    arms->after_hit();
     if (this->health <= 0) {
         this->die();
+    }
+    else {
+        this->set_status();
     }
 }
 
@@ -87,13 +76,25 @@ void OrdinaryZombie::die() {
     this->SetSpriteCollisionActive(false, false);
     this->SetSpriteWidth(20.625);
     this->SetSpriteHeight(10.625);
+    // ²¥·ÅËÀÍö¶¯»­
     this->SetSpriteLifeTime(1);
 }
 
-int OrdinaryZombie::get_power() {
+double OrdinaryZombie::get_power() {
     return power;
 }
 
 OrdinaryZombie::~OrdinaryZombie() {
     std::cout << "~OrdinaryZombie()" << std::endl;
+}
+
+void OrdinaryZombie::set_status() {
+    if (this->health > 100) {
+        this->AnimateSpritePlayAnimation("OrdinaryZombieAnimation", false);
+    }
+    else if (this->health <= 100) {
+        this->AnimateSpritePlayAnimation("ZombieLoseHeadAnimation", false);
+        this->SetSpriteWidth(10.000);
+        this->SetSpriteHeight(11.875);
+    }
 }

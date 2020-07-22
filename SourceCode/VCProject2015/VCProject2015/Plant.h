@@ -6,13 +6,13 @@
 class Plant : public PvZSprite 
 {
 public:
-    Plant(const char* sprite_name, int health, int attack_interval);
+    Plant(const char* sprite_name, double health, int attack_interval);
     virtual void attack(float delta_time) = 0;
     virtual bool attacked_by(Zombie* zombie) = 0;
 
     const char* get_type() override;
 protected:
-    int health;                     // 血量
+    double health;                     // 血量
     float next_attack;                // 距离下次攻击时间
     const float attack_interval;      // 攻击间隔
     static const char* type;        // 类型

@@ -155,7 +155,7 @@ $managedDatablockSet = new SimSet() {
    new t2dAnimationDatablock(OrdinaryZombieAnimation) {
       imageMap = "OrdinaryZombieImageMap";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21";
-      animationTime = "0.733333";
+      animationTime = "1.46667";
       animationCycle = "1";
       randomStart = "0";
       startFrame = "0";
@@ -325,7 +325,7 @@ $managedDatablockSet = new SimSet() {
    new t2dAnimationDatablock(ZombieAttackAnimation) {
       imageMap = "ZombieAttackImageMap";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20";
-      animationTime = "1";
+      animationTime = "2.1";
       animationCycle = "1";
       randomStart = "0";
       startFrame = "0";
