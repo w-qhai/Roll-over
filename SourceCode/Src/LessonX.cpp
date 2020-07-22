@@ -79,12 +79,16 @@ void CGameMain::GameMainLoop( float	fDeltaTime )
 // 每局开始前进行初始化，清空上一局相关数据
 void CGameMain::GameInit()
 {
-	OrdinaryZombie* zombie = new OrdinaryZombie(CSystem::MakeSpriteName("OrdinaryZombie", vec_ord_zombie.size()));
-	vec_ord_zombie.push_back(zombie);
-	name_to_sprite[zombie->GetName()] = zombie;
-	zombie->CloneSprite(t_ord_zombie->GetName());
-	zombie->SetSpritePosition(40, 0);
-	zombie->move();
+	int pos[5] = { -22, -10, 2, 12, 25 };
+	for (int i = 0; i < ord_zombie_count; i++) {
+		OrdinaryZombie* zombie = new OrdinaryZombie(CSystem::MakeSpriteName("OrdinaryZombie", vec_ord_zombie.size()));
+		vec_ord_zombie.push_back(zombie);
+		name_to_sprite[zombie->GetName()] = zombie;
+		zombie->CloneSprite(t_ord_zombie->GetName());
+		zombie->SetSpritePosition(CSystem::GetScreenRight(), pos[i % 5]);
+		zombie->move();
+	}
+	
 
 	Pea* pea = new Pea(CSystem::MakeSpriteName("Pea", vec_pea.size()));
 	vec_pea.push_back(pea);
@@ -96,8 +100,7 @@ void CGameMain::GameInit()
 	name_to_sprite[pshtr->GetName()] = pshtr;
 
 	pshtr->CloneSprite(t_pea_shooter->GetName());
-	pshtr->SetSpritePosition(-40, 0);
-	pea->SetSpritePosition(pshtr->GetSpritePositionX(), pshtr->GetSpritePositionY());
+	pshtr->SetSpritePosition(35, 3);
 }
 //=============================================================================
 //

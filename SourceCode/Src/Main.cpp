@@ -91,15 +91,32 @@ void CSystem::OnSpriteColSprite( const char *szSrcName, const char *szTarName )
 {
 	PvZSprite* src = g_GameMain.get_sprite_by_name(szSrcName);
 	PvZSprite* tar = g_GameMain.get_sprite_by_name(szTarName);
-	std::cout << szSrcName << " " << szTarName << std::endl;
+	
 	if (src && tar) {
+		// 僵尸吃植物
 		if (src->get_type() == "Zombie" && tar->get_type() == "Plant") {
-
+			std::cout << szSrcName << " " << szTarName << std::endl;
+			// 保证不会跃层吃植物
+			if (abs(src->GetSpritePositionY() - tar->GetSpritePositionY()) < 5) {
+				Zombie* z = reinterpret_cast<Zombie*>(src);  // 指针强转
+				Plant* p = reinterpret_cast<Plant*>(tar);
+				z->stop();
+				z->eat_plant();
+				if (p->attacked_by(z)) {
+					// 吃完植物接着走
+					z->move();
+				}
+			}
+			
 		}
 
+		// 子弹打僵尸
 		if (src->get_type() == "Arms" && tar->get_type() == "Zombie") {
-			reinterpret_cast<Arms*>(src)->after_hit();  // 指针强转
-			reinterpret_cast<Zombie*>(tar)->die();		// 指针强转
+			std::cout << szSrcName << " " << szTarName << std::endl;
+			Arms* a = reinterpret_cast<Arms*>(src);  // 指针强转
+			Zombie* z = reinterpret_cast<Zombie*>(tar);
+			a->after_hit();
+			z->attacked_by(a);
 		}
 	}
 }

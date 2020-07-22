@@ -24,9 +24,14 @@ private:
 	float			timer;						// 游戏运行时间
 	std::map<std::string, PvZSprite*>	name_to_sprite;
 
+	// 精灵数量
+	int ord_zombie_count = 5;
+
+	// 精灵容器
 	std::vector<OrdinaryZombie*> vec_ord_zombie;
 	std::vector<Pea*>			vec_pea;
 	std::vector<PeaShooter*> vec_pea_shooter;
+
 	// 精灵模板
 	OrdinaryZombie* t_ord_zombie;
 	PeaShooter* t_pea_shooter;

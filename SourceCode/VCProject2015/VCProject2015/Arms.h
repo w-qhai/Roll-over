@@ -5,6 +5,7 @@ class Arms : public PvZSprite {
 public:
     Arms(const char* sprite_name, int power);
     virtual void after_hit() = 0;
+    virtual int get_power();
     const char* get_type() override;
 protected:
     int power;

@@ -22,21 +22,21 @@ def split_gif(image_name):
         max_heigth = max(max_heigth, height)
         transparent = real_img.getcolors().pop()[1]
         # 图片优化
-        l_u_w, l_u_h = 0, 0
+        l_u_x, l_u_y = 0, 0
         # 左上角
-        for l_u_h in range(height):
-            for l_u_w in range(width):
-                dot = (l_u_w, l_u_h)
+        for l_u_y in range(height):
+            for l_u_x in range(width):
+                dot = (l_u_x, l_u_y)
                 if real_img.getpixel(dot) == transparent:
                     break
             else:
                 continue
             break
         # 右下角
-        r_d_w, r_d_h = 0, 0
-        for r_d_h in range(height - 1, -1, -1):
-            for r_d_w in range(width - 1, -1, -1):
-                dot = (r_d_w, r_d_h)
+        r_d_x, r_d_y = 0, 0
+        for r_d_y in range(height - 1, -1, -1):
+            for r_d_x in range(width - 1, -1, -1):
+                dot = (r_d_x, r_d_y)
                 if real_img.getpixel(dot) == transparent:
                     break
             else:
@@ -44,24 +44,26 @@ def split_gif(image_name):
             break
 
         # 上黑条
-        for h in range(l_u_h):
-            for w in range(width):
-                real_img.putpixel((w, h), transparent)
-        # 左黑条
-        for h in range(height):
-            for w in range(l_u_w):
-                real_img.putpixel((w, h), transparent)
+        # for h in range(l_u_y):
+        #     for w in range(width):
+        #         real_img.putpixel((w, h), transparent)
+        # # 左黑条
+        # for h in range(height):
+        #     for w in range(l_u_x):
+        #         real_img.putpixel((w, h), transparent)
 
-        # 下黑条
-        for h in range(r_d_h, height):
-            for w in range(width):
-                real_img.putpixel((w, h), transparent)
-        # 右黑条
-        for h in range(height):
-            for w in range(r_d_w, width):
-                real_img.putpixel((w, h), transparent)
-
-        real_img.save("{}/{:0>3d}.{}".format(folder, counter, "png"))
+        # # 下黑条
+        # for h in range(r_d_h, height):
+        #     for w in range(width):
+        #         real_img.putpixel((w, h), transparent)
+        # # 右黑条
+        # for h in range(height):
+        #     for w in range(r_d_w, width):
+        #         real_img.putpixel((w, h), transparent)
+        t = real_img.crop((l_u_x, l_u_y, r_d_x, r_d_y));
+        t.save("{}/{:0>3d}.{}".format(folder, counter, "png"))
+        # print(real_img.getbbox())
+        # real_img.save("{}/{:0>3d}.{}".format(folder, counter, "png"))
         counter += 1
     return max_width, max_heigth, counter
 
@@ -75,7 +77,7 @@ def gif_to_png_list(image_name):
     img_list = os.listdir(folder)
 
     target = Image.new("RGBA", (width * counter, heigth))
-    left = 0
+    left = 1
     for img_name in img_list:
         img = Image.open(folder + '/' + img_name)
         target.paste(img, (left * width - img.width, heigth - img.height))

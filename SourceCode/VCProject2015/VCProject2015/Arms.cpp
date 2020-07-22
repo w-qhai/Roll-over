@@ -8,6 +8,10 @@ Arms::Arms(const char* sprite_name, int power) :
 
 }
 
+int Arms::get_power() {
+    return power;
+}
+
 const char* Arms::get_type() {
     return type;
 }
@@ -16,7 +20,7 @@ const char* Arms::get_type() {
 ///////////////////////////////////////
 
 Pea::Pea(const char* arms_name) :
-    Arms(arms_name, 30)
+    Arms(arms_name, 40)
 {
 
 }
@@ -28,5 +32,5 @@ void Pea::after_hit() {
     this->AnimateSpritePlayAnimation("BoomAnimation", false);
     this->SetSpriteCollisionActive(false, false);
     this->SetSpriteLinearVelocityX(0);
-    this->SetSpriteLifeTime(1);
+    this->SetSpriteLifeTime(0.5);
 }
