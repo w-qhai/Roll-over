@@ -32,7 +32,7 @@ def split_gif(image_name):
             else:
                 continue
             break
-
+        # 右下角
         r_d_w, r_d_h = 0, 0
         for r_d_h in range(height - 1, -1, -1):
             for r_d_w in range(width - 1, -1, -1):
@@ -78,11 +78,11 @@ def gif_to_png_list(image_name):
     left = 0
     for img_name in img_list:
         img = Image.open(folder + '/' + img_name)
-        target.paste(img, (left * width, 0))
+        target.paste(img, (left * width - img.width, heigth - img.height))
         left += 1
-        os.remove(folder + '/' + img_name)
-    target.save(folder + ".png")
-    os.rmdir(folder)
+        # os.remove(folder + '/' + img_name)
+    target.save("../Bin/game/data/images/" + folder + ".png")
+    # os.rmdir(folder)
 
 
 if __name__ == "__main__":
