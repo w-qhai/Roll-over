@@ -34,8 +34,8 @@
 *.dso
 
 # dirs
-images/*
-.vs
-Debug
-tools/*.gif
+audio/
+.vs/
+Debug/
+tools/*/*.png
 tools/*.png
