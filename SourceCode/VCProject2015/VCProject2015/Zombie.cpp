@@ -71,6 +71,7 @@ void OrdinaryZombie::attacked_by(Arms* arms) {
 /// ±»»÷µ¹ºó
 /// </summary>
 void OrdinaryZombie::die() {
+    
     this->SetSpriteLinearVelocityX(0);
     this->AnimateSpritePlayAnimation("ZombieDieAnimation", false);
     this->SetSpriteCollisionActive(false, false);
@@ -90,11 +91,21 @@ OrdinaryZombie::~OrdinaryZombie() {
 
 void OrdinaryZombie::set_status() {
     if (this->health > 100) {
-        this->AnimateSpritePlayAnimation("OrdinaryZombieAnimation", false);
+        if (eating) {
+            this->AnimateSpritePlayAnimation("ZombieAttackAnimation", false);
+        }
+        else {
+            this->AnimateSpritePlayAnimation("OrdinaryZombieAnimation", false);
+        }
     }
     else if (this->health <= 100) {
-        this->AnimateSpritePlayAnimation("ZombieLoseHeadAnimation", false);
-        this->SetSpriteWidth(10.000);
-        this->SetSpriteHeight(11.875);
+        if (eating) {
+            this->AnimateSpritePlayAnimation("ZombieLoseHeadAttackAnimation", false);
+        }
+        else {
+            this->AnimateSpritePlayAnimation("ZombieLoseHeadAnimation", false);
+            this->SetSpriteWidth(10.000);
+            this->SetSpriteHeight(11.875);
+        }
     }
 }

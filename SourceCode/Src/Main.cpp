@@ -9,7 +9,7 @@
 // 主函数入口
 //
 //////////////////////////////////////////////////////////////////////////////////////////
-
+float	fTimeDelta;
 int PASCAL WinMain(HINSTANCE hInstance,
                    HINSTANCE hPrevInstance,
                    LPSTR     lpCmdLine,
@@ -91,11 +91,17 @@ void CSystem::OnSpriteColSprite( const char *szSrcName, const char *szTarName )
 {
 	PvZSprite* src = g_GameMain.get_sprite_by_name(szSrcName);
 	PvZSprite* tar = g_GameMain.get_sprite_by_name(szTarName);
-	
 	if (src && tar) {
+		if (src->get_type() == "Range" && tar->get_type() == "Zombie") {
+			// 转换成其父精灵的指针
+			PvZSprite* pvz = g_GameMain.get_sprite_by_name(src->GetSpriteMountedParent());
+			Plant* p = reinterpret_cast<Plant*>(pvz);
+			p->attack(0.03);
+		}
+
 		// 僵尸吃植物
 		if (src->get_type() == "Zombie" && tar->get_type() == "Plant") {
-			std::cout << szSrcName << " " << szTarName << std::endl;
+			//std::cout << szSrcName << " " << szTarName << std::endl;
 			Zombie* z = reinterpret_cast<Zombie*>(src);  // 指针强转
 			Plant* p = reinterpret_cast<Plant*>(tar);
 			//z->stop();
@@ -109,7 +115,7 @@ void CSystem::OnSpriteColSprite( const char *szSrcName, const char *szTarName )
 
 		// 子弹打僵尸
 		if (src->get_type() == "Arms" && tar->get_type() == "Zombie") {
-			std::cout << szSrcName << " " << szTarName << std::endl;
+			//std::cout << szSrcName << " " << szTarName << std::endl;
 			Arms* a = reinterpret_cast<Arms*>(src);  // 指针强转
 			Zombie* z = reinterpret_cast<Zombie*>(tar);
 			a->after_hit();

@@ -22,11 +22,13 @@ CGameMain		g_GameMain;
 CGameMain::CGameMain() :
 	m_iGameState(1),
 	timer(0),
+	ord_zombie_count(5),
 	t_ord_zombie(new OrdinaryZombie("OrdinaryZombie")),
 	t_pea_shooter(new PeaShooter("PeaShooter", nullptr)),
-	t_pea(new Pea("Pea"))
+	t_pea(new Pea("Pea")),
+	t_range(new Range("PeaShooterAttackRange"))
 {
-
+	
 }
 //==============================================================================
 //
@@ -79,8 +81,9 @@ void CGameMain::GameMainLoop( float	fDeltaTime )
 // 每局开始前进行初始化，清空上一局相关数据
 void CGameMain::GameInit()
 {
-	int pos[5] = { -22, -10, 3, 12, 25 };
+	int pos[5] = { -27, -12, 0, 12, 25 };
 	for (int i = 0; i < ord_zombie_count; i++) {
+		// 封装成 creat_zombie()
 		OrdinaryZombie* zombie = new OrdinaryZombie(CSystem::MakeSpriteName("OrdinaryZombie", vec_ord_zombie.size()));
 		vec_ord_zombie.push_back(zombie);
 		name_to_sprite[zombie->GetName()] = zombie;
@@ -89,27 +92,26 @@ void CGameMain::GameInit()
 		zombie->move();
 	}
 	
+	for (int i = 0; i < 5; i++) {
+		// 封装成 creat_pea_shooter()
+		Range* rect = new Range(CSystem::MakeSpriteName("PeaShooterAttackRange", vec_range.size()));
+		vec_range.push_back(rect);
+		name_to_sprite[rect->GetName()] = rect;
+		rect->CloneSprite(t_range->GetName());
 
-	Pea* pea = new Pea(CSystem::MakeSpriteName("Pea", vec_pea.size()));
-	vec_pea.push_back(pea);
-	name_to_sprite[pea->GetName()] = pea;
-	pea->CloneSprite(t_pea->GetName());
+		Pea* pea = new Pea(CSystem::MakeSpriteName("Pea", vec_pea.size()));
+		vec_pea.push_back(pea);
+		name_to_sprite[pea->GetName()] = pea;
 
-	PeaShooter* pshtr = new PeaShooter(CSystem::MakeSpriteName("PeaShooter", vec_pea_shooter.size()), pea);
-	vec_pea_shooter.push_back(pshtr);
-	name_to_sprite[pshtr->GetName()] = pshtr;
+		PeaShooter* pshtr = new PeaShooter(CSystem::MakeSpriteName("PeaShooter", vec_pea_shooter.size()), pea);
+		vec_pea_shooter.push_back(pshtr);
+		name_to_sprite[pshtr->GetName()] = pshtr;
 
-	pshtr->CloneSprite(t_pea_shooter->GetName());
-	pshtr->SetSpritePosition(-40, 3);
-	pshtr->SetSpriteImmovable(false);
-
-	pshtr = new PeaShooter(CSystem::MakeSpriteName("PeaShooter", vec_pea_shooter.size()), pea);
-	vec_pea_shooter.push_back(pshtr);
-	name_to_sprite[pshtr->GetName()] = pshtr;
-
-	pshtr->CloneSprite(t_pea_shooter->GetName());
-	pshtr->SetSpritePosition(10, 3);
-	pshtr->SetSpriteImmovable(false);
+		pshtr->CloneSprite(t_pea_shooter->GetName());
+		pshtr->SetSpritePosition(-40 + i * 15, pos[i] + 1);
+		pshtr->SetSpriteImmovable(false);
+		rect->SpriteMountToSprite(pshtr->GetName(), 11, 0);
+	}
 }
 //=============================================================================
 //
@@ -117,9 +119,10 @@ void CGameMain::GameInit()
 void CGameMain::GameRun( float fDeltaTime )
 {
 	timer += fDeltaTime;
-	for (PeaShooter* pshtr : vec_pea_shooter) {
-		pshtr->attack(fDeltaTime);
-	}
+	
+	//for (PeaShooter* pshtr : vec_pea_shooter) {
+	//	pshtr->attack(fDeltaTime);
+	//}
 }
 //=============================================================================
 //

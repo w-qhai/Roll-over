@@ -101,6 +101,7 @@
     <ClCompile Include="..\..\Src\LessonX.cpp" />
     <ClCompile Include="..\..\Src\Main.cpp" />
     <ClCompile Include="Arms.cpp" />
+    <ClCompile Include="Assist.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="PvZSprite.cpp" />
     <ClCompile Include="Zombie.cpp" />
@@ -109,6 +110,7 @@
     <ClInclude Include="..\..\Header\CommonClass.h" />
     <ClInclude Include="..\..\Header\LessonX.h" />
     <ClInclude Include="Arms.h" />
+    <ClInclude Include="Assist.h" />
     <ClInclude Include="Plant.h" />
     <ClInclude Include="PvZSprite.h" />
     <ClInclude Include="Zombie.h" />

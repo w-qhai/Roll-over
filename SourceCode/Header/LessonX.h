@@ -14,6 +14,7 @@
 #include <vector>
 #include "../VCProject2015/VCProject2015/Zombie.h"
 #include "../VCProject2015/VCProject2015/Plant.h"
+#include "../VCProject2015/VCProject2015/Assist.h"
 /////////////////////////////////////////////////////////////////////////////////
 //
 // 游戏总管类。负责处理游戏主循环、游戏初始化、结束等工作
@@ -25,17 +26,19 @@ private:
 	std::map<std::string, PvZSprite*>	name_to_sprite;
 
 	// 精灵数量
-	int ord_zombie_count = 5;
+	int ord_zombie_count;
 
 	// 精灵容器
-	std::vector<OrdinaryZombie*> vec_ord_zombie;
-	std::vector<Pea*>			vec_pea;
-	std::vector<PeaShooter*> vec_pea_shooter;
+	std::vector<OrdinaryZombie*>	vec_ord_zombie;
+	std::vector<Pea*>				vec_pea;
+	std::vector<PeaShooter*>		vec_pea_shooter;
+	std::vector<Range*>				vec_range;
 
 	// 精灵模板
 	OrdinaryZombie* t_ord_zombie;
 	PeaShooter* t_pea_shooter;
 	Pea* t_pea;
+	Range* t_range;
 public:
 	CGameMain();            //构造函数
 	~CGameMain();           //析构函数  

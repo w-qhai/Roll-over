@@ -34,15 +34,15 @@
    layerSortMode30 = "Normal";
    layerSortMode31 = "Normal";
    DebugRendering = "0";
-      cameraPosition = "0 0";
-      cameraSize = "100 75";
+      cameraPosition = "0.000000 0.000000";
+      cameraSize = "100.000000 75.000000";
 
    new t2dScroller(map) {
       imageMap = "day_yard_bgImageMap1";
       useSourceRect = "0";
       sourceRect = "2.36011e-039 0 2.36011e-039 6.2071e-039";
       canSaveDynamicFields = "1";
-      Position = "10.740 0.000";
+      Position = "11.158 0.000";
       size = "175.000 75.000";
       Layer = "31";
       WorldLimitMin = "-50.000 -37.500";
@@ -52,7 +52,7 @@
    new t2dAnimatedSprite(PeaShooter) {
       animationName = "PeaShooterAnimation";
       canSaveDynamicFields = "1";
-      Position = "-46.454 -51.365";
+      Position = "-21.063 -50.625";
       size = "7.875 8.750";
       SortPoint = "0.359 -0.569";
       Layer = "1";
@@ -60,8 +60,9 @@
       WorldLimitMax = "50.000 37.500";
       CollisionActiveReceive = "1";
       CollisionPhysicsSend = "1";
+      CollisionLayers = "-3";
       CollisionPolyList = "-1.000 -1.000 1.000 -1.000 1.000 -0.010 -1.000 -0.020";
-      LinkPoints = "0.595 -0.609";
+      LinkPoints = "0.748 -0.501";
          mountID = "3";
    };
    new t2dAnimatedSprite() {
@@ -70,7 +71,7 @@
       size = "8.678 12.525";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
-         mountID = "4";
+         mountID = "5";
    };
    new t2dAnimatedSprite() {
       canSaveDynamicFields = "1";
@@ -78,12 +79,12 @@
       size = "9.125 9.250";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
-         mountID = "5";
+         mountID = "6";
    };
    new t2dAnimatedSprite(OrdinaryZombie) {
       animationName = "OrdinaryZombieAnimation";
       canSaveDynamicFields = "1";
-      Position = "-24.563 -52.250";
+      Position = "17.144 -52.250";
       size = "10.875 15.500";
       SortPoint = "-0.519 -0.409";
       WorldLimitMin = "-50.000 -37.500";
@@ -93,16 +94,52 @@
       CollisionPhysicsSend = "1";
       CollisionPhysicsReceive = "1";
       CollisionLayers = "-2";
-         mountID = "6";
+         mountID = "7";
    };
    new t2dAnimatedSprite(Pea) {
       animationName = "PeaAnimation";
       canSaveDynamicFields = "1";
-      Position = "-36.500 -53.500";
+      Position = "-49.875 -51.500";
       size = "3.000 3.000";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
       CollisionActiveSend = "1";
-         mountID = "7";
+      CollisionLayers = "1";
+      LinkPoints = "0.000 0.000";
+         mountID = "4";
+   };
+   new t2dTextObject() {
+      canSaveDynamicFields = "1";
+      Position = "-64.992 -59.312";
+      size = "0.833 10.000";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+      font = "Arial";
+      wordWrap = "0";
+      hideOverflow = "1";
+      textAlign = "Left";
+      lineHeight = "10";
+      aspectRatio = "1";
+      lineSpacing = "0";
+      characterSpacing = "0";
+      autoSize = "1";
+      fontSizes = "80";
+      textColor = "1 1 1 1";
+      bilinearFilter = "0";
+      snapToInteger = "0";
+      noUnicode = "0";
+         hideOverlap = "0";
+         mountID = "8";
+   };
+   new t2dAnimatedSprite(PeaShooterAttackRange) {
+      animationName = "RectRangeAnimation";
+      canSaveDynamicFields = "1";
+      Position = "9.005 -61.718";
+      size = "85.000 3.436";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+      CollisionActiveSend = "1";
+      CollisionLayers = "-3";
+         mountID = "9";
    };
 };

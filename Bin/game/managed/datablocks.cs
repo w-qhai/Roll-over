@@ -362,4 +362,34 @@ $managedDatablockSet = new SimSet() {
       animationPingPong = "0";
       animationReverse = "0";
    };
+   new t2dImageMapDatablock(RectRangeImageMap) {
+      imageName = "~/data/images/RectRange.png";
+      imageMode = "CELL";
+      frameCount = "-1";
+      filterMode = "SMOOTH";
+      filterPad = "0";
+      preferPerf = "0";
+      cellRowOrder = "1";
+      cellOffsetX = "0";
+      cellOffsetY = "0";
+      cellStrideX = "0";
+      cellStrideY = "0";
+      cellCountX = "1";
+      cellCountY = "1";
+      cellWidth = "853";
+      cellHeight = "61";
+      preload = "0";
+      allowUnload = "0";
+      force16Bit = "0";
+   };
+   new t2dAnimationDatablock(RectRangeAnimation) {
+      imageMap = "RectRangeImageMap";
+      animationFrames = "0";
+      animationTime = "0.0333333";
+      animationCycle = "1";
+      randomStart = "0";
+      startFrame = "0";
+      animationPingPong = "0";
+      animationReverse = "0";
+   };
 };

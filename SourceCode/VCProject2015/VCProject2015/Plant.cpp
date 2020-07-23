@@ -27,10 +27,9 @@ PeaShooter::PeaShooter(const char* plant_name, Pea* pea) :
 /// </summary>
 /// <param name="delta_time">每次时间间隔</param>
 void PeaShooter::attack(float delta_time) {
-    std::cout << "next_attack" << next_attack << std::endl;
     if ((next_attack -= delta_time) <= 0) {
-        std::cout << "shoot" << std::endl;
         pea->CloneSprite("Pea");
+        std::cout << "shoot---" << std::endl;
         // 微调位置一下 从嘴部发出
         pea->SetSpritePosition(this->GetSpritePositionX() + 1, this->GetSpritePositionY() - 2);
         pea->SetSpriteLinearVelocityX(40);
