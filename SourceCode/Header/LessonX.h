@@ -15,6 +15,8 @@
 #include "../VCProject2015/VCProject2015/Zombie.h"
 #include "../VCProject2015/VCProject2015/Plant.h"
 #include "../VCProject2015/VCProject2015/Assist.h"
+#include "../VCProject2015/VCProject2015/ConfigConvert.h"
+#include "../VCProject2015/VCProject2015/SuperSound.h"
 /////////////////////////////////////////////////////////////////////////////////
 //
 // 游戏总管类。负责处理游戏主循环、游戏初始化、结束等工作
@@ -39,6 +41,10 @@ private:
 	PeaShooter* t_pea_shooter;
 	Pea* t_pea;
 	Range* t_range;
+
+	// 游戏音乐
+
+	SuperSound* sSound = nullptr;
 public:
 	CGameMain();            //构造函数
 	~CGameMain();           //析构函数  

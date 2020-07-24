@@ -112,6 +112,12 @@ void CGameMain::GameInit()
 		pshtr->SetSpriteImmovable(false);
 		rect->SpriteMountToSprite(pshtr->GetName(), 11, 0);
 	}
+
+	// ²¥·Å±³¾°ÒôÀÖ£º°×Ìì
+	
+	SuperSound::sendASoundCommand("open-bday");
+	SuperSound::sendASoundCommand("play-bday");
+
 }
 //=============================================================================
 //

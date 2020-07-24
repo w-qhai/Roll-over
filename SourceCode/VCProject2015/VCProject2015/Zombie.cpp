@@ -1,5 +1,7 @@
 #include "Zombie.h"
 
+
+
 const char* Zombie::type = "Zombie";
 
 Zombie::Zombie(const char* sprite_name, int health, int move_speed, double power) :
@@ -45,6 +47,7 @@ void OrdinaryZombie::stop() {
 
 void OrdinaryZombie::eat_plant() {
     eating = true;
+    
     if (this->health > 100) {
         this->AnimateSpritePlayAnimation("ZombieAttackAnimation", false);
     }
@@ -57,6 +60,11 @@ void OrdinaryZombie::eat_plant() {
 
 
 void OrdinaryZombie::attacked_by(Arms* arms) {
+        
+    // ²¥·ÅÒôÀÖ£º Íã¶¹´òµ½½©Ê¬(²âÊÔÒôÐ§)
+    SuperSound::closeAndPlay("open-hit", "play-hit", "close-hit");
+    
+
     this->health -= arms->get_power();
     arms->after_hit();
     if (this->health <= 0) {

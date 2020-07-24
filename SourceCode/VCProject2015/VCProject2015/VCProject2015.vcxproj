@@ -102,8 +102,10 @@
     <ClCompile Include="..\..\Src\Main.cpp" />
     <ClCompile Include="Arms.cpp" />
     <ClCompile Include="Assist.cpp" />
+    <ClCompile Include="ConfigConvert.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="PvZSprite.cpp" />
+    <ClCompile Include="SuperSound.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -111,8 +113,10 @@
     <ClInclude Include="..\..\Header\LessonX.h" />
     <ClInclude Include="Arms.h" />
     <ClInclude Include="Assist.h" />
+    <ClInclude Include="ConfigConvert.h" />
     <ClInclude Include="Plant.h" />
     <ClInclude Include="PvZSprite.h" />
+    <ClInclude Include="SuperSound.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
