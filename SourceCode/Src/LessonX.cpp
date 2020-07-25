@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-CGameMain		g_GameMain;	
+CGameMain		g_GameMain;
 
 //==============================================================================
 //
@@ -26,9 +26,10 @@ CGameMain::CGameMain() :
 	t_ord_zombie(new OrdinaryZombie("OrdinaryZombie")),
 	t_pea_shooter(new PeaShooter("PeaShooter", nullptr)),
 	t_pea(new Pea("Pea")),
-	t_range(new Range("PeaShooterAttackRange"))
+	t_range(new Range("PeaShooterAttackRange")),
+	t_sunflower(new SunFlower("SunFlower"))
 {
-	
+
 }
 //==============================================================================
 //
@@ -42,35 +43,35 @@ CGameMain::~CGameMain()
 // 游戏主循环，此函数将被不停的调用，引擎每刷新一次屏幕，此函数即被调用一次
 // 用以处理游戏的开始、进行中、结束等各种状态. 
 // 函数参数fDeltaTime : 上次调用本函数到此次调用本函数的时间间隔，单位：秒
-void CGameMain::GameMainLoop( float	fDeltaTime )
+void CGameMain::GameMainLoop(float	fDeltaTime)
 {
-	switch( GetGameState() )
+	switch (GetGameState())
 	{
 		// 初始化游戏，清空上一局相关数据
 	case 1:
-		{
-			GameInit();
-			SetGameState(2); // 初始化之后，将游戏状态设置为进行中
-		}
-		break;
+	{
+		GameInit();
+		SetGameState(2); // 初始化之后，将游戏状态设置为进行中
+	}
+	break;
 
-		// 游戏进行中，处理各种游戏逻辑
+	// 游戏进行中，处理各种游戏逻辑
 	case 2:
+	{
+		// TODO 修改此处游戏循环条件，完成正确游戏逻辑
+		if (true)
 		{
-			// TODO 修改此处游戏循环条件，完成正确游戏逻辑
-			if( true )
-			{
-				GameRun( fDeltaTime );
-			}
-			else // 游戏结束。调用游戏结算函数，并把游戏状态修改为结束状态
-			{				
-				SetGameState(0);
-				GameEnd();
-			}
+			GameRun(fDeltaTime);
 		}
-		break;
+		else // 游戏结束。调用游戏结算函数，并把游戏状态修改为结束状态
+		{
+			SetGameState(0);
+			GameEnd();
+		}
+	}
+	break;
 
-		// 游戏结束/等待按空格键开始
+	// 游戏结束/等待按空格键开始
 	case 0:
 	default:
 		break;
@@ -91,7 +92,7 @@ void CGameMain::GameInit()
 		zombie->SetSpritePosition(CSystem::GetScreenRight(), pos[i % 5]);
 		zombie->move();
 	}
-	
+
 	for (int i = 0; i < 5; i++) {
 		// 封装成 creat_pea_shooter()
 		Range* rect = new Range(CSystem::MakeSpriteName("PeaShooterAttackRange", vec_range.size()));
@@ -111,15 +112,26 @@ void CGameMain::GameInit()
 		pshtr->SetSpritePosition(-40 + i * 15, pos[i] + 1);
 		pshtr->SetSpriteImmovable(false);
 		rect->SpriteMountToSprite(pshtr->GetName(), 11, 0);
+
+		// 封装成 creat_sunflower()
+		SunFlower* sf = new SunFlower(CSystem::MakeSpriteName("SunFlower", vec_sunflower.size()));
+		std::cout << sf->get_type();
+		vec_sunflower.push_back(sf);
+		name_to_sprite[sf->GetName()] = sf;
+		std::cout << t_sunflower->GetName() << std::endl;
+
+		sf->CloneSprite(t_sunflower->GetName());
+		sf->SetSpritePosition(-40 + i * 20, pos[i] + 1);
+		sf->SetSpriteImmovable(false);
 	}
 }
 //=============================================================================
 //
 // 每局游戏进行中
-void CGameMain::GameRun( float fDeltaTime )
+void CGameMain::GameRun(float fDeltaTime)
 {
 	timer += fDeltaTime;
-	
+
 	//for (PeaShooter* pshtr : vec_pea_shooter) {
 	//	pshtr->attack(fDeltaTime);
 	//}

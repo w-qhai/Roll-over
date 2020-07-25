@@ -33,12 +33,14 @@ private:
 	std::vector<Pea*>				vec_pea;
 	std::vector<PeaShooter*>		vec_pea_shooter;
 	std::vector<Range*>				vec_range;
+	std::vector<SunFlower*>			vec_sunflower;
 
 	// 精灵模板
 	OrdinaryZombie* t_ord_zombie;
 	PeaShooter* t_pea_shooter;
 	Pea* t_pea;
 	Range* t_range;
+	SunFlower* t_sunflower;
 public:
 	CGameMain();            //构造函数
 	~CGameMain();           //析构函数  

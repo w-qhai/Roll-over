@@ -44,6 +44,7 @@
       canSaveDynamicFields = "1";
       Position = "11.158 0.000";
       size = "175.000 75.000";
+      SortPoint = "-0.014 -0.035";
       Layer = "31";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
@@ -71,7 +72,7 @@
       size = "8.678 12.525";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
-         mountID = "5";
+         mountID = "4";
    };
    new t2dAnimatedSprite() {
       canSaveDynamicFields = "1";
@@ -79,7 +80,7 @@
       size = "9.125 9.250";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
-         mountID = "6";
+         mountID = "5";
    };
    new t2dAnimatedSprite(OrdinaryZombie) {
       animationName = "OrdinaryZombieAnimation";
@@ -94,7 +95,7 @@
       CollisionPhysicsSend = "1";
       CollisionPhysicsReceive = "1";
       CollisionLayers = "-2";
-         mountID = "7";
+         mountID = "6";
    };
    new t2dAnimatedSprite(Pea) {
       animationName = "PeaAnimation";
@@ -106,7 +107,7 @@
       CollisionActiveSend = "1";
       CollisionLayers = "1";
       LinkPoints = "0.000 0.000";
-         mountID = "4";
+         mountID = "7";
    };
    new t2dTextObject() {
       canSaveDynamicFields = "1";
@@ -141,5 +142,18 @@
       CollisionActiveSend = "1";
       CollisionLayers = "-3";
          mountID = "9";
+   };
+   new t2dAnimatedSprite(SunFlower) {
+      animationName = "SunFlowerAnimation";
+      canSaveDynamicFields = "1";
+      Position = "42.503 -50.989";
+      size = "9.125 9.250";
+      Layer = "1";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+      CollisionActiveReceive = "1";
+      CollisionPhysicsSend = "1";
+      CollisionLayers = "-3";
+         mountID = "10";
    };
 };
