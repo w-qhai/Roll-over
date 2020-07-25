@@ -1,6 +1,7 @@
 #pragma once
 #include "PvZSprite.h"
 #include "Arms.h"
+#include "SuperSound.h"
 
 class Zombie : public PvZSprite {
 public:

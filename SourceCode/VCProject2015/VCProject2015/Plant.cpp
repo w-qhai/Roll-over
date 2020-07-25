@@ -27,9 +27,11 @@ PeaShooter::PeaShooter(const char* plant_name, Pea* pea) :
 /// </summary>
 /// <param name="delta_time">每次时间间隔</param>
 void PeaShooter::attack(float delta_time) {
+
     if ((next_attack -= delta_time) <= 0) {
+        // 播放音乐： 发射豌豆(测试音效)
+        SuperSound::closeAndPlay("open-shoot", "play-shoot", "close-shoot");
         pea->CloneSprite("Pea");
-        std::cout << "shoot---" << std::endl;
         // 微调位置一下 从嘴部发出
         pea->SetSpritePosition(this->GetSpritePositionX() + 1, this->GetSpritePositionY() - 2);
         pea->SetSpriteLinearVelocityX(40);
@@ -43,8 +45,9 @@ void PeaShooter::attack(float delta_time) {
 /// <param name="zombie">哪只僵尸</param>
 /// <returns>true:被咬死； false：还没被咬死</returns>
 bool PeaShooter::attacked_by(Zombie* zombie) {
+
     this->health -= zombie->get_power();
-    std::cout << this->health << std::endl;
+    //std::cout << this->health << std::endl;
     if (this->health <= 0) {
         this->DeleteSprite();
         return true;
