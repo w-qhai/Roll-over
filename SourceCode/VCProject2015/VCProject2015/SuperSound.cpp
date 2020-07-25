@@ -6,7 +6,14 @@
 const char* SuperSound::configPath = "pvzConfig.ini";
 
 /// <summary>
-/// 发送一个音乐指令(仅打开或仅关闭)
+/// 特效音乐最长时间值(秒)
+/// 用于延迟多长时间后关闭音频流
+/// </summary>
+
+const int SuperSound::maxMusicLength = 2;
+
+/// <summary>
+/// 背景音乐播放
 /// </summary>
 /// <param name="key">配置KEY</param>
 /// <returns></returns>
@@ -15,7 +22,13 @@ void SuperSound::sendASoundCommand(const char* key) {
 
 	std::string szSoundContent = ConfigConvert::getConfig(configPath, key);
 
-	mciSendStringW(stringToLPCWSTR(szSoundContent), NULL, 0, NULL);
+	if (szSoundContent != "") {
+
+		int i = mciSendString(szSoundContent.c_str(), NULL, 0, NULL);
+
+		std::cout << szSoundContent << "--->" << i << std::endl;
+
+	}
 
 }
 
@@ -32,12 +45,13 @@ void SuperSound::closeAndPlay(const char* openkey, const char* playkey, const ch
 
 	std::thread t([=] {
 
-		SuperSound::sendASoundCommand(closekey);
-
 		SuperSound::sendASoundCommand(openkey);
 
 		SuperSound::sendASoundCommand(playkey);
 
+		Sleep(maxMusicLength * 1000);
+		
+		SuperSound::sendASoundCommand(closekey);	
 
 	});
 
@@ -48,18 +62,5 @@ void SuperSound::closeAndPlay(const char* openkey, const char* playkey, const ch
 
 
 
-LPCWSTR stringToLPCWSTR(std::string orig)
-{
-	size_t origsize = orig.length() + 1;
 
-	const size_t newsize = 100;
-
-	size_t convertedChars = 0;
-
-	wchar_t* wcstring = (wchar_t*)malloc(sizeof(wchar_t) * (orig.length() - 1));
-
-	mbstowcs_s(&convertedChars, wcstring, origsize, orig.c_str(), _TRUNCATE);
-
-	return wcstring;
-}
 

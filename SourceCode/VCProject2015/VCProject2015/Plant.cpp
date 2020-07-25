@@ -32,7 +32,6 @@ void PeaShooter::attack(float delta_time) {
         // 播放音乐： 发射豌豆(测试音效)
         SuperSound::closeAndPlay("open-shoot", "play-shoot", "close-shoot");
         pea->CloneSprite("Pea");
-        std::cout << "shoot---" << std::endl;
         // 微调位置一下 从嘴部发出
         pea->SetSpritePosition(this->GetSpritePositionX() + 1, this->GetSpritePositionY() - 2);
         pea->SetSpriteLinearVelocityX(40);
@@ -48,7 +47,7 @@ void PeaShooter::attack(float delta_time) {
 bool PeaShooter::attacked_by(Zombie* zombie) {
 
     this->health -= zombie->get_power();
-    std::cout << this->health << std::endl;
+    //std::cout << this->health << std::endl;
     if (this->health <= 0) {
         this->DeleteSprite();
         return true;

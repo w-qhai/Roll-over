@@ -118,6 +118,8 @@ void CGameMain::GameInit()
 	SuperSound::sendASoundCommand("open-bday");
 	SuperSound::sendASoundCommand("play-bday");
 
+	
+
 }
 //=============================================================================
 //
@@ -135,6 +137,7 @@ void CGameMain::GameRun( float fDeltaTime )
 // 本局游戏结束
 void CGameMain::GameEnd()
 {
+	SuperSound::sendASoundCommand("close-all");
 }
 
 // 用精灵名字映射精灵对象
