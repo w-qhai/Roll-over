@@ -33,4 +33,5 @@ void Pea::after_hit() {
     this->SetSpriteCollisionActive(false, false);
     this->SetSpriteLinearVelocityX(0);
     this->SetSpriteLifeTime(0.5);
+    exist = false;
 }

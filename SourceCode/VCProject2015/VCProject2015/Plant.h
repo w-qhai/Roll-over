@@ -13,9 +13,8 @@ public:
     const char* get_type() override;
 
 protected:
-    int line;                           // 在哪行
     double health;                      // 血量
-    float next_attack;                  // 距离下次攻击时间
+    long double next_attack;            // 距离下次攻击时间
     const float attack_interval;        // 攻击间隔
     static const char* type;            // 类型
 };

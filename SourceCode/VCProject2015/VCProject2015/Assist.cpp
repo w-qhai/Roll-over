@@ -22,3 +22,18 @@ Range::Range(const char* assist_name) :
 const char* Range::get_type() {
     return type;
 }
+
+
+/////////////////////////
+///////////////////////////
+
+const char* PeaShooterCard::type = "PeaShooterCard";
+PeaShooterCard::PeaShooterCard(const char* assist_name) :
+    Assist(assist_name)
+{
+
+}
+
+const char* PeaShooterCard::get_type() {
+    return type;
+}

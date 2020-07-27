@@ -27,13 +27,16 @@ PeaShooter::PeaShooter(const char* plant_name, Pea* pea) :
 /// </summary>
 /// <param name="delta_time">每次时间间隔</param>
 void PeaShooter::attack(float delta_time) {
-    if ((next_attack -= delta_time) <= 0) {
-        pea->CloneSprite("Pea");
-        std::cout << "shoot---" << std::endl;
-        // 微调位置一下 从嘴部发出
-        pea->SetSpritePosition(this->GetSpritePositionX() + 1, this->GetSpritePositionY() - 2);
-        pea->SetSpriteLinearVelocityX(40);
-        next_attack = attack_interval;
+    if (pea->is_exist() == false && this->is_exist()) {
+        if (delta_time - next_attack > attack_interval) {
+            pea->set_exist(true);
+            pea->CloneSprite("Pea");
+            // 微调位置一下 从嘴部发出
+            pea->SetSpritePosition(this->GetSpritePositionX() + 1, this->GetSpritePositionY() - 2);
+            pea->SetSpriteLinearVelocityX(40);
+            next_attack = attack_interval;
+            next_attack = delta_time;
+        }
     }
 }
 
@@ -44,9 +47,9 @@ void PeaShooter::attack(float delta_time) {
 /// <returns>true:被咬死； false：还没被咬死</returns>
 bool PeaShooter::attacked_by(Zombie* zombie) {
     this->health -= zombie->get_power();
-    std::cout << this->health << std::endl;
     if (this->health <= 0) {
         this->DeleteSprite();
+        exist = false;
         return true;
     }
     else {

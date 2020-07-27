@@ -104,6 +104,7 @@
     <ClCompile Include="Assist.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="PvZSprite.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +114,7 @@
     <ClInclude Include="Assist.h" />
     <ClInclude Include="Plant.h" />
     <ClInclude Include="PvZSprite.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>

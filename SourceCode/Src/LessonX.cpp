@@ -22,13 +22,15 @@ CGameMain		g_GameMain;
 CGameMain::CGameMain() :
 	m_iGameState(1),
 	timer(0),
+	game_map(new CSprite("background")),
 	ord_zombie_count(5),
 	t_ord_zombie(new OrdinaryZombie("OrdinaryZombie")),
 	t_pea_shooter(new PeaShooter("PeaShooter", nullptr)),
 	t_pea(new Pea("Pea")),
-	t_range(new Range("PeaShooterAttackRange"))
+	t_range(new Range("PeaShooterAttackRange")),
+	pea_shooter_card(new PeaShooterCard("PeaShooterCard")) // 虚手动加入map
 {
-	
+	name_to_sprite[pea_shooter_card->GetName()] = pea_shooter_card;
 }
 //==============================================================================
 //
@@ -81,48 +83,21 @@ void CGameMain::GameMainLoop( float	fDeltaTime )
 // 每局开始前进行初始化，清空上一局相关数据
 void CGameMain::GameInit()
 {
-	int pos[5] = { -27, -12, 0, 12, 25 };
-	for (int i = 0; i < ord_zombie_count; i++) {
-		// 封装成 creat_zombie()
-		OrdinaryZombie* zombie = new OrdinaryZombie(CSystem::MakeSpriteName("OrdinaryZombie", vec_ord_zombie.size()));
-		vec_ord_zombie.push_back(zombie);
-		name_to_sprite[zombie->GetName()] = zombie;
-		zombie->CloneSprite(t_ord_zombie->GetName());
-		zombie->SetSpritePosition(CSystem::GetScreenRight(), pos[i % 5]);
-		zombie->move();
-	}
-	
-	for (int i = 0; i < 5; i++) {
-		// 封装成 creat_pea_shooter()
-		Range* rect = new Range(CSystem::MakeSpriteName("PeaShooterAttackRange", vec_range.size()));
-		vec_range.push_back(rect);
-		name_to_sprite[rect->GetName()] = rect;
-		rect->CloneSprite(t_range->GetName());
-
-		Pea* pea = new Pea(CSystem::MakeSpriteName("Pea", vec_pea.size()));
-		vec_pea.push_back(pea);
-		name_to_sprite[pea->GetName()] = pea;
-
-		PeaShooter* pshtr = new PeaShooter(CSystem::MakeSpriteName("PeaShooter", vec_pea_shooter.size()), pea);
-		vec_pea_shooter.push_back(pshtr);
-		name_to_sprite[pshtr->GetName()] = pshtr;
-
-		pshtr->CloneSprite(t_pea_shooter->GetName());
-		pshtr->SetSpritePosition(-40 + i * 15, pos[i] + 1);
-		pshtr->SetSpriteImmovable(false);
-		rect->SpriteMountToSprite(pshtr->GetName(), 11, 0);
-	}
+	create_pea_shooter(-39, -5 + -17);
+	create_pea_shooter(-39, -5 + -5);
+	create_pea_shooter(-39, -5 + 9);
+	create_pea_shooter(-39, -5 + 20);
+	create_pea_shooter(-39, -5 + 32);
 }
 //=============================================================================
 //
 // 每局游戏进行中
 void CGameMain::GameRun( float fDeltaTime )
 {
-	timer += fDeltaTime;
-	
-	//for (PeaShooter* pshtr : vec_pea_shooter) {
-	//	pshtr->attack(fDeltaTime);
-	//}
+	if (fDeltaTime - timer > 3) {
+		create_ord_zombie(CSystem::RandomRange(0, 4));
+		timer = fDeltaTime;
+	}
 }
 //=============================================================================
 //
@@ -139,4 +114,53 @@ PvZSprite* CGameMain::get_sprite_by_name(const std::string& sprite_name) {
 	else {
 		return nullptr;
 	}
+}
+
+PvZSprite* CGameMain::create_ord_zombie(int y) {
+	float y_slot[5] = { -17, -5, 9, 20, 32 };
+	OrdinaryZombie* zombie = new OrdinaryZombie(CSystem::MakeSpriteName("OrdinaryZombie", vec_ord_zombie.size()));
+	vec_ord_zombie.push_back(zombie);
+	name_to_sprite[zombie->GetName()] = zombie;
+	zombie->CloneSprite(t_ord_zombie->GetName());
+	zombie->set_exist(true);
+	zombie->SetSpritePosition(CSystem::GetScreenRight(), y_slot[y] - zombie->GetSpriteHeight() / 2);
+	zombie->move();
+
+	return zombie;
+}
+
+PvZSprite* CGameMain::create_pea_shooter(float x, float y) {
+	// 创建豌豆射手的 攻击范围
+	Range* rect = new Range(CSystem::MakeSpriteName("PeaShooterAttackRange", vec_range.size()));
+	vec_range.push_back(rect);
+	name_to_sprite[rect->GetName()] = rect;
+	rect->CloneSprite(t_range->GetName());
+	rect->set_exist(true);
+
+	// 创建豌豆射手的 豌豆
+	Pea* pea = new Pea(CSystem::MakeSpriteName("Pea", vec_pea.size()));
+	vec_pea.push_back(pea);
+	name_to_sprite[pea->GetName()] = pea;
+	pea->set_exist(false);
+
+	// 创建豌豆射手
+	PeaShooter* pshtr = new PeaShooter(CSystem::MakeSpriteName("PeaShooter", vec_pea_shooter.size()), pea);
+	vec_pea_shooter.push_back(pshtr);
+	name_to_sprite[pshtr->GetName()] = pshtr;
+
+	pshtr->CloneSprite(t_pea_shooter->GetName());
+	pshtr->SetSpritePosition(x, y);
+	pshtr->SetSpriteImmovable(false);
+	rect->SpriteMountToSprite(pshtr->GetName(), 11, -0.5);
+	pshtr->set_exist(true);
+	return pshtr;
+}
+
+PvZSprite* CGameMain::get_sprite_by_position(float x, float y) {
+	for (std::pair<std::string, PvZSprite*> sprite : name_to_sprite) {
+		if (sprite.second->IsPointInSprite(x, y)) {
+			return sprite.second;
+		}
+	}
+	return nullptr;
 }

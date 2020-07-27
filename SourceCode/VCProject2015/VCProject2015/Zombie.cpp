@@ -1,5 +1,5 @@
 #include "Zombie.h"
-
+#include "Plant.h"
 const char* Zombie::type = "Zombie";
 
 Zombie::Zombie(const char* sprite_name, int health, int move_speed, double power) :
@@ -8,8 +8,9 @@ Zombie::Zombie(const char* sprite_name, int health, int move_speed, double power
     move_speed(move_speed),
     power(power),
     next_attack(0),
-    attack_interval(500),
-    eating(false)
+    attack_interval(1),
+    eating(false),
+    eating_plant(nullptr)
 {
 
 }
@@ -21,10 +22,21 @@ bool Zombie::is_eating() {
     return eating;
 }
 
+void Zombie::set_eating(bool eating) {
+    this->eating = eating;
+}
+
+void Zombie::set_plant(Plant* plant) {
+    eating_plant = plant;
+}
+Plant* Zombie::get_plant() {
+    return eating_plant;
+}
+
 /////////////////////////
 
 OrdinaryZombie::OrdinaryZombie(const char* zombie_name) :
-    Zombie(zombie_name, 200, 3, 0.5)
+    Zombie(zombie_name, 200, 3, 50)
 {
 
 }
@@ -43,17 +55,14 @@ void OrdinaryZombie::stop() {
     this->SetSpriteLinearVelocityX(0);
 }
 
-void OrdinaryZombie::eat_plant() {
-    eating = true;
-    if (this->health > 100) {
-        this->AnimateSpritePlayAnimation("ZombieAttackAnimation", false);
-    }
-    else if (this->health <= 100) {
-        this->AnimateSpritePlayAnimation("ZombieLoseHeadAttackAnimation", false);
-        this->SetSpriteWidth(10.000);
-        this->SetSpriteHeight(11.875);
+void OrdinaryZombie::eat_plant(Plant* plant, long double delta_time) {
+    if (delta_time - next_attack > attack_interval) {
+        std::cout << "eating" << std::endl;
+        plant->attacked_by(this);
+        next_attack = delta_time;
     }
 }
+
 
 
 void OrdinaryZombie::attacked_by(Arms* arms) {
@@ -79,6 +88,7 @@ void OrdinaryZombie::die() {
     this->SetSpriteHeight(10.625);
     // ²¥·ÅËÀÍö¶¯»­
     this->SetSpriteLifeTime(1);
+    exist = false;
 }
 
 double OrdinaryZombie::get_power() {
@@ -91,7 +101,7 @@ OrdinaryZombie::~OrdinaryZombie() {
 
 void OrdinaryZombie::set_status() {
     if (this->health > 100) {
-        if (eating) {
+        if (eating_plant && eating_plant->is_exist()) {
             this->AnimateSpritePlayAnimation("ZombieAttackAnimation", false);
         }
         else {
@@ -99,8 +109,10 @@ void OrdinaryZombie::set_status() {
         }
     }
     else if (this->health <= 100) {
-        if (eating) {
+        if (eating_plant && eating_plant->is_exist()) {
             this->AnimateSpritePlayAnimation("ZombieLoseHeadAttackAnimation", false);
+            this->SetSpriteWidth(11.125);
+            this->SetSpriteHeight(12.875);
         }
         else {
             this->AnimateSpritePlayAnimation("ZombieLoseHeadAnimation", false);

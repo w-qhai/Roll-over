@@ -19,3 +19,11 @@ protected:
     static const char* type;
 };
 
+class PeaShooterCard : public Assist {
+public:
+    PeaShooterCard(const char* assist_name);
+    const char* get_type() override;
+protected:
+    static const char* type;
+};
+
