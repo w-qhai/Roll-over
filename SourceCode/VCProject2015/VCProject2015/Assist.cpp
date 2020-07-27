@@ -37,3 +37,16 @@ PeaShooterCard::PeaShooterCard(const char* assist_name) :
 const char* PeaShooterCard::get_type() {
     return type;
 }
+
+///////////////////////
+
+const char* SunflowerCard::type = "SunflowerCard";
+SunflowerCard::SunflowerCard(const char* assist_name) :
+    Assist(assist_name)
+{
+
+}
+
+const char* SunflowerCard::get_type() {
+    return type;
+}

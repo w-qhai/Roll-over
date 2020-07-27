@@ -26,7 +26,8 @@ private:
 	long double		timer;						// 游戏运行时间
 
 	std::map<std::string, PvZSprite*>	name_to_sprite;
-
+	// 阳光数量
+	int sun_count;
 	// 地图精灵
 	CSprite* game_map;
 
@@ -38,16 +39,18 @@ private:
 	std::vector<Pea*>				vec_pea;
 	std::vector<PeaShooter*>		vec_pea_shooter;
 	std::vector<Range*>				vec_range;
-	
+	std::vector<Sunflower*>			vec_sunflower;
+
 	// 精灵模板
 	OrdinaryZombie* t_ord_zombie;
 	PeaShooter* t_pea_shooter;
 	Pea* t_pea;
 	Range* t_range;
+	Sunflower* t_sunflower;
 
 	// 植物卡
 	PeaShooterCard* pea_shooter_card;
-
+	SunflowerCard* sunflower_card;
 public:
 	CGameMain();            //构造函数
 	~CGameMain();           //析构函数  
@@ -67,6 +70,7 @@ public:
 	PvZSprite* get_sprite_by_position(float x, float y);
 	PvZSprite* create_ord_zombie(int y);
 	PvZSprite* create_pea_shooter(float x, float y);
+	PvZSprite* create_sunflower(float x, float y);
 };
 
 /////////////////////////////////////////////////////////////////////////////////

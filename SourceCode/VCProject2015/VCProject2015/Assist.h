@@ -27,3 +27,11 @@ protected:
     static const char* type;
 };
 
+class SunflowerCard : public Assist {
+public:
+    SunflowerCard(const char* assist_name);
+    const char* get_type() override;
+protected:
+    static const char* type;
+};
+

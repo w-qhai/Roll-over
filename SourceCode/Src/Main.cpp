@@ -77,15 +77,21 @@ void CSystem::OnMouseClick( const int iMouseType, const float fMouseX, const flo
 {
 	// 可以在此添加游戏需要的响应函数
 	if (iMouseType == MOUSE_LEFT) {
+		// 鼠标按下 选中植物卡
 		left_pressed = true;
 		selected_card = nullptr;
 		seed = nullptr;
 
 		selected_card = g_GameMain.get_sprite_by_position(fMouseX, fMouseY);
 		if (selected_card) {
-			std::cout << selected_card->GetName() << std::endl;
+			std::cout << selected_card->get_type() << std::endl;
 			if (selected_card->get_type() == "PeaShooterCard") {
 				seed = g_GameMain.create_pea_shooter(fMouseX, fMouseY);
+				seed->SetSpriteColorAlpha(100);
+			}
+			else if (selected_card->get_type() == "SunflowerCard") {
+				std::cout << selected_card->GetName() << std::endl;
+				seed = g_GameMain.create_sunflower(fMouseX, fMouseY);
 				seed->SetSpriteColorAlpha(100);
 			}
 		}
@@ -116,14 +122,13 @@ void CSystem::OnMouseUp( const int iMouseType, const float fMouseX, const float 
 				}
 			}
 			// 如果鼠标最后位置有植物
-			PvZSprite* sprite = g_GameMain.get_sprite_by_position(x_slot[x], y_slot[y] - seed->GetSpriteHeight() / 2);
-			std::cout << exist_plant[x][y] << std::endl;
-			if (exist_plant[x][y] && sprite && sprite->is_exist()) {
+			PvZSprite* sprite = g_GameMain.get_sprite_by_position(fMouseX, fMouseY);
+			if (sprite && sprite->is_exist() && sprite->get_type() == "Plant") {
 				seed->DeleteSprite();
 			}
 			else {
 				seed->SetSpritePosition(x_slot[x], y_slot[y] - seed->GetSpriteHeight() / 2);
-				exist_plant[x][y] = 1;
+				seed->set_exist(true);
 			}
 		}
 		left_pressed = false;
@@ -157,6 +162,7 @@ void CSystem::OnSpriteColSprite( const char *szSrcName, const char *szTarName )
 	PvZSprite* src = g_GameMain.get_sprite_by_name(szSrcName);
 	PvZSprite* tar = g_GameMain.get_sprite_by_name(szTarName);
 	
+
 	if (src && tar) {
 		// 僵尸进入攻击范围
 		if (src->get_type() == "Range" && tar->get_type() == "Zombie") {
@@ -168,20 +174,14 @@ void CSystem::OnSpriteColSprite( const char *szSrcName, const char *szTarName )
 
 		// 僵尸吃植物
 		if (src->get_type() == "Zombie" && tar->get_type() == "Plant") {
+			std::cout << src->GetName() << tar->GetName() << std::endl;
 			Zombie* z = reinterpret_cast<Zombie*>(src);  // 指针强转
 			Plant* p = reinterpret_cast<Plant*>(tar);
 			z->eat_plant(p, fTimeDelta);
 		}
 
-		else if (src->get_type() == "Zombie" && tar->GetName() == "background") {
-			Zombie* z = reinterpret_cast<Zombie*>(src);
-			z->set_eating(false);
-			std::cout << "background" << std::endl;
-		}
-
 		// 子弹打僵尸
 		if (src->get_type() == "Arms" && tar->get_type() == "Zombie") {
-			
 			Arms* a = reinterpret_cast<Arms*>(src);  // 指针强转
 			Zombie* z = reinterpret_cast<Zombie*>(tar);
 			z->attacked_by(a);
