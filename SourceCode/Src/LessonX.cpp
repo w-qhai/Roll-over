@@ -23,6 +23,7 @@ CGameMain::CGameMain() :
 	m_iGameState(1),
 	timer(0),
 	sun_count(2000),
+	sun_num(new CTextSprite("SunCount")),
 	game_map(new CSprite("background")),
 	ord_zombie_count(5),
 	t_ord_zombie(new OrdinaryZombie("OrdinaryZombie")),
@@ -87,6 +88,7 @@ void CGameMain::GameMainLoop(float	fDeltaTime)
 // 每局开始前进行初始化，清空上一局相关数据
 void CGameMain::GameInit()
 {
+	sun_num->SetTextValue(sun_count);
 	create_pea_shooter(-39, -5 + -17)->set_exist(true);
 	create_pea_shooter(-39, -5 + -5)->set_exist(true);
 	create_pea_shooter(-39, -5 + 9)->set_exist(true);
@@ -101,6 +103,11 @@ void CGameMain::GameRun( float fDeltaTime )
 	if (fDeltaTime - timer > 3) {
 		create_ord_zombie(CSystem::RandomRange(0, 4));
 		timer = fDeltaTime;
+	}
+
+	for (Sunflower* sunflower : vec_sunflower) {
+		sun_count += sunflower->attack(fDeltaTime);
+		sun_num->SetTextValue(sun_count);
 	}
 }
 //=============================================================================
@@ -118,7 +125,7 @@ PvZSprite* CGameMain::get_sprite_by_name(const std::string& sprite_name) {
 	return nullptr;
 }
 
-PvZSprite* CGameMain::create_ord_zombie(int y) {
+Zombie* CGameMain::create_ord_zombie(int y) {
 	float y_slot[5] = { -17, -5, 9, 20, 32 };
 	OrdinaryZombie* zombie = new OrdinaryZombie(CSystem::MakeSpriteName(t_ord_zombie->GetName() , vec_ord_zombie.size()));
 	vec_ord_zombie.push_back(zombie);
@@ -131,7 +138,7 @@ PvZSprite* CGameMain::create_ord_zombie(int y) {
 	return zombie;
 }
 
-PvZSprite* CGameMain::create_pea_shooter(float x, float y) {
+Plant* CGameMain::create_pea_shooter(float x, float y) {
 	// 创建豌豆射手的 攻击范围
 	Range* rect = new Range(CSystem::MakeSpriteName(t_range->GetName(), vec_range.size()));
 	vec_range.push_back(rect);
@@ -152,14 +159,13 @@ PvZSprite* CGameMain::create_pea_shooter(float x, float y) {
 
 	pshtr->CloneSprite(t_pea_shooter->GetName());
 	pshtr->SetSpritePosition(x, y);
-	pshtr->SetSpriteImmovable(false);
+	pshtr->SetSpriteImmovable(true);
 	rect->SpriteMountToSprite(pshtr->GetName(), 11, -0.5);
 	pshtr->set_exist(false);
 	return pshtr;
 }
 
-PvZSprite* CGameMain::create_sunflower(float x, float y) {
-
+Plant* CGameMain::create_sunflower(float x, float y) {
 	Sunflower* sf = new Sunflower(CSystem::MakeSpriteName(t_sunflower->GetName(), vec_sunflower.size()));
 	std::cout << sf->get_type();
 	vec_sunflower.push_back(sf);
@@ -168,7 +174,7 @@ PvZSprite* CGameMain::create_sunflower(float x, float y) {
 
 	sf->CloneSprite(t_sunflower->GetName());
 	sf->SetSpritePosition(x, y);
-	sf->SetSpriteImmovable(false);
+	sf->SetSpriteImmovable(true);
 	sf->set_exist(false);
 	return sf;
 }
@@ -180,4 +186,14 @@ PvZSprite* CGameMain::get_sprite_by_position(float x, float y) {
 		}
 	}
 	return nullptr;
+}
+
+bool CGameMain::planting(Plant* plant) {
+	if (sun_count >= plant->get_cost()) {
+		std::cout << "plant" << std::endl;
+		sun_count -= plant->get_cost();
+		sun_num->SetTextValue(sun_count);
+		return true;
+	}
+	return false;
 }

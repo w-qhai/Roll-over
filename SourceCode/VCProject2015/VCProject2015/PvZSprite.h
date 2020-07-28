@@ -8,7 +8,7 @@ public:
     PvZSprite(const char* sprite_name);
     const virtual char* get_type() = 0;
     bool is_exist() { return exist; }
-    void set_exist(bool exist);
+    virtual void set_exist(bool exist) {}
 protected:
     bool exist;
 };

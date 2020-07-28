@@ -16,6 +16,9 @@ public:
     virtual void attacked_by(Arms* arm) = 0;
     virtual double get_power() = 0;
     virtual void set_status() = 0;
+
+    void set_exist(bool exist) { this->exist = exist; }
+
     bool is_eating();
     void set_eating(bool eating);
     void set_plant(Plant* plant);

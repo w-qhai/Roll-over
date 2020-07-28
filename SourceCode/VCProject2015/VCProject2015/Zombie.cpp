@@ -35,8 +35,7 @@ Plant* Zombie::get_plant() {
 
 /////////////////////////
 
-OrdinaryZombie::OrdinaryZombie(const char* zombie_name) :
-    Zombie(zombie_name, 200, 3, 50)
+OrdinaryZombie::OrdinaryZombie(const char* zombie_name) : Zombie(zombie_name, 200, 4, 50)
 {
 
 }
@@ -80,7 +79,6 @@ void OrdinaryZombie::attacked_by(Arms* arms) {
 /// ±»»÷µ¹ºó
 /// </summary>
 void OrdinaryZombie::die() {
-    
     this->SetSpriteLinearVelocityX(0);
     this->AnimateSpritePlayAnimation("ZombieDieAnimation", false);
     this->SetSpriteCollisionActive(false, false);

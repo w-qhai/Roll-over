@@ -18,7 +18,7 @@
 
 bool			left_pressed; // 鼠标左键是否按下
 PvZSprite*		selected_card; // 选中的植物卡
-PvZSprite*		seed;
+Plant*		seed;
 bool exist_plant[10][5];
 long double 	fTimeDelta;
 int PASCAL WinMain(HINSTANCE hInstance,
@@ -122,13 +122,18 @@ void CSystem::OnMouseUp( const int iMouseType, const float fMouseX, const float 
 				}
 			}
 			// 如果鼠标最后位置有植物
-			PvZSprite* sprite = g_GameMain.get_sprite_by_position(fMouseX, fMouseY);
-			if (sprite && sprite->is_exist() && sprite->get_type() == "Plant") {
+			PvZSprite* sprite = g_GameMain.get_sprite_by_position(x_slot[x], y_slot[y] - seed->GetSpriteHeight() / 2);
+			if (sprite && sprite->is_exist()) {
 				seed->DeleteSprite();
 			}
 			else {
-				seed->SetSpritePosition(x_slot[x], y_slot[y] - seed->GetSpriteHeight() / 2);
-				seed->set_exist(true);
+				if (g_GameMain.planting(seed)) {
+					seed->SetSpritePosition(x_slot[x], y_slot[y] - seed->GetSpriteHeight() / 2);
+					seed->set_exist(true);
+				}
+				else {
+					seed->DeleteSprite();
+				}
 			}
 		}
 		left_pressed = false;

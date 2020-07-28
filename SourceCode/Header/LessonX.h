@@ -28,6 +28,7 @@ private:
 	std::map<std::string, PvZSprite*>	name_to_sprite;
 	// 阳光数量
 	int sun_count;
+	CTextSprite* sun_num;
 	// 地图精灵
 	CSprite* game_map;
 
@@ -68,9 +69,10 @@ public:
 	void			GameEnd();
 	PvZSprite* get_sprite_by_name(const std::string& sprite_name);
 	PvZSprite* get_sprite_by_position(float x, float y);
-	PvZSprite* create_ord_zombie(int y);
-	PvZSprite* create_pea_shooter(float x, float y);
-	PvZSprite* create_sunflower(float x, float y);
+	Zombie* create_ord_zombie(int y);
+	Plant* create_pea_shooter(float x, float y);
+	Plant* create_sunflower(float x, float y);
+	bool planting(Plant* plant);
 };
 
 /////////////////////////////////////////////////////////////////////////////////
