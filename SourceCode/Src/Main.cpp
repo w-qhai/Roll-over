@@ -17,14 +17,15 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 
 bool			left_pressed; // 鼠标左键是否按下
-PvZSprite*		selected_card; // 选中的植物卡
-PvZSprite*		seed;
+int map_id = 0;				 // 当前地图 0:welcome; 1:menu; 2:关卡;
+PvZSprite* selected_card; // 选中的植物卡
+PvZSprite* seed;
 bool exist_plant[10][5];
 long double 	fTimeDelta;
 int PASCAL WinMain(HINSTANCE hInstance,
-                   HINSTANCE hPrevInstance,
-                   LPSTR     lpCmdLine,
-                   int       nCmdShow)
+	HINSTANCE hPrevInstance,
+	LPSTR     lpCmdLine,
+	int       nCmdShow)
 {
 	//开启控制台，方便调试信息输出
 	FILE* stream;
@@ -32,27 +33,28 @@ int PASCAL WinMain(HINSTANCE hInstance,
 	freopen_s(&stream, "CONOUT$", "a+", stdout);
 
 	// 初始化游戏引擎
-	if( !CSystem::InitGameEngine( hInstance, lpCmdLine ) )
+	if (!CSystem::InitGameEngine(hInstance, lpCmdLine))
 		return 0;
 
 	// To do : 在此使用API更改窗口标题
 	CSystem::SetWindowTitle("PvZ");
+	CSystem::LoadMap("welcome.t2d");
 
 	std::thread timer([&]() {
 		while (true) {
 			fTimeDelta += CSystem::GetTimeDelta();
 			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		}
-	});
+		});
 	timer.detach();
 
 	// 引擎主循环，处理屏幕图像刷新等工作
-	while( CSystem::EngineMainLoop() )
+	while (CSystem::EngineMainLoop())
 	{
 		// 获取两次调用之间的时间差，传递给游戏逻辑处理
 
 		// 执行游戏主循环
-		g_GameMain.GameMainLoop( fTimeDelta );
+		g_GameMain.GameMainLoop(fTimeDelta);
 	};
 
 	// 关闭游戏引擎
@@ -63,18 +65,77 @@ int PASCAL WinMain(HINSTANCE hInstance,
 //==========================================================================
 //
 // 引擎捕捉鼠标移动消息后，将调用到本函数
-void CSystem::OnMouseMove( const float fMouseX, const float fMouseY )
+// 菜单界面地图 鼠标移动 event handler
+static void menu_map_OnMouseMove(const float fMouseX, const float fMouseY) {
+	CAnimateSprite adcenture("AdventureGame"); // 冒险模式
+	CAnimateSprite mini("MiniGame");		   // 迷你游戏
+	CAnimateSprite edu("EduGame");			   // 益智模式
+	if (adcenture.IsPointInSprite(fMouseX, fMouseY)) {
+		adcenture.AnimateSpritePlayAnimation("AdventureModeAnimation", false);
+	}
+	if (mini.IsPointInSprite(fMouseX, fMouseY)) {
+		mini.AnimateSpritePlayAnimation("MiniModeAnimation", false);
+	}
+	if (edu.IsPointInSprite(fMouseX, fMouseY)) {
+		edu.AnimateSpritePlayAnimation("EduModeAnimation", false);
+	}
+
+}
+void CSystem::OnMouseMove(const float fMouseX, const float fMouseY)
 {
+	// 不同地图间点击事件分别封装，根据全局的地图id区分不同地图的事件
+	switch (map_id)
+	{
+	case 0:
+		break;
+	case 1:
+		menu_map_OnMouseMove(fMouseX, fMouseY);
+	default:
+		break;
+	}
+
 	// 可以在此添加游戏需要的响应函数
 	if (left_pressed && selected_card && seed) {
 		seed->SetSpritePosition(fMouseX, fMouseY);
 	}
 }
+// 对不同地图间的事件进行分离, 以便保证不同地图相同区域点击事件的不会冲突
+// 欢迎界面地图 鼠标点击 event handler
+static void welcome_map_OnMouseClick(const int iMouseType, const float fMouseX, const float fMouseY) {
+	CSprite startBtn("LoadBar");
+	if (iMouseType == MOUSE_LEFT) {
+		if (startBtn.IsPointInSprite(fMouseX, fMouseY)) {
+			CSystem::LoadMap("menu.t2d");
+			map_id = 1;
+		}
+	}
+}
+// 菜单界面地图 鼠标点击 event handler
+static void menu_map_OnMouseClick(const int iMouseType, const float fMouseX, const float fMouseY) {
+	CSprite adcenture("AdventureGame");
+	if (iMouseType == MOUSE_LEFT) {
+		if (adcenture.IsPointInSprite(fMouseX, fMouseY)) {
+			CSystem::LoadMap("level.t2d");
+			map_id = 2;
+		}
+	}
+}
 //==========================================================================
 //
 // 引擎捕捉鼠标点击消息后，将调用到本函数
-void CSystem::OnMouseClick( const int iMouseType, const float fMouseX, const float fMouseY )
+void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const float fMouseY)
 {
+	// 不同地图间点击事件分别封装，根据全局的地图id区分不同地图的事件
+	switch (map_id)
+	{
+	case 0:
+		welcome_map_OnMouseClick(iMouseType, fMouseX, fMouseY);
+	case 1:
+		menu_map_OnMouseClick(iMouseType, fMouseX, fMouseY);
+	default:
+		break;
+	}
+
 	// 可以在此添加游戏需要的响应函数
 	if (iMouseType == MOUSE_LEFT) {
 		// 鼠标按下 选中植物卡
@@ -101,10 +162,10 @@ void CSystem::OnMouseClick( const int iMouseType, const float fMouseX, const flo
 //==========================================================================
 //
 // 引擎捕捉鼠标弹起消息后，将调用到本函数
-void CSystem::OnMouseUp( const int iMouseType, const float fMouseX, const float fMouseY )
+void CSystem::OnMouseUp(const int iMouseType, const float fMouseX, const float fMouseY)
 {
-	float x_slot[10] = {-39, -28.5, -18, -7.5, 2, 12, 22, 32, 43, 55};
-	float y_slot[5]  = { -17, -5, 9, 20, 32 };
+	float x_slot[10] = { -39, -28.5, -18, -7.5, 2, 12, 22, 32, 43, 55 };
+	float y_slot[5] = { -17, -5, 9, 20, 32 };
 	if (iMouseType == MOUSE_LEFT) {
 		if (left_pressed && selected_card && seed) {
 			seed->SetSpriteColorAlpha(255);
@@ -140,15 +201,15 @@ void CSystem::OnMouseUp( const int iMouseType, const float fMouseX, const float 
 //
 // 引擎捕捉键盘按下消息后，将调用到本函数
 // bAltPress bShiftPress bCtrlPress 分别为判断Shift，Alt，Ctrl当前是否也处于按下状态。比如可以判断Ctrl+E组合键
-void CSystem::OnKeyDown( const int iKey, const bool bAltPress, const bool bShiftPress, const bool bCtrlPress )
+void CSystem::OnKeyDown(const int iKey, const bool bAltPress, const bool bShiftPress, const bool bCtrlPress)
 {
 	// 可以在此添加游戏需要的响应函数
-	
+
 }
 //==========================================================================
 //
 // 引擎捕捉键盘弹起消息后，将调用到本函数
-void CSystem::OnKeyUp( const int iKey )
+void CSystem::OnKeyUp(const int iKey)
 {
 	// 可以在此添加游戏需要的响应函数
 
@@ -157,11 +218,11 @@ void CSystem::OnKeyUp( const int iKey )
 //===========================================================================
 //
 // 引擎捕捉到精灵与精灵碰撞之后，调用此函数
-void CSystem::OnSpriteColSprite( const char *szSrcName, const char *szTarName )
+void CSystem::OnSpriteColSprite(const char* szSrcName, const char* szTarName)
 {
 	PvZSprite* src = g_GameMain.get_sprite_by_name(szSrcName);
 	PvZSprite* tar = g_GameMain.get_sprite_by_name(szTarName);
-	
+
 
 	if (src && tar) {
 		// 僵尸进入攻击范围
@@ -193,8 +254,8 @@ void CSystem::OnSpriteColSprite( const char *szSrcName, const char *szTarName )
 //
 // 引擎捕捉到精灵与世界边界碰撞之后，调用此函数.
 // iColSide : 0 左边，1 右边，2 上边，3 下边
-void CSystem::OnSpriteColWorldLimit( const char *szName, const int iColSide )
+void CSystem::OnSpriteColWorldLimit(const char* szName, const int iColSide)
 {
-	
+
 }
 
