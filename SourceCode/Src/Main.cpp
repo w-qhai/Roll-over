@@ -19,8 +19,7 @@
 bool			left_pressed; // 鼠标左键是否按下
 int map_id = 0;				 // 当前地图 0:welcome; 1:menu; 2:关卡;
 PvZSprite* selected_card; // 选中的植物卡
-PvZSprite* seed;
-bool exist_plant[10][5];
+Plant* seed;
 long double 	fTimeDelta;
 int PASCAL WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
