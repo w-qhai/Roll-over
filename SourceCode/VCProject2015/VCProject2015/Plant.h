@@ -43,3 +43,14 @@ private:
     int light_v;
 };
 
+// 樱桃炸弹 继承自植物基类
+class CherryBomb : public Plant {
+
+public:
+    CherryBomb(const char* plant_name, Boom* boom);
+    int attack(float delta_time) override;
+private:
+    Boom* boom;
+};
+
+

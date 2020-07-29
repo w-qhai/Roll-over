@@ -90,3 +90,24 @@ int Sunflower::attack(float delta_time) {
 }
 
 /* --------------------------------------------------- */
+// 	Ó£ÌÒÕ¨µ¯ CherryBomb
+CherryBomb::CherryBomb(const char* plant_name, Boom* boom) :
+	Plant(plant_name, 1000, 2, 175),
+	boom(boom){
+
+}
+
+int CherryBomb::attack(float delta_time) {
+	if (this->is_exist()) {
+		if (delta_time - next_attack > attack_interval) {
+			std::cout << "Boom" << std::endl;
+			boom->set_exist(true);
+			boom->CloneSprite("Boom");
+			boom->SpriteMountToSprite(this->GetName(), 0, 0);
+			//this->AnimateSpritePlayAnimation("CherryBoomAnimation", false);
+			this->SetSpriteLifeTime(0.5);
+			next_attack = delta_time;
+		}
+	}
+	return 1;
+}

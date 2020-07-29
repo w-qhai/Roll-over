@@ -50,3 +50,15 @@ SunflowerCard::SunflowerCard(const char* assist_name) :
 const char* SunflowerCard::get_type() {
     return type;
 }
+
+/////////////////////
+const char* CherryBombCard::type = "CherryBombCard";
+CherryBombCard::CherryBombCard(const char* assist_name) :
+    Assist(assist_name)
+{
+
+}
+
+const char* CherryBombCard::get_type() {
+    return type;
+}

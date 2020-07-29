@@ -40,7 +40,7 @@
    new t2dAnimatedSprite(PeaShooter) {
       animationName = "PeaShooterAnimation";
       canSaveDynamicFields = "1";
-      Position = "-51.063 -45.625";
+      Position = "-63.938 -45.625";
       size = "7.875 8.750";
       SortPoint = "0.359 -0.569";
       Layer = "1";
@@ -76,7 +76,7 @@
    new t2dAnimatedSprite(Pea) {
       animationName = "PeaAnimation";
       canSaveDynamicFields = "1";
-      Position = "-63.500 -46.500";
+      Position = "-56.500 -48.500";
       size = "3.000 3.000";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
@@ -85,7 +85,7 @@
       LinkPoints = "0.000 0.000";
          mountID = "6";
    };
-   new t2dShapeVector(PeaShooterAttackRange) {
+   new t2dShapeVector(AttackRange) {
       canSaveDynamicFields = "1";
       Position = "-27.500 -64.304";
       size = "95.000 3.000";
@@ -95,7 +95,7 @@
       CollisionLayers = "-3";
       PolyList = "-1.000 -1.000 -1.000 1.000 1.000 1.000 1.000 -1.000";
       LineColor = "1 1 1 1";
-      fillColor = "0.36863 0.66667 0 0.392157";
+      fillColor = "0.713726 0 0 0.39216";
       FillMode = "1";
          mountID = "7";
    };
@@ -218,7 +218,7 @@
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
       LinkPoints = "0.000 0.000";
-         mountID = "17";
+         mountID = "18";
    };
    new t2dTextObject(SunCount) {
       canSaveDynamicFields = "1";
@@ -259,13 +259,13 @@
       Layer = "21";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
-         mountID = "19";
+         mountID = "20";
    };
    new t2dStaticSprite(PeaShooterCard) {
       imageMap = "PeashooterCardImageMap";
       frame = "0";
       useSourceRect = "0";
-      sourceRect = "0 0 2.36011e-039 6.22921e-039";
+      sourceRect = "2.36011e-039 0 2.36011e-039 6.22921e-039";
       canSaveDynamicFields = "1";
       Position = "-35.000 -32.143";
       size = "6.000 8.500";
@@ -280,7 +280,7 @@
       imageMap = "SunflowerCardImageMap";
       frame = "0";
       useSourceRect = "0";
-      sourceRect = "0 0 2.36011e-039 6.22921e-039";
+      sourceRect = "2.36011e-039 0 2.36011e-039 6.22921e-039";
       canSaveDynamicFields = "1";
       Position = "-27.500 -32.143";
       size = "6.000 8.500";
@@ -288,8 +288,8 @@
       WorldLimitMax = "50.000 37.500";
       MountOwned = "0";
       MountInheritAttributes = "0";
-         mountID = "18";
-         mountToID = "17";
+         mountID = "19";
+         mountToID = "18";
    };
    new t2dAnimatedSprite(Sunflower) {
       animationName = "SunflowerAnimation";
@@ -302,6 +302,59 @@
       CollisionActiveReceive = "1";
       CollisionPhysicsSend = "1";
       CollisionLayers = "-2";
-         mountID = "20";
+         mountID = "21";
+   };
+   new t2dAnimatedSprite(Jalapeno) {
+      animationName = "JalapenoAnimation";
+      canSaveDynamicFields = "1";
+      Position = "-7.927 -45.563";
+      size = "8.500 11.125";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+         mountID = "22";
+   };
+   new t2dAnimatedSprite(JalapenoAttack) {
+      animationName = "JalapenoAttackAnimation";
+      canSaveDynamicFields = "1";
+      Position = "-27.812 -78.000";
+      size = "94.375 16.000";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+         mountID = "23";
+   };
+   new t2dAnimatedSprite(CherryBomb) {
+      animationName = "CherryBombAnimation";
+      canSaveDynamicFields = "1";
+      Position = "-24.386 -45.958";
+      size = "14.000 10.125";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+         mountID = "24";
+   };
+   new t2dStaticSprite(CherryBombCard) {
+      imageMap = "CherryBombCardImageMap1";
+      frame = "0";
+      useSourceRect = "0";
+      sourceRect = "0 0 2.36011e-039 6.22921e-039";
+      canSaveDynamicFields = "1";
+      Position = "-20.000 -32.143";
+      size = "6.000 8.500";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+      MountOwned = "0";
+      MountInheritAttributes = "0";
+         mountID = "17";
+         mountToID = "16";
+   };
+   new t2dAnimatedSprite(Boom) {
+      animationName = "CherryBoomAnimation";
+      canSaveDynamicFields = "1";
+      Position = "43.655 -53.950";
+      size = "32.690 27.899";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+      CollisionActiveSend = "1";
+      CollisionLayers = "1";
+         mountID = "25";
    };
 };

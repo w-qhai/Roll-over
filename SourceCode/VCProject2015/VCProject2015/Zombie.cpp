@@ -66,24 +66,31 @@ void OrdinaryZombie::eat_plant(Plant* plant, long double delta_time) {
 
 void OrdinaryZombie::attacked_by(Arms* arms) {
     this->health -= arms->get_power();
-    arms->after_hit();
     if (this->health <= 0) {
-        this->die();
+        this->die(arms->get_power());
     }
     else {
         this->set_status();
     }
+    arms->after_hit();
 }
 
 /// <summary>
 /// 被击倒后
 /// </summary>
-void OrdinaryZombie::die() {
-    this->SetSpriteLinearVelocityX(0);
-    this->AnimateSpritePlayAnimation("ZombieDieAnimation", false);
+void OrdinaryZombie::die(int power) {
+    if (power < 1800) {
+        this->SetSpriteWidth(20.625);
+        this->SetSpriteHeight(10.625);
+        this->AnimateSpritePlayAnimation("ZombieDieAnimation", false);
+    }
+    else {
+        this->SetSpriteLinearVelocityX(0);
+        this->SetSpriteWidth(9.875);
+        this->SetSpriteHeight(14.125);
+        this->AnimateSpritePlayAnimation("BoomDieAnimation", false);
+    }
     this->SetSpriteCollisionActive(false, false);
-    this->SetSpriteWidth(20.625);
-    this->SetSpriteHeight(10.625);
     // 播放死亡动画
     this->SetSpriteLifeTime(1);
     exist = false;

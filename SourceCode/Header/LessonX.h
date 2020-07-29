@@ -41,17 +41,21 @@ private:
 	std::vector<PeaShooter*>		vec_pea_shooter;
 	std::vector<Range*>				vec_range;
 	std::vector<Sunflower*>			vec_sunflower;
+	std::vector<CherryBomb*>		vec_cherry_bomb;
+	std::vector<Boom*>				vec_boom;
 
-	// 精灵模板
 	OrdinaryZombie* t_ord_zombie;
 	PeaShooter* t_pea_shooter;
 	Pea* t_pea;
+	Boom* t_boom;
 	Range* t_range;
 	Sunflower* t_sunflower;
+	CherryBomb* t_cherry_bomb;
 
 	// 植物卡
 	PeaShooterCard* pea_shooter_card;
 	SunflowerCard* sunflower_card;
+	CherryBombCard* cherry_bomb_card;
 public:
 	CGameMain();            //构造函数
 	~CGameMain();           //析构函数  
@@ -72,6 +76,7 @@ public:
 	Zombie* create_ord_zombie(int y);
 	Plant* create_pea_shooter(float x, float y);
 	Plant* create_sunflower(float x, float y);
+	Plant* create_cherry_bomb(float x, float y);
 	bool planting(Plant* plant);
 };
 

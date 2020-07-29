@@ -26,16 +26,24 @@ CGameMain::CGameMain() :
 	sun_num(new CTextSprite("SunCount")),
 	game_map(new CSprite("background")),
 	ord_zombie_count(5),
+
+	// 模板初始化
 	t_ord_zombie(new OrdinaryZombie("OrdinaryZombie")),
 	t_pea_shooter(new PeaShooter("PeaShooter", nullptr)),
 	t_pea(new Pea("Pea")),
-	t_range(new Range("PeaShooterAttackRange")),
+	t_range(new Range("AttackRange")),
 	t_sunflower(new Sunflower("Sunflower")),
+	t_boom(new Boom("Boom")),
+	t_cherry_bomb(new CherryBomb("CherryBomb", nullptr)),
+
+	// 卡初始化
 	pea_shooter_card(new PeaShooterCard("PeaShooterCard")), // 虚手动加入map
-	sunflower_card(new SunflowerCard("SunflowerCard"))
+	sunflower_card(new SunflowerCard("SunflowerCard")),
+	cherry_bomb_card(new CherryBombCard("CherryBombCard"))
 {
 	name_to_sprite[pea_shooter_card->GetName()] = pea_shooter_card;
 	name_to_sprite[sunflower_card->GetName()] = sunflower_card;
+	name_to_sprite[cherry_bomb_card->GetName()] = cherry_bomb_card;
 }
 //==============================================================================
 //
@@ -89,11 +97,11 @@ void CGameMain::GameMainLoop(float	fDeltaTime)
 void CGameMain::GameInit()
 {
 	sun_num->SetTextValue(sun_count);
-	create_pea_shooter(-39, -5 + -17)->set_exist(true);
-	create_pea_shooter(-39, -5 + -5)->set_exist(true);
-	create_pea_shooter(-39, -5 + 9)->set_exist(true);
-	create_pea_shooter(-39, -5 + 20)->set_exist(true);
-	create_pea_shooter(-39, -5 + 32)->set_exist(true);
+	//create_pea_shooter(-39, -5 + -17)->set_exist(true);
+	//create_pea_shooter(-39, -5 + -5)->set_exist(true);
+	//create_pea_shooter(-39, -5 + 9)->set_exist(true);
+	//create_pea_shooter(-39, -5 + 20)->set_exist(true);
+	//create_pea_shooter(-39, -5 + 32)->set_exist(true);
 }
 //=============================================================================
 //
@@ -178,6 +186,37 @@ Plant* CGameMain::create_sunflower(float x, float y) {
 	sf->set_exist(false);
 	return sf;
 }
+
+Plant* CGameMain::create_cherry_bomb(float x, float y) {
+	// 创建樱桃炸弹的 攻击范围
+	Range* rect = new Range(CSystem::MakeSpriteName(t_range->GetName(), vec_range.size()));
+	vec_range.push_back(rect);
+	name_to_sprite[rect->GetName()] = rect;
+	rect->CloneSprite(t_range->GetName());
+	rect->set_exist(true);
+	rect->SetSpriteWidth(30);
+	rect->SetSpriteHeight(35);
+
+	// 创建樱桃炸弹的 爆炸
+	Boom* boom = new Boom(CSystem::MakeSpriteName("Boom", vec_boom.size()));
+	vec_boom.push_back(boom);
+	name_to_sprite[boom->GetName()] = boom;
+	boom->set_exist(false);
+
+	CherryBomb* cb = new CherryBomb(CSystem::MakeSpriteName(t_cherry_bomb->GetName(), vec_cherry_bomb.size()), boom);
+	std::cout << cb->get_type();
+	vec_cherry_bomb.push_back(cb);
+	name_to_sprite[cb->GetName()] = cb;
+	std::cout << t_sunflower->GetName() << std::endl;
+
+	cb->CloneSprite(t_cherry_bomb->GetName());
+	cb->SetSpritePosition(x, y);
+	cb->SetSpriteImmovable(true);
+	rect->SpriteMountToSprite(cb->GetName(), 0, 0);
+	cb->set_exist(false);
+	return cb;
+}
+
 
 PvZSprite* CGameMain::get_sprite_by_position(float x, float y) {
 	for (std::pair<std::string, PvZSprite*> sprite : name_to_sprite) {

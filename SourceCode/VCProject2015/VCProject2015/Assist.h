@@ -35,3 +35,12 @@ protected:
     static const char* type;
 };
 
+class CherryBombCard : public Assist {
+public:
+    CherryBombCard(const char* assist_name);
+    const char* get_type() override;
+protected:
+    static const char* type;
+};
+
+

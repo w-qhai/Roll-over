@@ -82,21 +82,26 @@ void CSystem::OnMouseClick( const int iMouseType, const float fMouseX, const flo
 		selected_card = nullptr;
 		seed = nullptr;
 
-		selected_card = g_GameMain.get_sprite_by_position(fMouseX, fMouseY);
-		if (selected_card) {
-			std::cout << selected_card->get_type() << std::endl;
-			if (selected_card->get_type() == "PeaShooterCard") {
-				seed = g_GameMain.create_pea_shooter(fMouseX, fMouseY);
-				seed->SetSpriteColorAlpha(100);
-			}
-			else if (selected_card->get_type() == "SunflowerCard") {
-				std::cout << selected_card->GetName() << std::endl;
-				seed = g_GameMain.create_sunflower(fMouseX, fMouseY);
+		// 赋值成功 执行if
+		if (selected_card = g_GameMain.get_sprite_by_position(fMouseX, fMouseY)) {
+			std::string type = selected_card->get_type();
+			std::cout << type.substr(type.size() - 4, 4) << std::endl;
+			// 后四位Card表示 植物卡
+			if (type.substr(type.size() - 4, 4) == "Card") {
+				std::cout << selected_card->get_type() << std::endl;
+				if (selected_card->get_type() == "PeaShooterCard") {
+					seed = g_GameMain.create_pea_shooter(fMouseX, fMouseY);
+				}
+				else if (selected_card->get_type() == "SunflowerCard") {
+					seed = g_GameMain.create_sunflower(fMouseX, fMouseY);
+				}
+				else if (selected_card->get_type() == "CherryBombCard") {
+					seed = g_GameMain.create_cherry_bomb(fMouseX, fMouseY);
+				}
 				seed->SetSpriteColorAlpha(100);
 			}
 		}
 	}
-
 }
 //==========================================================================
 //
@@ -179,13 +184,13 @@ void CSystem::OnSpriteColSprite( const char *szSrcName, const char *szTarName )
 
 		// 僵尸吃植物
 		if (src->get_type() == "Zombie" && tar->get_type() == "Plant") {
-			std::cout << src->GetName() << tar->GetName() << std::endl;
 			Zombie* z = reinterpret_cast<Zombie*>(src);  // 指针强转
 			Plant* p = reinterpret_cast<Plant*>(tar);
 			z->eat_plant(p, fTimeDelta);
 		}
 
 		// 子弹打僵尸
+		std::cout << src->get_type() << " " << tar->get_type() << std::endl;
 		if (src->get_type() == "Arms" && tar->get_type() == "Zombie") {
 			Arms* a = reinterpret_cast<Arms*>(src);  // 指针强转
 			Zombie* z = reinterpret_cast<Zombie*>(tar);

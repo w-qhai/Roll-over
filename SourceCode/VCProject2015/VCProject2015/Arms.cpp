@@ -35,3 +35,21 @@ void Pea::after_hit() {
     this->SetSpriteLifeTime(0.5);
     exist = false;
 }
+
+///////////////////////
+
+Boom::Boom(const char* arms_name) :
+    Arms(arms_name, 1800)
+{
+
+}
+
+/// <summary>
+/// 攻击之后的特效
+/// </summary>
+void Boom::after_hit() {
+    this->AnimateSpritePlayAnimation("CherryBoomAnimation", false);
+    this->SetSpriteCollisionActive(false, false);
+    this->SetSpriteLifeTime(0.5);
+    exist = false;
+}
