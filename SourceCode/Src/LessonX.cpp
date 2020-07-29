@@ -11,7 +11,6 @@
 //
 //
 CGameMain		g_GameMain;
-
 //==============================================================================
 //
 // 大体的程序流程为：GameMainLoop函数为主循环函数，在引擎每帧刷新屏幕图像之后，都会被调用一次。
@@ -96,18 +95,30 @@ void CGameMain::GameMainLoop(float	fDeltaTime)
 // 每局开始前进行初始化，清空上一局相关数据
 void CGameMain::GameInit()
 {
+	// welcome.t2d
+	CSprite title("Title");
+	title.SpriteMoveTo(-0.909, -27.080, 18, true);
+
+	CSprite load("load");
+	load.SetSpriteAngularVelocity(80);
+	load.SpriteMoveTo(0.75 + 41.5 / 2 - 6, 30.875 - 11.75 / 2 + 2.7, 10, true);
+
+	create_pea_shooter(-39, -5 + -17)->set_exist(true);
+	create_pea_shooter(-39, -5 + -5)->set_exist(true);
+	create_pea_shooter(-39, -5 + 9)->set_exist(true);
+	create_pea_shooter(-39, -5 + 20)->set_exist(true);
+	create_pea_shooter(-39, -5 + 32)->set_exist(true);
 	sun_num->SetTextValue(sun_count);
-	//create_pea_shooter(-39, -5 + -17)->set_exist(true);
-	//create_pea_shooter(-39, -5 + -5)->set_exist(true);
-	//create_pea_shooter(-39, -5 + 9)->set_exist(true);
-	//create_pea_shooter(-39, -5 + 20)->set_exist(true);
-	//create_pea_shooter(-39, -5 + 32)->set_exist(true);
 }
 //=============================================================================
 //
 // 每局游戏进行中
-void CGameMain::GameRun( float fDeltaTime )
+void CGameMain::GameRun(float fDeltaTime)
 {
+	// menu.t2d
+	CSprite welcome("welcome");
+	welcome.SpriteMoveTo(-28.883, -23.750, 18, true);
+
 	if (fDeltaTime - timer > 3) {
 		create_ord_zombie(CSystem::RandomRange(0, 4));
 		timer = fDeltaTime;
@@ -135,7 +146,7 @@ PvZSprite* CGameMain::get_sprite_by_name(const std::string& sprite_name) {
 
 Zombie* CGameMain::create_ord_zombie(int y) {
 	float y_slot[5] = { -17, -5, 9, 20, 32 };
-	OrdinaryZombie* zombie = new OrdinaryZombie(CSystem::MakeSpriteName(t_ord_zombie->GetName() , vec_ord_zombie.size()));
+	OrdinaryZombie* zombie = new OrdinaryZombie(CSystem::MakeSpriteName(t_ord_zombie->GetName(), vec_ord_zombie.size()));
 	vec_ord_zombie.push_back(zombie);
 	name_to_sprite[zombie->GetName()] = zombie;
 	zombie->CloneSprite(t_ord_zombie->GetName());
