@@ -72,18 +72,20 @@ int PeaShooter::attack(float delta_time) {
 /* --------------------------------------------------- */
 // ÏòÈÕ¿û
 
-Sunflower::Sunflower(const char* sprite_name) :
+Sunflower::Sunflower(const char* sprite_name, Sun* sun) :
 	Plant(sprite_name, 300, 10, 50),
-	light_num(50),
-	light_v(3) {
+	sun(sun) {
 
 }
 
 int Sunflower::attack(float delta_time) {
-	if (this->is_exist()) {
+	if (this->is_exist() && sun->is_exist() == false) {
 		if (delta_time - next_attack > attack_interval) {
+			sun->set_exist(true);
+			sun->CloneSprite("Sun");
+			sun->SetSpritePosition(this->GetSpritePositionX() + 5, this->GetSpritePositionY() + 5);
 			next_attack = delta_time;
-			return 25;
+			return sun->get_num();
 		}
 	}
 	return 0;

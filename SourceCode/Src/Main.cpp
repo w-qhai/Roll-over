@@ -141,14 +141,15 @@ void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const floa
 		selected_card = nullptr;
 		seed = nullptr;
 		// 赋值成功 执行if
-		if (selected_card = g_GameMain.get_sprite_by_position(fMouseX, fMouseY)) {
-			std::cout << selected_card->get_type() << std::endl;
+		selected_card = g_GameMain.get_sprite_by_position(fMouseX, fMouseY);
+		std::cout << selected_card << std::endl;
+		if (selected_card) {
 			if (selected_card->get_type() == "Sun") {
-				std::cout << "CLICK SUN" << std::endl;
 				Sun* sun = reinterpret_cast<Sun*>(selected_card);
 				sun->SpriteMoveTo(-43.275, -33.275, 100, true);
 				sun->SetSpriteLifeTime(1);
 				g_GameMain.add_sun(sun->get_num());
+				sun->set_exist(false);
 
 				left_pressed = false;
 				selected_card = nullptr;
@@ -264,7 +265,6 @@ void CSystem::OnSpriteColSprite(const char* szSrcName, const char* szTarName)
 		}
 
 		// 子弹打僵尸
-		std::cout << src->get_type() << " " << tar->get_type() << std::endl;
 		if (src->get_type() == "Arms" && tar->get_type() == "Zombie") {
 			Arms* a = reinterpret_cast<Arms*>(src);  // 指针强转
 			Zombie* z = reinterpret_cast<Zombie*>(tar);

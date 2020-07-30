@@ -2,6 +2,8 @@
 #include "PvZSprite.h"
 #include "Zombie.h"
 #include "Arms.h"
+#include "Assist.h"
+
 // 植物基类
 class Plant : public PvZSprite 
 {
@@ -36,11 +38,10 @@ private:
 class Sunflower : public Plant {
 
 public:
-    Sunflower(const char* plant_name);
+    Sunflower(const char* plant_name, Sun* sun);
     int attack(float delta_time) override;
 private:
-    int light_num;
-    int light_v;
+    Sun* sun;
 };
 
 // 樱桃炸弹 继承自植物基类

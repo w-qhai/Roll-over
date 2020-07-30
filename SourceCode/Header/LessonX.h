@@ -80,7 +80,7 @@ public:
 	Plant*	create_sunflower(float x, float y);
 	Plant*	create_cherry_bomb(float x, float y);
 	bool	planting(Plant* plant);
-	void	output_sun(Plant* creator = nullptr, int num = 25);	// 空值则由场景产出，否则为植物产出
+	void	output_sun(int num = 25);	// 空值则由场景产出，否则为植物产出
 	void	add_sun(int num);
 };
 

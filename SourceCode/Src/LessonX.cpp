@@ -31,10 +31,10 @@ CGameMain::CGameMain() :
 	t_pea_shooter(new PeaShooter("PeaShooter", nullptr)),
 	t_pea(new Pea("Pea")),
 	t_range(new Range("AttackRange")),
-	t_sunflower(new Sunflower("Sunflower")),
+	t_sun(new Sun("Sun", 25)),
+	t_sunflower(new Sunflower("Sunflower", nullptr)),
 	t_boom(new Boom("Boom")),
 	t_cherry_bomb(new CherryBomb("CherryBomb", nullptr)),
-	t_sun(new Sun("Sun", 25)),
 
 	// 卡初始化
 	pea_shooter_card(new PeaShooterCard("PeaShooterCard")), // 虚手动加入map
@@ -121,19 +121,14 @@ void CGameMain::GameRun(float fDeltaTime)
 	//CSprite welcome("welcome");
 	//welcome.SpriteMoveTo(-28.883, -23.750, 18, true);
 
-	if (fDeltaTime - timer > 3) {
-		//create_ord_zombie(CSystem::RandomRange(0, 4));
+	if (fDeltaTime - timer > 6) {
+		create_ord_zombie(CSystem::RandomRange(0, 4));
 		timer = fDeltaTime;
 		output_sun();
 	}
 
 	for (Sunflower* sunflower : vec_sunflower) {
-		//sun_count += sunflower->attack(fDeltaTime);
-		//sun_num->SetTextValue(sun_count);
-		int num = sunflower->attack(fDeltaTime);
-		if (sunflower->is_exist() && num > 0) {
-			output_sun(sunflower, num);
-		}
+		sunflower->attack(fDeltaTime);
 	}
 }
 //=============================================================================
@@ -192,11 +187,15 @@ Plant* CGameMain::create_pea_shooter(float x, float y) {
 }
 
 Plant* CGameMain::create_sunflower(float x, float y) {
-	Sunflower* sf = new Sunflower(CSystem::MakeSpriteName(t_sunflower->GetName(), vec_sunflower.size()));
-	std::cout << sf->get_type();
+	Sun* sun = new Sun(CSystem::MakeSpriteName(t_sun->GetName(), vec_sun.size()), 25);
+	vec_sun.push_back(sun);
+	name_to_sprite[sun->GetName()] = sun;
+	sun->CloneSprite(t_sun->GetName());
+	sun->set_exist(false);
+
+	Sunflower* sf = new Sunflower(CSystem::MakeSpriteName(t_sunflower->GetName(), vec_sunflower.size()), sun);
 	vec_sunflower.push_back(sf);
 	name_to_sprite[sf->GetName()] = sf;
-	std::cout << t_sunflower->GetName() << std::endl;
 
 	sf->CloneSprite(t_sunflower->GetName());
 	sf->SetSpritePosition(x, y);
@@ -225,7 +224,6 @@ Plant* CGameMain::create_cherry_bomb(float x, float y) {
 	std::cout << cb->get_type();
 	vec_cherry_bomb.push_back(cb);
 	name_to_sprite[cb->GetName()] = cb;
-	std::cout << t_sunflower->GetName() << std::endl;
 
 	cb->CloneSprite(t_cherry_bomb->GetName());
 	cb->SetSpritePosition(x, y);
@@ -237,6 +235,7 @@ Plant* CGameMain::create_cherry_bomb(float x, float y) {
 
 
 PvZSprite* CGameMain::get_sprite_by_position(float x, float y) {
+	std::cout << "CLICK:" << x << " " << y << std::endl;
 	for (std::pair<std::string, PvZSprite*> sprite : name_to_sprite) {
 		if (sprite.second->IsPointInSprite(x, y)) {
 			return sprite.second;
@@ -255,24 +254,20 @@ bool CGameMain::planting(Plant* plant) {
 	return false;
 }
 
-void CGameMain::output_sun(Plant* creator, int num) {
-	std::cout << "SUN" << std::endl;
+void CGameMain::output_sun(int num) {
 	Sun* sun = new Sun(CSystem::MakeSpriteName(t_sun->GetName(), vec_sun.size()), num);
+	vec_sun.push_back(sun);
 	name_to_sprite[sun->GetName()] = sun;
 	sun->CloneSprite(t_sun->GetName());
 	
-	// 场景产出
-	if (!creator) {
-		int pos_x = CSystem::RandomRange(CSystem::GetScreenLeft() + 5, CSystem::GetScreenRight() - 5);
-		int pos_y = CSystem::RandomRange(CSystem::GetScreenTop() + 10, CSystem::GetScreenBottom() - 5);
 
-		sun->SetSpritePosition(pos_x, CSystem::GetScreenTop() + 10);
-		sun->SpriteMoveTo(pos_x, pos_y, 10, true);
-	}
-	// 植物产出
-	else  {
-		sun->SetSpritePosition(creator->GetSpritePositionX() + 5, creator->GetSpritePositionY() + 5);
-	}
+	int pos_x = CSystem::RandomRange(CSystem::GetScreenLeft() + 5, CSystem::GetScreenRight() - 5);
+	int pos_y = CSystem::RandomRange(CSystem::GetScreenTop() + 10, CSystem::GetScreenBottom() - 5);
+
+	sun->SetSpritePosition(pos_x, CSystem::GetScreenTop() + 10);
+	sun->SpriteMoveTo(pos_x, pos_y, 15, true);
+
+
 	sun->set_exist(true);
 	sun->SetSpriteLifeTime(10);
 }
