@@ -62,3 +62,17 @@ CherryBombCard::CherryBombCard(const char* assist_name) :
 const char* CherryBombCard::get_type() {
     return type;
 }
+
+/////////////////////
+const char* Sun::type = "Sun";
+Sun::Sun(const char* assist_name, int num) :
+    Assist(assist_name),
+    num(num)
+{
+
+}
+
+const char* Sun::get_type() {
+    return type;
+}
+

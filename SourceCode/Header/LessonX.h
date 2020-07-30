@@ -43,6 +43,7 @@ private:
 	std::vector<Sunflower*>			vec_sunflower;
 	std::vector<CherryBomb*>		vec_cherry_bomb;
 	std::vector<Boom*>				vec_boom;
+	std::vector<Sun*>				vec_sun;
 
 	OrdinaryZombie* t_ord_zombie;
 	PeaShooter* t_pea_shooter;
@@ -51,6 +52,7 @@ private:
 	Range* t_range;
 	Sunflower* t_sunflower;
 	CherryBomb* t_cherry_bomb;
+	Sun* t_sun;
 
 	// 植物卡
 	PeaShooterCard* pea_shooter_card;
@@ -74,10 +76,12 @@ public:
 	PvZSprite* get_sprite_by_name(const std::string& sprite_name);
 	PvZSprite* get_sprite_by_position(float x, float y);
 	Zombie* create_ord_zombie(int y);
-	Plant* create_pea_shooter(float x, float y);
-	Plant* create_sunflower(float x, float y);
-	Plant* create_cherry_bomb(float x, float y);
-	bool planting(Plant* plant);
+	Plant*	create_pea_shooter(float x, float y);
+	Plant*	create_sunflower(float x, float y);
+	Plant*	create_cherry_bomb(float x, float y);
+	bool	planting(Plant* plant);
+	void	output_sun(Plant* creator = nullptr, int num = 25);	// 空值则由场景产出，否则为植物产出
+	void	add_sun(int num);
 };
 
 /////////////////////////////////////////////////////////////////////////////////

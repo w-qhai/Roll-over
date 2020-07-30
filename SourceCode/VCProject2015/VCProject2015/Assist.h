@@ -43,4 +43,14 @@ protected:
     static const char* type;
 };
 
+class Sun : public Assist {
+public:
+    Sun(const char* assist_name, int num);
+    const char* get_type() override;
+    int get_num() { return num; }
+protected:
+    int num;
+    static const char* type;
+};
+
 

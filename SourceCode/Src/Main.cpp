@@ -37,7 +37,7 @@ int PASCAL WinMain(HINSTANCE hInstance,
 
 	// To do : 在此使用API更改窗口标题
 	CSystem::SetWindowTitle("PvZ");
-	CSystem::LoadMap("welcome.t2d");
+	//CSystem::LoadMap("welcome.t2d");
 
 	std::thread timer([&]() {
 		while (true) {
@@ -136,17 +136,32 @@ void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const floa
 
 	// 可以在此添加游戏需要的响应函数
 	if (iMouseType == MOUSE_LEFT) {
-		// 鼠标按下 选中植物卡
+
 		left_pressed = true;
 		selected_card = nullptr;
 		seed = nullptr;
-
 		// 赋值成功 执行if
 		if (selected_card = g_GameMain.get_sprite_by_position(fMouseX, fMouseY)) {
+			std::cout << selected_card->get_type() << std::endl;
+			if (selected_card->get_type() == "Sun") {
+				std::cout << "CLICK SUN" << std::endl;
+				Sun* sun = reinterpret_cast<Sun*>(selected_card);
+				sun->SpriteMoveTo(-43.275, -33.275, 100, true);
+				sun->SetSpriteLifeTime(1);
+				g_GameMain.add_sun(sun->get_num());
+
+				left_pressed = false;
+				selected_card = nullptr;
+				seed = nullptr;
+
+				return;
+			}
+
 			std::string type = selected_card->get_type();
 			std::cout << type.substr(type.size() - 4, 4) << std::endl;
 			// 后四位Card表示 植物卡
 			if (type.substr(type.size() - 4, 4) == "Card") {
+				// 鼠标按下 选中植物卡
 				std::cout << selected_card->get_type() << std::endl;
 				if (selected_card->get_type() == "PeaShooterCard") {
 					seed = g_GameMain.create_pea_shooter(fMouseX, fMouseY);
