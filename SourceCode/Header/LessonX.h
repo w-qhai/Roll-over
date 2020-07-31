@@ -44,6 +44,7 @@ private:
 	std::vector<CherryBomb*>		vec_cherry_bomb;
 	std::vector<Boom*>				vec_boom;
 	std::vector<Sun*>				vec_sun;
+	std::vector<WallNut*>			vec_wall_nut;
 
 	OrdinaryZombie* t_ord_zombie;
 	PeaShooter* t_pea_shooter;
@@ -53,11 +54,14 @@ private:
 	Sunflower* t_sunflower;
 	CherryBomb* t_cherry_bomb;
 	Sun* t_sun;
+	WallNut* t_wall_nut;
 
 	// 植物卡
 	PeaShooterCard* pea_shooter_card;
 	SunflowerCard* sunflower_card;
 	CherryBombCard* cherry_bomb_card;
+	WallNutCard* wall_nut_card;
+
 public:
 	CGameMain();            //构造函数
 	~CGameMain();           //析构函数  
@@ -79,6 +83,7 @@ public:
 	Plant*	create_pea_shooter(float x, float y);
 	Plant*	create_sunflower(float x, float y);
 	Plant*	create_cherry_bomb(float x, float y);
+	Plant*	create_wall_nut (float x, float y);
 	bool	planting(Plant* plant);
 	void	output_sun(int num = 25);	// 空值则由场景产出，否则为植物产出
 	void	add_sun(int num);

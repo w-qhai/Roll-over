@@ -57,3 +57,14 @@ private:
 };
 
 
+
+// 坚果 继承自植物基类
+class WallNut : public Plant {
+
+public:
+    WallNut(const char* plant_name);
+    virtual bool attacked_by(Zombie* zombie) override;
+    int attack(float delta_time) override; // 纯虚函数 坚果无攻击行为，所以是个空函数
+};
+
+

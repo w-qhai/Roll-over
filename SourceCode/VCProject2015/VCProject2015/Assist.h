@@ -53,4 +53,10 @@ protected:
     static const char* type;
 };
 
-
+class WallNutCard : public Assist {
+public:
+    WallNutCard(const char* assist_name);
+    const char* get_type() override;
+protected:
+    static const char* type;
+};

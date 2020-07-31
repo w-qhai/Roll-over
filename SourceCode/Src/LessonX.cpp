@@ -35,15 +35,18 @@ CGameMain::CGameMain() :
 	t_sunflower(new Sunflower("Sunflower", nullptr)),
 	t_boom(new Boom("Boom")),
 	t_cherry_bomb(new CherryBomb("CherryBomb", nullptr)),
+	t_wall_nut(new WallNut("WallNut")),
 
 	// 卡初始化
 	pea_shooter_card(new PeaShooterCard("PeaShooterCard")), // 虚手动加入map
 	sunflower_card(new SunflowerCard("SunflowerCard")),
-	cherry_bomb_card(new CherryBombCard("CherryBombCard"))
+	cherry_bomb_card(new CherryBombCard("CherryBombCard")),
+	wall_nut_card(new WallNutCard("WallNutCard"))
 {
 	name_to_sprite[pea_shooter_card->GetName()] = pea_shooter_card;
 	name_to_sprite[sunflower_card->GetName()] = sunflower_card;
 	name_to_sprite[cherry_bomb_card->GetName()] = cherry_bomb_card;
+	name_to_sprite[wall_nut_card->GetName()] = wall_nut_card;
 }
 //==============================================================================
 //
@@ -233,6 +236,17 @@ Plant* CGameMain::create_cherry_bomb(float x, float y) {
 	return cb;
 }
 
+Plant* CGameMain::create_wall_nut(float x, float y) {
+
+	WallNut* wn = new WallNut(CSystem::MakeSpriteName(t_wall_nut->GetName(), vec_wall_nut.size()));
+	vec_wall_nut.push_back(wn);
+	name_to_sprite[wn->GetName()] = wn;
+	wn->CloneSprite(t_wall_nut->GetName());
+	wn->SetSpritePosition(x, y);
+	wn->SetSpriteImmovable(true);
+	wn->set_exist(false);
+	return wn;
+}
 
 PvZSprite* CGameMain::get_sprite_by_position(float x, float y) {
 	for (std::pair<std::string, PvZSprite*> sprite : name_to_sprite) {

@@ -121,7 +121,7 @@ int Sunflower::attack(float delta_time) {
 /* --------------------------------------------------- */
 // 	樱桃炸弹 CherryBomb
 CherryBomb::CherryBomb(const char* plant_name, Boom* boom) :
-	Plant(plant_name, 1000, 2, 175),
+	Plant(plant_name, 1000, 2, 150),
 	boom(boom){
 
 }
@@ -133,10 +133,49 @@ int CherryBomb::attack(float delta_time) {
 			boom->set_exist(true);
 			boom->CloneSprite("Boom");
 			boom->SpriteMountToSprite(this->GetName(), 0, 0);
-			//this->AnimateSpritePlayAnimation("CherryBoomAnimation", false);
 			this->SetSpriteLifeTime(0.5);
 			next_attack = delta_time;
 		}
 	}
 	return 1;
+}
+
+/* --------------------------------------------------- */
+// 	坚果 WallNut
+WallNut::WallNut(const char* plant_name) :
+	Plant(plant_name, 4000, 2, 50)
+{
+
+}
+
+int WallNut::attack(float delta_time) {
+
+	return 0;
+}
+
+/// <summary>
+/// 植物被僵尸吃
+/// </summary>
+/// <param name="zombie">哪只僵尸</param>
+/// <returns>true:被咬死； false：还没被咬死</returns>
+bool WallNut::attacked_by(Zombie* zombie) {
+	std::string currentAnimation = this->GetAnimateSpriteAnimationName();
+	// 设置各个临界值不同的动画
+	if (this->health <= 1333) {
+		if (currentAnimation != "Wallnut3Animation") {
+			this->AnimateSpritePlayAnimation("Wallnut3Animation", false);
+		}
+	}
+	else if (this->health <= 2666) {
+		if (currentAnimation != "Wallnut2Animation") {
+			this->AnimateSpritePlayAnimation("Wallnut2Animation", false);
+		}
+	}
+	else if (this->health <= 4000) {
+		if (currentAnimation != "Wallnut1Animation") {
+			this->AnimateSpritePlayAnimation("Wallnut1Animation", false);
+		}
+	}
+	// 设置完动画 交给父类处理
+	return Plant::attacked_by(zombie);
 }

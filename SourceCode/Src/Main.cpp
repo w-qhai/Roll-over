@@ -173,6 +173,9 @@ void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const floa
 				else if (selected_card->get_type() == "CherryBombCard") {
 					seed = g_GameMain.create_cherry_bomb(fMouseX, fMouseY);
 				}
+				else if (selected_card->get_type() == "WallNutCard") {
+					seed = g_GameMain.create_wall_nut(fMouseX, fMouseY);
+				}
 				seed->SetSpriteColorAlpha(100);
 			}
 		}

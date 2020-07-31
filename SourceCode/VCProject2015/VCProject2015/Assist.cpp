@@ -76,3 +76,14 @@ const char* Sun::get_type() {
     return type;
 }
 
+/////////////////////
+const char* WallNutCard::type = "WallNutCard";
+WallNutCard::WallNutCard(const char* assist_name) :
+    Assist(assist_name)
+{
+
+}
+
+const char* WallNutCard::get_type() {
+    return type;
+}
