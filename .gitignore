@@ -36,7 +36,9 @@
 
 # dirs
 images/*
+audio/*
 .vs/
 Debug/
+tools/*/
 tools/*.gif
 tools/*.png
