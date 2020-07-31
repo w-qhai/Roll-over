@@ -3,7 +3,7 @@ const char* Assist::type = "Assist";
 Assist::Assist(const char* sprite_name) :
     PvZSprite(sprite_name)
 {
-
+    this->exist = true;
 }
 
 const char* Assist::get_type() {

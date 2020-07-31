@@ -235,9 +235,8 @@ Plant* CGameMain::create_cherry_bomb(float x, float y) {
 
 
 PvZSprite* CGameMain::get_sprite_by_position(float x, float y) {
-	std::cout << "CLICK:" << x << " " << y << std::endl;
 	for (std::pair<std::string, PvZSprite*> sprite : name_to_sprite) {
-		if (sprite.second->IsPointInSprite(x, y)) {
+		if (sprite.second->is_exist() && sprite.second->get_type() != "Range" && sprite.second->IsPointInSprite(x, y)) {
 			return sprite.second;
 		}
 	}
