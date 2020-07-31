@@ -35,8 +35,10 @@
 *.t2d
 
 # dirs
-images/*
-audio/*
+Bin/game/data/audio/
+Bin/game/data/images/
+
+
 .vs/
 Debug/
 tools/*/
