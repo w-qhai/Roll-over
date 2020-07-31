@@ -22,11 +22,21 @@ Plant::Plant(const char* sprite_name, double health, int attack_interval, int co
 bool Plant::attacked_by(Zombie* zombie) {
 	this->health -= zombie->get_power();
 	std::cout << this->health << std::endl;
+
 	if (this->health <= 0) {
+
+		// 本植物死亡，遍历正在咬植物的丧尸，恢复动作
+		this->change_zombie_animation();
+
 		this->DeleteSprite();
 		return true;
 	}
 	else {
+		// 正在咬植物，设置僵尸状态
+		zombie->set_eating_plant(this);
+		set_attack_zombie.insert(zombie);
+		zombie->set_status();
+
 		return false;
 	}
 }
@@ -41,6 +51,23 @@ void Plant::set_exist(bool exist) {
 	this->SetSpriteCollisionReceive(exist);
 	this->SetSpriteCollisionPhysicsReceive(exist);
 	this->SetSpriteCollisionPhysicsSend(exist);
+}
+
+void Plant::change_zombie_animation() {
+
+	for (std::set<Zombie*>::iterator it = this->set_attack_zombie.begin();
+		it != this->set_attack_zombie.end();
+		++it)
+	{
+		if ((*it)->is_exist()) {
+
+			(*it)->set_eating_plant(nullptr);
+			(*it)->set_status();
+		}
+	}
+
+	this->set_attack_zombie.clear();
+
 }
 
 /* --------------------------------------------------- */

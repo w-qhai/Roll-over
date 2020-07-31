@@ -22,6 +22,7 @@ public:
     bool is_eating();
     void set_eating(bool eating);
     void set_plant(Plant* plant);
+    void set_eating_plant(Plant* eating_plant);
     Plant* get_plant();
 protected:
     int health;
