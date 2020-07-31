@@ -33,6 +33,10 @@ Plant* Zombie::get_plant() {
     return eating_plant;
 }
 
+void Zombie::set_eating_plant(Plant* eating_plant) {
+        this->eating_plant = eating_plant;
+}
+
 /////////////////////////
 
 OrdinaryZombie::OrdinaryZombie(const char* zombie_name) : Zombie(zombie_name, 200, 4, 50)
@@ -105,24 +109,36 @@ OrdinaryZombie::~OrdinaryZombie() {
 }
 
 void OrdinaryZombie::set_status() {
-    if (this->health > 100) {
-        if (eating_plant && eating_plant->is_exist()) {
-            this->AnimateSpritePlayAnimation("ZombieAttackAnimation", false);
+        std::string currentAnimation = this->GetAnimateSpriteAnimationName();
+        if (this->health > 100) {
+                if (eating_plant && eating_plant->is_exist()) {
+                        if (currentAnimation != "ZombieAttackAnimation") {
+                                this->AnimateSpritePlayAnimation("ZombieAttackAnimation", false);
+
+                        }
+                }
+                else {
+                        if (currentAnimation != "OrdinaryZombieAnimation") {
+                                this->AnimateSpritePlayAnimation("OrdinaryZombieAnimation", false);
+                        }
+                }
         }
-        else {
-            this->AnimateSpritePlayAnimation("OrdinaryZombieAnimation", false);
+        else if (this->health <= 100) {
+                if (eating_plant && eating_plant->is_exist()) {
+                        if (currentAnimation != "ZombieLoseHeadAttackAnimation") {
+                                this->AnimateSpritePlayAnimation("ZombieLoseHeadAttackAnimation", false);
+                        }
+
+                        this->SetSpriteWidth(11.125);
+                        this->SetSpriteHeight(12.875);
+                }
+                else {
+                        if (currentAnimation != "ZombieLoseHeadAnimation") {
+                                this->AnimateSpritePlayAnimation("ZombieLoseHeadAnimation", false);
+                        }
+
+                        this->SetSpriteWidth(10.000);
+                        this->SetSpriteHeight(11.875);
+                }
         }
-    }
-    else if (this->health <= 100) {
-        if (eating_plant && eating_plant->is_exist()) {
-            this->AnimateSpritePlayAnimation("ZombieLoseHeadAttackAnimation", false);
-            this->SetSpriteWidth(11.125);
-            this->SetSpriteHeight(12.875);
-        }
-        else {
-            this->AnimateSpritePlayAnimation("ZombieLoseHeadAnimation", false);
-            this->SetSpriteWidth(10.000);
-            this->SetSpriteHeight(11.875);
-        }
-    }
 }

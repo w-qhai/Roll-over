@@ -15,12 +15,14 @@ public:
     const char* get_type() override;
     void set_exist(bool exist);
     int get_cost() { return cost; }
+    void change_zombie_animation();
 protected:
     double health;                      // 血量
     long double next_attack;            // 距离下次攻击时间
     const float attack_interval;        // 攻击间隔
     static const char* type;            // 类型
     int cost;                           // 消耗阳光
+    std::set<Zombie*> set_attack_zombie;    // 正在实施攻击的Zombie对象
 };
 
 // 豌豆射手 继承自植物基类

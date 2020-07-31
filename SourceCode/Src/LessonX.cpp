@@ -21,7 +21,7 @@ CGameMain		g_GameMain;
 CGameMain::CGameMain() :
 	m_iGameState(1),
 	timer(0),
-	sun_count(2000),
+	sun_count(20000),
 	sun_num(new CTextSprite("SunCount")),
 	game_map(new CSprite("background")),
 	ord_zombie_count(5),
