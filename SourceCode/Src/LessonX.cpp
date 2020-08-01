@@ -128,7 +128,7 @@ void CGameMain::GameRun(float fDeltaTime)
 	//CSprite welcome("welcome");
 	//welcome.SpriteMoveTo(-28.883, -23.750, 18, true);
 
-	if (fDeltaTime - timer > 6) {
+	if (fDeltaTime - timer > 2) {
 		create_ord_zombie(CSystem::RandomRange(0, 4));
 		timer = fDeltaTime;
 		output_sun();
@@ -260,25 +260,18 @@ Plant* CGameMain::create_wall_nut(float x, float y) {
 	return wn;
 }
 
-PvZSprite* CGameMain::get_sprite_by_position(float x, float y) {
+std::vector<PvZSprite*> CGameMain::get_sprites_by_position(float x, float y) {
 	std::cout << "CLICK:" << x << " " << y << std::endl;
+	std::vector<PvZSprite*> res;
 	for (std::pair<std::string, PvZSprite*> sprite : name_to_sprite) {
 		if (sprite.second->is_exist() && sprite.second->IsPointInSprite(x, y) && sprite.second->get_type() != "Range") {
-			// 如果没有选小铲子，那么点击的时候就不过滤小铲子
-			// 如果已经选了小铲子，那么就要过滤掉小铲子
-			if (Shovel::getSelected() == false) {
-				return sprite.second;
-			}
-			else {
-				if (sprite.second->get_type() != "Shovel") {
-
-					return sprite.second;
-				}
-			}
+			res.push_back(sprite.second);
 		}
 	}
-	return nullptr;
+	// 右值引用 可以提高效率
+	return std::move(res);
 }
+
 
 bool CGameMain::planting(Plant* plant) {
 	if (sun_count >= plant->get_cost()) {
@@ -296,13 +289,11 @@ void CGameMain::output_sun(int num) {
 	name_to_sprite[sun->GetName()] = sun;
 	sun->CloneSprite(t_sun->GetName());
 	
-
 	int pos_x = CSystem::RandomRange(CSystem::GetScreenLeft() + 5, CSystem::GetScreenRight() - 5);
 	int pos_y = CSystem::RandomRange(CSystem::GetScreenTop() + 10, CSystem::GetScreenBottom() - 5);
 
 	sun->SetSpritePosition(pos_x, CSystem::GetScreenTop() + 10);
 	sun->SpriteMoveTo(pos_x, pos_y, 15, true);
-
 
 	sun->set_exist(true);
 	sun->SetSpriteLifeTime(10);

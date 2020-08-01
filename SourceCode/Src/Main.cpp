@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <thread>
 #include <chrono>
+#include <functional>
 #undef min
 #undef max
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -17,10 +18,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 
 bool			left_pressed; // 鼠标左键是否按下
-int map_id = 0;				 // 当前地图 0:welcome; 1:menu; 2:关卡;
-PvZSprite* selected_card; // 选中的植物卡
-Plant* seed;
-Shovel* shovel; // 选中了小铲子
+int				map_id = 0;				 // 当前地图 0:welcome; 1:menu; 2:关卡
+Plant*			seed;		// 植物种子
+Shovel*			shovel; // 选中了小铲子
 long double 	fTimeDelta;
 int PASCAL WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
@@ -93,10 +93,12 @@ void CSystem::OnMouseMove(const float fMouseX, const float fMouseY)
 		break;
 	}
 	// 可以在此添加游戏需要的响应函数
-	if (left_pressed && selected_card && shovel) {
+	if (left_pressed && shovel) {
+		std::cout << "shovel move" << std::endl;
 		shovel->SetSpritePosition(fMouseX, fMouseY);
 	}
-	else if (left_pressed && selected_card && seed) {
+	else if (left_pressed && seed) {
+		std::cout << "seed move" << std::endl;
 		seed->SetSpritePosition(fMouseX, fMouseY);
 	}
 }
@@ -141,55 +143,56 @@ void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const floa
 	if (iMouseType == MOUSE_LEFT) {
 
 		left_pressed = true;
-		selected_card = nullptr;
 		seed = nullptr;
 		shovel = nullptr;
-		// 赋值成功 执行if
-		selected_card = g_GameMain.get_sprite_by_position(fMouseX, fMouseY);
-		std::cout << selected_card << std::endl;
-		if (selected_card) {
-			if (selected_card->get_type() == "Car")
-				return;
+		// selected_card = g_GameMain.get_sprite_by_position(fMouseX, fMouseY);
+		// 右值引用 提高效率
+		std::vector<PvZSprite*>&& sprites = g_GameMain.get_sprites_by_position(fMouseX, fMouseY);
 
-			if (selected_card->get_type() == "Shovel") {
-
-				shovel = reinterpret_cast<Shovel*>(selected_card);
-				Shovel::setSelected(true);
-
-			}
-			if (selected_card->get_type() == "Sun") {
-				Sun* sun = reinterpret_cast<Sun*>(selected_card);
+		for (const auto& sprite : sprites) {
+			// 选中的位置有太阳
+			if (sprite->get_type() == "Sun") {
+				Sun* sun = reinterpret_cast<Sun*>(sprite);
 				sun->SpriteMoveTo(-43.275, -33.275, 100, true);
 				sun->SetSpriteLifeTime(1);
 				g_GameMain.add_sun(sun->get_num());
 				sun->set_exist(false);
 
 				left_pressed = false;
-				selected_card = nullptr;
-				seed = nullptr;
-
-				return;
+				break;
 			}
 
-			std::string type = selected_card->get_type();
-			std::cout << type.substr(type.size() - 4, 4) << std::endl;
+			// 选中的位置有小车，不做任何事情
+			if (sprite->get_type() == "Car") {
+				continue;
+			}
+
+			// 选中铲子
+			if (sprite->get_type() == "Shovel") {
+				shovel = reinterpret_cast<Shovel*>(sprite);
+				break;
+			}
+
+			// 选中卡片
+			std::string type = sprite->get_type();
 			// 后四位Card表示 植物卡
 			if (type.substr(type.size() - 4, 4) == "Card") {
 				// 鼠标按下 选中植物卡
-				std::cout << selected_card->get_type() << std::endl;
-				if (selected_card->get_type() == "PeaShooterCard") {
+				std::cout << sprite->get_type() << std::endl;
+				if (sprite->get_type() == "PeaShooterCard") {
 					seed = g_GameMain.create_pea_shooter(fMouseX, fMouseY);
 				}
-				else if (selected_card->get_type() == "SunflowerCard") {
+				else if (sprite->get_type() == "SunflowerCard") {
 					seed = g_GameMain.create_sunflower(fMouseX, fMouseY);
 				}
-				else if (selected_card->get_type() == "CherryBombCard") {
+				else if (sprite->get_type() == "CherryBombCard") {
 					seed = g_GameMain.create_cherry_bomb(fMouseX, fMouseY);
 				}
-				else if (selected_card->get_type() == "WallNutCard") {
+				else if (sprite->get_type() == "WallNutCard") {
 					seed = g_GameMain.create_wall_nut(fMouseX, fMouseY);
 				}
 				seed->SetSpriteColorAlpha(100);
+				break;
 			}
 		}
 	}
@@ -201,60 +204,60 @@ void CSystem::OnMouseUp(const int iMouseType, const float fMouseX, const float f
 {
 	float x_slot[10] = { -39, -28.5, -18, -7.5, 2, 12, 22, 32, 43, 55 };
 	float y_slot[5] = { -17, -5, 9, 20, 32 };
-	if (iMouseType == MOUSE_LEFT) {
-		if (left_pressed && selected_card && seed) {
-			seed->SetSpriteColorAlpha(255);
 
-			// 确定位置
-			int x = 0, y = 0;
-			for (int i = 1; i < 10; i++) {
-				if (abs(fMouseX - x_slot[x]) > abs(fMouseX - x_slot[i])) {
-					x = i;
-				}
-			}
+	int x = 0, y = 0;
+	for (int i = 1; i < 10; i++) {
+		if (abs(fMouseX - x_slot[x]) > abs(fMouseX - x_slot[i])) {
+			x = i;
+		}
+	}
+	if (iMouseType == MOUSE_LEFT) {
+		// 确定位置
+		if (left_pressed && seed) {
 			for (int i = 1; i < 5; i++) {
 				if (abs(fMouseY - y_slot[y] + seed->GetSpriteHeight() / 2) > abs(fMouseY - y_slot[i] + seed->GetSpriteHeight() / 2)) {
 					y = i;
 				}
 			}
-			// 如果鼠标最后位置有植物
-			PvZSprite* sprite = g_GameMain.get_sprite_by_position(x_slot[x], y_slot[y] - seed->GetSpriteHeight() / 2);
-			if (sprite && sprite->is_exist()) {
-				seed->DeleteSprite();
+			std::vector<PvZSprite*>&& sprites = g_GameMain.get_sprites_by_position(x_slot[x], y_slot[y] - seed->GetSpriteHeight() / 2);
+			seed->SetSpriteColorAlpha(255);
+			bool planting = true;
+
+			// 如果位置中有植物 或 僵尸，则不能种
+			for (const auto& sprite : sprites) {
+				if (sprite->get_type() == "Plant" || sprite->get_type() == "Zombie") {
+					seed->DeleteSprite();
+					planting = false;
+					break;
+				}
+			}
+			if (planting && g_GameMain.planting(seed)) {
+				seed->SetSpritePosition(x_slot[x], y_slot[y] - seed->GetSpriteHeight() / 2);
+				seed->set_exist(true);
 			}
 			else {
-				if (g_GameMain.planting(seed)) {
-					seed->SetSpritePosition(x_slot[x], y_slot[y] - seed->GetSpriteHeight() / 2);
-					seed->set_exist(true);
-				}
-				else {
-					seed->DeleteSprite();
-				}
+				seed->DeleteSprite();
 			}
 		}
-		else if (left_pressed && selected_card && shovel) {
-			int x = 0, y = 0;
-			for (int i = 1; i < 10; i++) {
-				if (abs(fMouseX - x_slot[x]) > abs(fMouseX - x_slot[i])) {
-					x = i;
-				}
-			}
+		else if (left_pressed && shovel) {
 			for (int i = 1; i < 5; i++) {
 				if (abs(fMouseY - y_slot[y] + shovel->GetSpriteHeight() / 2) > abs(fMouseY - y_slot[i] + shovel->GetSpriteHeight() / 2)) {
 					y = i;
 				}
 			}
-			PvZSprite* sprite = g_GameMain.get_sprite_by_position(x_slot[x], y_slot[y] - shovel->GetSpriteHeight() / 2);
+			std::vector<PvZSprite*>&& sprites = g_GameMain.get_sprites_by_position(x_slot[x], y_slot[y] - shovel->GetSpriteHeight() / 2);
 
-			if (sprite && sprite->is_exist() && sprite->get_type() == "Plant") {
-				Plant* p = reinterpret_cast<Plant*>(sprite);
-				p->die();
+			// 位置上有植物 挖走
+			for (const auto& sprite : sprites) {
+				if (sprite->get_type() == "Plant") {
+					Plant* p = reinterpret_cast<Plant*>(sprite);
+					p->die();
+					break;
+				}
 			}
 			shovel->SetSpritePosition(12.093, -32.500);
-			Shovel::setSelected(false);
 		}
 		left_pressed = false;
-		selected_card = nullptr;
 		seed = nullptr;
 		shovel = nullptr;
 	}
@@ -288,6 +291,7 @@ void CSystem::OnSpriteColSprite(const char* szSrcName, const char* szTarName)
 
 	if (src && tar) {
 
+		// 小车启动
 		if (src->get_type() == "Car" && tar->get_type() == "Zombie") {
 
 			std::cout << "src:" << src->get_type() << "  tar:" << tar->get_type() << std::endl;

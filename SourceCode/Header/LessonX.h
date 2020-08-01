@@ -82,7 +82,7 @@ public:
 	void			GameRun( float fDeltaTime );
 	void			GameEnd();
 	PvZSprite* get_sprite_by_name(const std::string& sprite_name);
-	PvZSprite* get_sprite_by_position(float x, float y);
+	std::vector<PvZSprite*> get_sprites_by_position(float x, float y);
 	Zombie* create_ord_zombie(int y);
 	Car* create_car(float x, float y);
 	Plant*	create_pea_shooter(float x, float y);

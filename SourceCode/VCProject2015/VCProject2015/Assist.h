@@ -9,6 +9,7 @@ public:
 protected:
     static const char* type;
 };
+
 class Car : public Assist {
 public:
 	Car(const char* assist_name);
@@ -21,11 +22,8 @@ class Shovel : public Assist {
 public:
 	Shovel(const char* assist_name);
 	const char* get_type() override;
-	static void setSelected(bool);
-	static bool getSelected();
 protected:
 	static const char* type;
-	static bool isSelected;
 };
 
 class Range : public Assist {

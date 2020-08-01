@@ -41,7 +41,6 @@ const char* Car::get_type() {
 /////////////////////////
 
 const char* Shovel::type = "Shovel";
-bool Shovel::isSelected = false;
 Shovel::Shovel(const char* assist_name) :
 	Assist(assist_name)
 {
@@ -50,13 +49,6 @@ Shovel::Shovel(const char* assist_name) :
 
 const char* Shovel::get_type() {
 	return type;
-}
-
-void Shovel::setSelected(bool is) {
-	Shovel::isSelected = is;
-}
-bool Shovel::getSelected() {
-	return Shovel::isSelected;
 }
 /////////////////////////
 const char* PeaShooterCard::type = "PeaShooterCard";

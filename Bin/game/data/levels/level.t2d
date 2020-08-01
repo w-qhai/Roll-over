@@ -134,7 +134,7 @@
       sourceRect = "2.36011e-039 0 2.36011e-039 6.22921e-039";
       canSaveDynamicFields = "1";
       Position = "12.426 -32.500";
-      Layer = "19";
+      Layer = "2";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
          mountID = "10";
@@ -380,7 +380,7 @@
       imageMap = "WallNutCardImageMap";
       frame = "0";
       useSourceRect = "0";
-      sourceRect = "0 0 2.36011e-039 6.22921e-039";
+      sourceRect = "2.36011e-039 0 2.36011e-039 6.22921e-039";
       canSaveDynamicFields = "1";
       Position = "-20.000 -32.143";
       size = "6.000 8.500";
@@ -409,7 +409,7 @@
       imageMap = "carImageMap";
       frame = "0";
       useSourceRect = "0";
-      sourceRect = "0 0 0 0";
+      sourceRect = "0 0 2.36011e-039 6.22921e-039";
       canSaveDynamicFields = "1";
       Position = "39.209 -45.097";
       size = "8.417 6.717";
