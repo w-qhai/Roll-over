@@ -20,6 +20,7 @@ bool			left_pressed; // 鼠标左键是否按下
 int map_id = 0;				 // 当前地图 0:welcome; 1:menu; 2:关卡;
 PvZSprite* selected_card; // 选中的植物卡
 Plant* seed;
+Shovel* shovel; // 选中了小铲子
 long double 	fTimeDelta;
 int PASCAL WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
@@ -91,9 +92,11 @@ void CSystem::OnMouseMove(const float fMouseX, const float fMouseY)
 	default:
 		break;
 	}
-
 	// 可以在此添加游戏需要的响应函数
-	if (left_pressed && selected_card && seed) {
+	if (left_pressed && selected_card && shovel) {
+		shovel->SetSpritePosition(fMouseX, fMouseY);
+	}
+	else if (left_pressed && selected_card && seed) {
 		seed->SetSpritePosition(fMouseX, fMouseY);
 	}
 }
@@ -140,10 +143,20 @@ void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const floa
 		left_pressed = true;
 		selected_card = nullptr;
 		seed = nullptr;
+		shovel = nullptr;
 		// 赋值成功 执行if
 		selected_card = g_GameMain.get_sprite_by_position(fMouseX, fMouseY);
 		std::cout << selected_card << std::endl;
 		if (selected_card) {
+			if (selected_card->get_type() == "Car")
+				return;
+
+			if (selected_card->get_type() == "Shovel") {
+
+				shovel = reinterpret_cast<Shovel*>(selected_card);
+				Shovel::setSelected(true);
+
+			}
 			if (selected_card->get_type() == "Sun") {
 				Sun* sun = reinterpret_cast<Sun*>(selected_card);
 				sun->SpriteMoveTo(-43.275, -33.275, 100, true);
@@ -219,9 +232,31 @@ void CSystem::OnMouseUp(const int iMouseType, const float fMouseX, const float f
 				}
 			}
 		}
+		else if (left_pressed && selected_card && shovel) {
+			int x = 0, y = 0;
+			for (int i = 1; i < 10; i++) {
+				if (abs(fMouseX - x_slot[x]) > abs(fMouseX - x_slot[i])) {
+					x = i;
+				}
+			}
+			for (int i = 1; i < 5; i++) {
+				if (abs(fMouseY - y_slot[y] + shovel->GetSpriteHeight() / 2) > abs(fMouseY - y_slot[i] + shovel->GetSpriteHeight() / 2)) {
+					y = i;
+				}
+			}
+			PvZSprite* sprite = g_GameMain.get_sprite_by_position(x_slot[x], y_slot[y] - shovel->GetSpriteHeight() / 2);
+
+			if (sprite && sprite->is_exist() && sprite->get_type() == "Plant") {
+				Plant* p = reinterpret_cast<Plant*>(sprite);
+				p->die();
+			}
+			shovel->SetSpritePosition(12.093, -32.500);
+			Shovel::setSelected(false);
+		}
 		left_pressed = false;
 		selected_card = nullptr;
 		seed = nullptr;
+		shovel = nullptr;
 	}
 }
 //==========================================================================
@@ -252,6 +287,20 @@ void CSystem::OnSpriteColSprite(const char* szSrcName, const char* szTarName)
 
 
 	if (src && tar) {
+
+		if (src->get_type() == "Car" && tar->get_type() == "Zombie") {
+
+			std::cout << "src:" << src->get_type() << "  tar:" << tar->get_type() << std::endl;
+
+			Zombie* z = reinterpret_cast<Zombie*>(tar);  // 指针强转
+			Car* c = reinterpret_cast<Car*>(src);  // 指针强转
+
+			c->SetSpriteLinearVelocityX(25.0);
+
+			z->die(0);
+
+		}
+
 		// 僵尸进入攻击范围
 		if (src->get_type() == "Range" && tar->get_type() == "Zombie") {
 			// 转换成其父精灵的指针

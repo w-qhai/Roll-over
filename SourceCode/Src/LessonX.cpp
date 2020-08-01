@@ -36,7 +36,9 @@ CGameMain::CGameMain() :
 	t_boom(new Boom("Boom")),
 	t_cherry_bomb(new CherryBomb("CherryBomb", nullptr)),
 	t_wall_nut(new WallNut("WallNut")),
-
+	// 小车初始化
+	tool_car(new Car("Car")),
+	tool_shovel(new Shovel("Shovel")),
 	// 卡初始化
 	pea_shooter_card(new PeaShooterCard("PeaShooterCard")), // 虚手动加入map
 	sunflower_card(new SunflowerCard("SunflowerCard")),
@@ -47,6 +49,8 @@ CGameMain::CGameMain() :
 	name_to_sprite[sunflower_card->GetName()] = sunflower_card;
 	name_to_sprite[cherry_bomb_card->GetName()] = cherry_bomb_card;
 	name_to_sprite[wall_nut_card->GetName()] = wall_nut_card;
+	name_to_sprite[tool_shovel->GetName()] = tool_shovel;
+
 }
 //==============================================================================
 //
@@ -108,11 +112,11 @@ void CGameMain::GameInit()
 	load.SpriteMoveTo(0.75 + 41.5 / 2 - 6, 30.875 - 11.75 / 2 + 2.7, 10, true);
 	load.SetSpriteLifeTime(4);
 
-	//create_pea_shooter(-39, -5 + -17)->set_exist(true);
-	//create_pea_shooter(-39, -5 + -5)->set_exist(true);
-	//create_pea_shooter(-39, -5 + 9)->set_exist(true);
-	//create_pea_shooter(-39, -5 + 20)->set_exist(true);
-	//create_pea_shooter(-39, -5 + 32)->set_exist(true);
+	create_car(-47.5, -5 + -17)->set_exist(true);
+	create_car(-47.5, -5 + -5)->set_exist(true);
+	create_car(-47.5, -5 + 9)->set_exist(true);
+	create_car(-47.5, -5 + 20)->set_exist(true);
+	create_car(-47.5, -5 + 32)->set_exist(true);
 	sun_num->SetTextValue(sun_count);
 }
 //=============================================================================
@@ -148,7 +152,15 @@ PvZSprite* CGameMain::get_sprite_by_name(const std::string& sprite_name) {
 	}
 	return nullptr;
 }
+Car* CGameMain::create_car(float x, float y) {
+	Car* car = new Car(CSystem::MakeSpriteName("Car", vec_car.size()));
+	vec_car.push_back(car);
+	name_to_sprite[car->GetName()] = car;
 
+	car->CloneSprite(tool_car->GetName());
+	car->SetSpritePosition(x, y);
+	return car;
+}
 Zombie* CGameMain::create_ord_zombie(int y) {
 	float y_slot[5] = { -17, -5, 9, 20, 32 };
 	OrdinaryZombie* zombie = new OrdinaryZombie(CSystem::MakeSpriteName(t_ord_zombie->GetName(), vec_ord_zombie.size()));
@@ -249,9 +261,20 @@ Plant* CGameMain::create_wall_nut(float x, float y) {
 }
 
 PvZSprite* CGameMain::get_sprite_by_position(float x, float y) {
+	std::cout << "CLICK:" << x << " " << y << std::endl;
 	for (std::pair<std::string, PvZSprite*> sprite : name_to_sprite) {
-		if (sprite.second->is_exist() && sprite.second->get_type() != "Range" && sprite.second->IsPointInSprite(x, y)) {
-			return sprite.second;
+		if (sprite.second->is_exist() && sprite.second->IsPointInSprite(x, y) && sprite.second->get_type() != "Range") {
+			// 如果没有选小铲子，那么点击的时候就不过滤小铲子
+			// 如果已经选了小铲子，那么就要过滤掉小铲子
+			if (Shovel::getSelected() == false) {
+				return sprite.second;
+			}
+			else {
+				if (sprite.second->get_type() != "Shovel") {
+
+					return sprite.second;
+				}
+			}
 		}
 	}
 	return nullptr;

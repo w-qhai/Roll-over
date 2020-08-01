@@ -36,6 +36,7 @@ private:
 	int ord_zombie_count;
 
 	// 精灵容器
+	std::vector<Car*>               vec_car;
 	std::vector<OrdinaryZombie*>	vec_ord_zombie;
 	std::vector<Pea*>				vec_pea;
 	std::vector<PeaShooter*>		vec_pea_shooter;
@@ -45,6 +46,9 @@ private:
 	std::vector<Boom*>				vec_boom;
 	std::vector<Sun*>				vec_sun;
 	std::vector<WallNut*>			vec_wall_nut;
+	// 小车 铲子
+	Car* tool_car;
+	Shovel* tool_shovel;
 
 	OrdinaryZombie* t_ord_zombie;
 	PeaShooter* t_pea_shooter;
@@ -80,6 +84,7 @@ public:
 	PvZSprite* get_sprite_by_name(const std::string& sprite_name);
 	PvZSprite* get_sprite_by_position(float x, float y);
 	Zombie* create_ord_zombie(int y);
+	Car* create_car(float x, float y);
 	Plant*	create_pea_shooter(float x, float y);
 	Plant*	create_sunflower(float x, float y);
 	Plant*	create_cherry_bomb(float x, float y);

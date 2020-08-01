@@ -16,6 +16,7 @@ public:
     void set_exist(bool exist);
     int get_cost() { return cost; }
     void change_zombie_animation();
+    void die();
 protected:
     double health;                      // 血量
     long double next_attack;            // 距离下次攻击时间

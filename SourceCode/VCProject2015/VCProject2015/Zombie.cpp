@@ -86,12 +86,14 @@ void OrdinaryZombie::die(int power) {
     if (power < 1800) {
         this->SetSpriteWidth(20.625);
         this->SetSpriteHeight(10.625);
+        this->SetSpriteLinearVelocityX(0);
         this->AnimateSpritePlayAnimation("ZombieDieAnimation", false);
     }
     else {
         this->SetSpriteLinearVelocityX(0);
         this->SetSpriteWidth(9.875);
         this->SetSpriteHeight(14.125);
+        this->SetSpriteLinearVelocityX(0);
         this->AnimateSpritePlayAnimation("BoomDieAnimation", false);
     }
     this->SetSpriteCollisionActive(false, false);

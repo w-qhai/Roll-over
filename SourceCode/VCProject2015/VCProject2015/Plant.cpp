@@ -12,7 +12,11 @@ Plant::Plant(const char* sprite_name, double health, int attack_interval, int co
 	cost(cost) {
 
 }
+void Plant::die() {
+	this->change_zombie_animation();
 
+	this->DeleteSprite();
+}
 
 /// <summary>
 /// 植物被僵尸吃
@@ -26,9 +30,7 @@ bool Plant::attacked_by(Zombie* zombie) {
 	if (this->health <= 0) {
 
 		// 本植物死亡，遍历正在咬植物的丧尸，恢复动作
-		this->change_zombie_animation();
-
-		this->DeleteSprite();
+		this->die();
 		return true;
 	}
 	else {

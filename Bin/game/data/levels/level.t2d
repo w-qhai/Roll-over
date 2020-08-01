@@ -127,20 +127,17 @@
       LinkPoints = "0.000 0.000";
          mountID = "9";
    };
-   new t2dStaticSprite() {
+   new t2dStaticSprite(Shovel) {
       imageMap = "ShovelImageMap";
       frame = "0";
       useSourceRect = "0";
       sourceRect = "2.36011e-039 0 2.36011e-039 6.22921e-039";
       canSaveDynamicFields = "1";
-      Position = "11.940 -32.764";
+      Position = "12.426 -32.500";
       Layer = "19";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
-      MountOwned = "0";
-      MountInheritAttributes = "0";
          mountID = "10";
-         mountToID = "9";
    };
    new t2dStaticSprite() {
       imageMap = "SeedChooserImageMap";
@@ -239,7 +236,7 @@
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
       LinkPoints = "0.000 0.000";
-         mountID = "21";
+         mountID = "20";
    };
    new t2dStaticSprite(SunflowerCard) {
       imageMap = "SunflowerCardImageMap";
@@ -299,8 +296,8 @@
       WorldLimitMax = "50.000 37.500";
       MountOwned = "0";
       MountInheritAttributes = "0";
-         mountID = "22";
-         mountToID = "21";
+         mountID = "21";
+         mountToID = "20";
    };
    new t2dAnimatedSprite(Sunflower) {
       animationName = "SunflowerAnimation";
@@ -314,7 +311,7 @@
       CollisionPhysicsSend = "1";
       CollisionLayers = "-10";
       LinkPoints = "0.727 0.658";
-         mountID = "23";
+         mountID = "22";
    };
    new t2dAnimatedSprite(CherryBomb) {
       animationName = "CherryBombAnimation";
@@ -324,7 +321,7 @@
       Layer = "3";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
-         mountID = "24";
+         mountID = "23";
    };
    new t2dAnimatedSprite(Boom) {
       animationName = "CherryBoomAnimation";
@@ -336,7 +333,7 @@
       WorldLimitMax = "50.000 37.500";
       CollisionActiveSend = "1";
       CollisionLayers = "4";
-         mountID = "25";
+         mountID = "24";
    };
    new t2dStaticSprite(CherryBombCard) {
       frame = "0";
@@ -347,7 +344,7 @@
       size = "6.000 8.500";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
-         mountID = "20";
+         mountID = "25";
    };
    new t2dStaticSprite(background) {
       imageMap = "day_yard_bgImageMap1";
@@ -383,7 +380,7 @@
       imageMap = "WallNutCardImageMap";
       frame = "0";
       useSourceRect = "0";
-      sourceRect = "0 0 0 0";
+      sourceRect = "0 0 2.36011e-039 6.22921e-039";
       canSaveDynamicFields = "1";
       Position = "-20.000 -32.143";
       size = "6.000 8.500";
@@ -407,5 +404,19 @@
       CollisionPhysicsSend = "1";
       CollisionLayers = "-10";
          mountID = "27";
+   };
+   new t2dStaticSprite(Car) {
+      imageMap = "carImageMap";
+      frame = "0";
+      useSourceRect = "0";
+      sourceRect = "0 0 0 0";
+      canSaveDynamicFields = "1";
+      Position = "39.209 -45.097";
+      size = "8.417 6.717";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+      CollisionActiveSend = "1";
+      CollisionPhysicsReceive = "1";
+         mountID = "28";
    };
 };
