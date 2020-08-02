@@ -110,7 +110,7 @@
       CollisionPhysicsSend = "1";
       CollisionPhysicsReceive = "1";
       CollisionLayers = "-5";
-      CollisionPolyList = "-1.000 -0.329 1.000 -0.324 1.000 1.000 -1.000 1.000";
+      CollisionPolyList = "-0.756 -0.250 1.000 -0.260 1.000 1.000 -0.756 1.000";
          mountID = "8";
    };
    new t2dStaticSprite() {
@@ -133,8 +133,8 @@
       useSourceRect = "0";
       sourceRect = "2.36011e-039 0 2.36011e-039 6.22921e-039";
       canSaveDynamicFields = "1";
-      Position = "12.426 -32.500";
-      Layer = "2";
+      Position = "12.630 -32.500";
+      Layer = "19";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
          mountID = "10";
@@ -335,6 +335,17 @@
       CollisionLayers = "4";
          mountID = "24";
    };
+   new t2dStaticSprite(CherryBombCard) {
+      frame = "0";
+      useSourceRect = "0";
+      sourceRect = "2.36011e-039 0 2.36011e-039 6.22921e-039";
+      canSaveDynamicFields = "1";
+      Position = "0.000 -12.143";
+      size = "6.000 8.500";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+         mountID = "25";
+   };
    new t2dStaticSprite(background) {
       imageMap = "day_yard_bgImageMap1";
       frame = "0";
@@ -346,7 +357,7 @@
       Layer = "21";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
-         mountID = "25";
+         mountID = "26";
    };
    new t2dStaticSprite(CherryBombCard) {
       imageMap = "CherryBombCardImageMap";
@@ -392,7 +403,23 @@
       CollisionActiveReceive = "1";
       CollisionPhysicsSend = "1";
       CollisionLayers = "-10";
-         mountID = "26";
+         mountID = "27";
+   };
+   new t2dAnimatedSprite(BarricadeZombie) {
+      animationName = "BarricadeZombieAnimation";
+      canSaveDynamicFields = "1";
+      Position = "-44.563 46.500";
+      size = "10.875 18.000";
+      Layer = "2";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+      CollisionActiveSend = "1";
+      CollisionActiveReceive = "1";
+      CollisionPhysicsSend = "1";
+      CollisionPhysicsReceive = "1";
+      CollisionLayers = "-5";
+      CollisionPolyList = "-0.675 0.005 1.000 0.000 1.000 1.000 -0.667 0.997";
+         mountID = "28";
    };
    new t2dStaticSprite(Car) {
       imageMap = "carImageMap";
@@ -400,24 +427,28 @@
       useSourceRect = "0";
       sourceRect = "2.36011e-039 0 2.36011e-039 6.22921e-039";
       canSaveDynamicFields = "1";
-      Position = "39.209 -45.097";
-      size = "8.417 6.717";
+      Position = "40.625 -44.907";
+      size = "8.750 7.125";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
       CollisionActiveSend = "1";
       CollisionPhysicsReceive = "1";
-         mountID = "27";
+         mountID = "29";
    };
-   new t2dShapeVector(GrayMask) {
+   new t2dAnimatedSprite(BucketheadZombie) {
+      animationName = "BucketheadZombieAnimation";
       canSaveDynamicFields = "1";
-      Position = "28.000 -75.750";
-      size = "6.000 8.500";
+      Position = "-30.750 47.771";
+      size = "11.500 17.625";
+      Layer = "2";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
-      PolyList = "-1.000 -1.000 1.000 -1.000 1.000 1.000 -1.000 1.000";
-      LineColor = "1 1 1 0.784314";
-      fillColor = "1 1 1 0.784314";
-      FillMode = "1";
-         mountID = "28";
+      CollisionActiveSend = "1";
+      CollisionActiveReceive = "1";
+      CollisionPhysicsSend = "1";
+      CollisionPhysicsReceive = "1";
+      CollisionLayers = "-5";
+      CollisionPolyList = "-0.549 -0.005 1.000 0.005 1.000 1.000 -0.549 1.000";
+         mountID = "30";
    };
 };

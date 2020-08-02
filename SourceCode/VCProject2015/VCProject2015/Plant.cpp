@@ -145,7 +145,7 @@ int CherryBomb::attack(float delta_time) {
 /* --------------------------------------------------- */
 // 	¼á¹û WallNut
 WallNut::WallNut(const char* plant_name) :
-	Plant(plant_name, 4000, 2, 50)
+	Plant(plant_name, 100000, 2, 50)
 {
 
 }

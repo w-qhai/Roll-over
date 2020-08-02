@@ -38,6 +38,9 @@ private:
 	// ¾«ÁéÈÝÆ÷
 	std::vector<Car*>               vec_car;
 	std::vector<OrdinaryZombie*>	vec_ord_zombie;
+	std::vector<BarricadeZombie*>	vec_bar_zombie;
+	std::vector<BucketheadZombie*>	vec_buc_zombie;
+	
 	std::vector<Pea*>				vec_pea;
 	std::vector<PeaShooter*>		vec_pea_shooter;
 	std::vector<Range*>				vec_range;
@@ -53,6 +56,8 @@ private:
 	Shovel* tool_shovel;
 
 	OrdinaryZombie* t_ord_zombie;
+	BarricadeZombie* t_bar_zombie;
+	BucketheadZombie* t_buc_zombie;
 	PeaShooter* t_pea_shooter;
 	Pea* t_pea;
 	Boom* t_boom;
@@ -86,6 +91,10 @@ public:
 	PvZSprite* get_sprite_by_name(const std::string& sprite_name);
 	std::vector<PvZSprite*> get_sprites_by_position(float x, float y);
 	Zombie* create_ord_zombie(int y);
+	Zombie* create_bar_zombie(int y);
+	Zombie* create_buc_zombie(int y);
+
+	
 	Car* create_car(float x, float y);
 	Plant*	create_pea_shooter(float x, float y);
 	Plant*	create_sunflower(float x, float y);

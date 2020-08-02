@@ -180,7 +180,8 @@ void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const floa
 				// 鼠标按下 选中植物卡
 				card = reinterpret_cast<Card*>(sprite);
 				// 如果选中的卡 冷却完毕
-				if (card->ready(fTimeDelta)) {
+				//if (card->ready(fTimeDelta)) {
+				if(true){
 					if (sprite->get_type() == "PeaShooterCard") {
 						seed = g_GameMain.create_pea_shooter(fMouseX, fMouseY);
 					}

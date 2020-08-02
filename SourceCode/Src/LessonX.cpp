@@ -28,6 +28,8 @@ CGameMain::CGameMain() :
 
 	// Ä£°å³õÊ¼»¯
 	t_ord_zombie(new OrdinaryZombie("OrdinaryZombie")),
+	t_bar_zombie(new BarricadeZombie("BarricadeZombie")),
+	t_buc_zombie(new BucketheadZombie("BucketheadZombie")),
 	t_pea_shooter(new PeaShooter("PeaShooter", nullptr)),
 	t_pea(new Pea("Pea")),
 	t_range(new Range("AttackRange")),
@@ -135,6 +137,9 @@ void CGameMain::GameInit()
 	create_car(-47.5, -5 + 9)->set_exist(true);
 	create_car(-47.5, -5 + 20)->set_exist(true);
 	create_car(-47.5, -5 + 32)->set_exist(true);
+
+	create_buc_zombie(1);
+
 	sun_num->SetTextValue(sun_count);
 }
 //=============================================================================
@@ -146,8 +151,12 @@ void CGameMain::GameRun(float fDeltaTime)
 	//CSprite welcome("welcome");
 	//welcome.SpriteMoveTo(-28.883, -23.750, 18, true);
 
-	if (fDeltaTime - timer > 2) {
-		create_ord_zombie(CSystem::RandomRange(0, 4));
+	
+
+
+	if (fDeltaTime - timer > 10) {
+		create_buc_zombie(1);
+		
 		timer = fDeltaTime;
 		output_sun();
 	}
@@ -183,12 +192,42 @@ Car* CGameMain::create_car(float x, float y) {
 	car->SetSpritePosition(x, y);
 	return car;
 }
+
+
 Zombie* CGameMain::create_ord_zombie(int y) {
 	float y_slot[5] = { -17, -5, 9, 20, 32 };
 	OrdinaryZombie* zombie = new OrdinaryZombie(CSystem::MakeSpriteName(t_ord_zombie->GetName(), vec_ord_zombie.size()));
 	vec_ord_zombie.push_back(zombie);
 	name_to_sprite[zombie->GetName()] = zombie;
 	zombie->CloneSprite(t_ord_zombie->GetName());
+	zombie->set_exist(true);
+	zombie->SetSpritePosition(CSystem::GetScreenRight(), y_slot[y] - zombie->GetSpriteHeight() / 2);
+	zombie->move();
+
+	return zombie;
+}
+//BarricadeZombie
+Zombie* CGameMain::create_bar_zombie(int y) {
+	float y_slot[5] = { -17, -5, 9, 20, 32 };
+	BarricadeZombie* zombie = new BarricadeZombie(CSystem::MakeSpriteName(t_bar_zombie->GetName(), vec_bar_zombie.size()));
+	vec_bar_zombie.push_back(zombie);
+	name_to_sprite[zombie->GetName()] = zombie;
+	zombie->CloneSprite(t_bar_zombie->GetName());
+	zombie->set_exist(true);
+	zombie->SetSpritePosition(CSystem::GetScreenRight(), y_slot[y] - zombie->GetSpriteHeight() / 2);
+	zombie->move();
+
+	return zombie;
+}
+
+
+//BucketheadZombie
+Zombie* CGameMain::create_buc_zombie(int y) {
+	float y_slot[5] = { -17, -5, 9, 20, 32 };
+	BucketheadZombie* zombie = new BucketheadZombie(CSystem::MakeSpriteName(t_buc_zombie->GetName(), vec_buc_zombie.size()));
+	vec_buc_zombie.push_back(zombie);
+	name_to_sprite[zombie->GetName()] = zombie;
+	zombie->CloneSprite(t_buc_zombie->GetName());
 	zombie->set_exist(true);
 	zombie->SetSpritePosition(CSystem::GetScreenRight(), y_slot[y] - zombie->GetSpriteHeight() / 2);
 	zombie->move();

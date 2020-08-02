@@ -47,3 +47,32 @@ public:
     double  get_power() override;
     void set_status() override;
 };
+
+
+class BarricadeZombie : public Zombie {
+public:
+	BarricadeZombie(const char* zombie_name);
+	~BarricadeZombie();
+	void move() override;
+	void stop() override;
+	void eat_plant(Plant* plant, long double delta_time) override;
+	void die(int power) override;
+	void attacked_by(Arms* arm) override;
+	double  get_power() override;
+	void set_status() override;
+};
+
+
+
+class BucketheadZombie : public Zombie {
+public:
+	BucketheadZombie(const char* zombie_name);
+	~BucketheadZombie();
+	void move() override;
+	void stop() override;
+	void eat_plant(Plant* plant, long double delta_time) override;
+	void die(int power) override;
+	void attacked_by(Arms* arm) override;
+	double  get_power() override;
+	void set_status() override;
+};
