@@ -46,6 +46,8 @@ private:
 	std::vector<Boom*>				vec_boom;
 	std::vector<Sun*>				vec_sun;
 	std::vector<WallNut*>			vec_wall_nut;
+	std::vector<Card*>				vec_card;
+
 	// 小车 铲子
 	Car* tool_car;
 	Shovel* tool_shovel;
@@ -89,6 +91,7 @@ public:
 	Plant*	create_sunflower(float x, float y);
 	Plant*	create_cherry_bomb(float x, float y);
 	Plant*	create_wall_nut (float x, float y);
+	void create_gray_mask(Card* card);
 	bool	planting(Plant* plant);
 	void	output_sun(int num = 25);	// 空值则由场景产出，否则为植物产出
 	void	add_sun(int num);

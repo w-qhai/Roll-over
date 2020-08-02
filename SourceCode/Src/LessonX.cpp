@@ -46,11 +46,18 @@ CGameMain::CGameMain() :
 	wall_nut_card(new WallNutCard("WallNutCard"))
 {
 	name_to_sprite[pea_shooter_card->GetName()] = pea_shooter_card;
-	name_to_sprite[sunflower_card->GetName()] = sunflower_card;
-	name_to_sprite[cherry_bomb_card->GetName()] = cherry_bomb_card;
-	name_to_sprite[wall_nut_card->GetName()] = wall_nut_card;
-	name_to_sprite[tool_shovel->GetName()] = tool_shovel;
+	vec_card.push_back(pea_shooter_card);
 
+	name_to_sprite[sunflower_card->GetName()] = sunflower_card;
+	vec_card.push_back(sunflower_card);
+	
+	name_to_sprite[cherry_bomb_card->GetName()] = cherry_bomb_card;
+	vec_card.push_back(cherry_bomb_card);
+	
+	name_to_sprite[wall_nut_card->GetName()] = wall_nut_card;
+	vec_card.push_back(wall_nut_card);
+
+	name_to_sprite[tool_shovel->GetName()] = tool_shovel;
 }
 //==============================================================================
 //
@@ -103,6 +110,17 @@ void CGameMain::GameMainLoop(float	fDeltaTime)
 // 每局开始前进行初始化，清空上一局相关数据
 void CGameMain::GameInit()
 {
+	//pea_shooter_card(new PeaShooterCard("PeaShooterCard")), // 虚手动加入map
+	//sunflower_card(new SunflowerCard("SunflowerCard")),
+	//(new CherryBombCard("CherryBombCard")),
+	//wall_nut_card(new WallNutCard("WallNutCard"))
+	create_gray_mask(pea_shooter_card);
+	create_gray_mask(sunflower_card);
+	create_gray_mask(cherry_bomb_card);
+	create_gray_mask(wall_nut_card);
+
+
+
 	// welcome.t2d
 	CSprite title("Title");
 	title.SpriteMoveTo(-0.909, -27.080, 18, true);
@@ -136,6 +154,10 @@ void CGameMain::GameRun(float fDeltaTime)
 
 	for (Sunflower* sunflower : vec_sunflower) {
 		sunflower->attack(fDeltaTime);
+	}
+
+	for (Card* card : vec_card) {
+		card->ready(fDeltaTime);
 	}
 }
 //=============================================================================
@@ -260,6 +282,15 @@ Plant* CGameMain::create_wall_nut(float x, float y) {
 	return wn;
 }
 
+void CGameMain::create_gray_mask(Card* card) {
+	CSprite* gray_mask;
+	std::string name = std::string(card->GetName()) + "Mask";
+	gray_mask = new CSprite(name.c_str(), "GrayMask");
+	gray_mask->SetSpritePosition(card->GetSpritePositionX(), card->GetSpritePositionY());
+	gray_mask->SpriteMountToSprite(card->GetName(), 0, 0);
+	card->set_mask(gray_mask);
+}
+
 std::vector<PvZSprite*> CGameMain::get_sprites_by_position(float x, float y) {
 	std::cout << "CLICK:" << x << " " << y << std::endl;
 	std::vector<PvZSprite*> res;
@@ -275,7 +306,6 @@ std::vector<PvZSprite*> CGameMain::get_sprites_by_position(float x, float y) {
 
 bool CGameMain::planting(Plant* plant) {
 	if (sun_count >= plant->get_cost()) {
-		std::cout << "plant" << std::endl;
 		sun_count -= plant->get_cost();
 		sun_num->SetTextValue(sun_count);
 		return true;
@@ -303,3 +333,4 @@ void CGameMain::add_sun(int num) {
 	sun_count += num;
 	sun_num->SetTextValue(sun_count);
 }
+

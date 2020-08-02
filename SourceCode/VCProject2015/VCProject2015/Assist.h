@@ -10,6 +10,7 @@ protected:
     static const char* type;
 };
 
+// 小车 
 class Car : public Assist {
 public:
 	Car(const char* assist_name);
@@ -18,6 +19,7 @@ protected:
 	static const char* type;
 };
 
+// 铲子
 class Shovel : public Assist {
 public:
 	Shovel(const char* assist_name);
@@ -26,6 +28,7 @@ protected:
 	static const char* type;
 };
 
+// 攻击范围
 class Range : public Assist {
 public:
     Range(const char* assist_name);
@@ -34,30 +37,7 @@ protected:
     static const char* type;
 };
 
-class PeaShooterCard : public Assist {
-public:
-    PeaShooterCard(const char* assist_name);
-    const char* get_type() override;
-protected:
-    static const char* type;
-};
-
-class SunflowerCard : public Assist {
-public:
-    SunflowerCard(const char* assist_name);
-    const char* get_type() override;
-protected:
-    static const char* type;
-};
-
-class CherryBombCard : public Assist {
-public:
-    CherryBombCard(const char* assist_name);
-    const char* get_type() override;
-protected:
-    static const char* type;
-};
-
+// 太阳
 class Sun : public Assist {
 public:
     Sun(const char* assist_name, int num);
@@ -68,9 +48,50 @@ protected:
     static const char* type;
 };
 
-class WallNutCard : public Assist {
+// 植物卡
+class Card : public Assist {
 public:
-    WallNutCard(const char* assist_name);
+    Card(const char* assist_name, double cooldownk);
+    const char* get_type() override;
+    bool ready(long double now);
+    void plant_time(long double now);
+    void set_mask(CSprite* mask);
+protected:
+    const double cooldown;          // 冷却时间
+    double pre_select;              // 上次选择的时间 用于计算时间差
+    CSprite* gray_mask;
+    static const char* type;
+};
+
+class PeaShooterCard : public Card {
+public:
+    PeaShooterCard(const char* card_name);
+    const char* get_type() override;
+
+protected:
+    static const char* type;
+};
+
+class SunflowerCard : public Card {
+public:
+    SunflowerCard(const char* card_name);
+    const char* get_type() override;
+protected:
+    static const char* type;
+};
+
+class CherryBombCard : public Card {
+public:
+    CherryBombCard(const char* card_name);
+    const char* get_type() override;
+protected:
+    static const char* type;
+};
+
+
+class WallNutCard : public Card {
+public:
+    WallNutCard(const char* card_name);
     const char* get_type() override;
 protected:
     static const char* type;

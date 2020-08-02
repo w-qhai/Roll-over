@@ -19,6 +19,7 @@
 
 bool			left_pressed; // 鼠标左键是否按下
 int				map_id = 0;				 // 当前地图 0:welcome; 1:menu; 2:关卡
+Card*			card;		// 植物卡
 Plant*			seed;		// 植物种子
 Shovel*			shovel; // 选中了小铲子
 long double 	fTimeDelta;
@@ -94,11 +95,9 @@ void CSystem::OnMouseMove(const float fMouseX, const float fMouseY)
 	}
 	// 可以在此添加游戏需要的响应函数
 	if (left_pressed && shovel) {
-		std::cout << "shovel move" << std::endl;
 		shovel->SetSpritePosition(fMouseX, fMouseY);
 	}
 	else if (left_pressed && seed) {
-		std::cout << "seed move" << std::endl;
 		seed->SetSpritePosition(fMouseX, fMouseY);
 	}
 }
@@ -143,6 +142,7 @@ void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const floa
 	if (iMouseType == MOUSE_LEFT) {
 
 		left_pressed = true;
+		card = nullptr;
 		seed = nullptr;
 		shovel = nullptr;
 		// selected_card = g_GameMain.get_sprite_by_position(fMouseX, fMouseY);
@@ -178,20 +178,28 @@ void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const floa
 			// 后四位Card表示 植物卡
 			if (type.substr(type.size() - 4, 4) == "Card") {
 				// 鼠标按下 选中植物卡
-				std::cout << sprite->get_type() << std::endl;
-				if (sprite->get_type() == "PeaShooterCard") {
-					seed = g_GameMain.create_pea_shooter(fMouseX, fMouseY);
+				card = reinterpret_cast<Card*>(sprite);
+				// 如果选中的卡 冷却完毕
+				if (card->ready(fTimeDelta)) {
+					if (sprite->get_type() == "PeaShooterCard") {
+						seed = g_GameMain.create_pea_shooter(fMouseX, fMouseY);
+					}
+					else if (sprite->get_type() == "SunflowerCard") {
+						seed = g_GameMain.create_sunflower(fMouseX, fMouseY);
+					}
+					else if (sprite->get_type() == "CherryBombCard") {
+						seed = g_GameMain.create_cherry_bomb(fMouseX, fMouseY);
+					}
+					else if (sprite->get_type() == "WallNutCard") {
+						seed = g_GameMain.create_wall_nut(fMouseX, fMouseY);
+					}
+					std::cout << card->GetName() << " ready" << std::endl;
+					seed->SetSpriteColorAlpha(100);
 				}
-				else if (sprite->get_type() == "SunflowerCard") {
-					seed = g_GameMain.create_sunflower(fMouseX, fMouseY);
+				else {
+					std::cout << card->GetName() << " not ready" << std::endl;
+					card = nullptr;
 				}
-				else if (sprite->get_type() == "CherryBombCard") {
-					seed = g_GameMain.create_cherry_bomb(fMouseX, fMouseY);
-				}
-				else if (sprite->get_type() == "WallNutCard") {
-					seed = g_GameMain.create_wall_nut(fMouseX, fMouseY);
-				}
-				seed->SetSpriteColorAlpha(100);
 				break;
 			}
 		}
@@ -213,7 +221,7 @@ void CSystem::OnMouseUp(const int iMouseType, const float fMouseX, const float f
 	}
 	if (iMouseType == MOUSE_LEFT) {
 		// 确定位置
-		if (left_pressed && seed) {
+		if (left_pressed && seed && card) {
 			for (int i = 1; i < 5; i++) {
 				if (abs(fMouseY - y_slot[y] + seed->GetSpriteHeight() / 2) > abs(fMouseY - y_slot[i] + seed->GetSpriteHeight() / 2)) {
 					y = i;
@@ -226,14 +234,15 @@ void CSystem::OnMouseUp(const int iMouseType, const float fMouseX, const float f
 			// 如果位置中有植物 或 僵尸，则不能种
 			for (const auto& sprite : sprites) {
 				if (sprite->get_type() == "Plant" || sprite->get_type() == "Zombie") {
-					seed->DeleteSprite();
 					planting = false;
 					break;
 				}
 			}
-			if (planting && g_GameMain.planting(seed)) {
+
+			if (planting && g_GameMain.planting(seed) && card) {
 				seed->SetSpritePosition(x_slot[x], y_slot[y] - seed->GetSpriteHeight() / 2);
 				seed->set_exist(true);
+				card->plant_time(fTimeDelta);
 			}
 			else {
 				seed->DeleteSprite();
