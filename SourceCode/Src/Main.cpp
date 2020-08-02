@@ -233,8 +233,18 @@ void CSystem::OnMouseUp(const int iMouseType, const float fMouseX, const float f
 
 			// 如果位置中有植物 或 僵尸，则不能种
 			for (const auto& sprite : sprites) {
-				if (sprite->get_type() == "Plant" || sprite->get_type() == "Zombie") {
+				if (sprite->get_type() == "Plant") {
 					planting = false;
+					break;
+				}
+
+				if (sprite->get_type() == "Plant") {
+					if (card->get_type() == "CherryBombCard") {
+						planting = true;
+					}
+					else {
+						planting = false;
+					}
 					break;
 				}
 			}
