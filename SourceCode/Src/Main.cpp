@@ -238,7 +238,7 @@ void CSystem::OnMouseUp(const int iMouseType, const float fMouseX, const float f
 					break;
 				}
 
-				if (sprite->get_type() == "Plant") {
+				if (sprite->get_type() == "Zombie") {
 					if (card->get_type() == "CherryBombCard") {
 						planting = true;
 					}
