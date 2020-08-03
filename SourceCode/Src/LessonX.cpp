@@ -31,6 +31,7 @@ CGameMain::CGameMain() :
 	t_bar_zombie(new BarricadeZombie("BarricadeZombie")),
 	t_buc_zombie(new BucketheadZombie("BucketheadZombie")),
 	t_new_zombie(new NewspaperZombie("NewspaperZombie")),
+	t_fot_zombie(new FootballZombie("FootballZombie")),
 	t_pea_shooter(new PeaShooter("PeaShooter", nullptr)),
 	t_pea(new Pea("Pea")),
 	t_range(new Range("AttackRange")),
@@ -144,8 +145,8 @@ void CGameMain::GameInit()
 	create_car(-47.5, -5 + 9)->set_exist(true);
 	create_car(-47.5, -5 + 20)->set_exist(true);
 	create_car(-47.5, -5 + 32)->set_exist(true);
-
-
+	create_fot_zombie(1);
+	create_fot_zombie(2);
 	sun_num->SetTextValue(sun_count);
 }
 //=============================================================================
@@ -162,16 +163,6 @@ void CGameMain::GameRun(float fDeltaTime)
 
 	if (fDeltaTime - timer > 4) {
 
-
-
-		int a = CSystem::RandomRange(0, 2);
-		
-		if (a == 0)
-			create_ord_zombie(CSystem::RandomRange(0, 4));
-		else if(a == 1)
-			create_bar_zombie(CSystem::RandomRange(0, 4));
-		else
-			create_new_zombie(CSystem::RandomRange(0, 4));
 		
 		timer = fDeltaTime;
 		output_sun();
@@ -275,6 +266,19 @@ Zombie* CGameMain::create_new_zombie(int y) {
 	vec_new_zombie.push_back(zombie);
 	name_to_sprite[zombie->GetName()] = zombie;
 	zombie->CloneSprite(t_new_zombie->GetName());
+	zombie->set_exist(true);
+	zombie->SetSpritePosition(CSystem::GetScreenRight(), y_slot[y] - zombie->GetSpriteHeight() / 2);
+	zombie->move();
+
+	return zombie;
+}
+
+Zombie* CGameMain::create_fot_zombie(int y) {
+	float y_slot[5] = { -17, -5, 9, 20, 32 };
+	FootballZombie* zombie = new FootballZombie(CSystem::MakeSpriteName(t_fot_zombie->GetName(), vec_fot_zombie.size()));
+	vec_fot_zombie.push_back(zombie);
+	name_to_sprite[zombie->GetName()] = zombie;
+	zombie->CloneSprite(t_fot_zombie->GetName());
 	zombie->set_exist(true);
 	zombie->SetSpritePosition(CSystem::GetScreenRight(), y_slot[y] - zombie->GetSpriteHeight() / 2);
 	zombie->move();

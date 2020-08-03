@@ -99,7 +99,7 @@
    new t2dAnimatedSprite(OrdinaryZombie) {
       animationName = "OrdinaryZombieAnimation";
       canSaveDynamicFields = "1";
-      Position = "-59.563 48.799";
+      Position = "-60.437 53.912";
       size = "10.875 15.500";
       SortPoint = "0.165 0.754";
       Layer = "2";
@@ -408,7 +408,7 @@
    new t2dAnimatedSprite(BarricadeZombie) {
       animationName = "BarricadeZombieAnimation";
       canSaveDynamicFields = "1";
-      Position = "-44.563 46.500";
+      Position = "-44.563 51.773";
       size = "10.875 18.000";
       Layer = "2";
       WorldLimitMin = "-50.000 -37.500";
@@ -438,7 +438,7 @@
    new t2dAnimatedSprite(BucketheadZombie) {
       animationName = "BucketheadZombieAnimation";
       canSaveDynamicFields = "1";
-      Position = "-30.750 47.771";
+      Position = "-30.750 53.044";
       size = "11.500 17.625";
       Layer = "2";
       WorldLimitMin = "-50.000 -37.500";
@@ -454,7 +454,7 @@
    new t2dAnimatedSprite(NewspaperZombie) {
       animationName = "NewspaperZombieAnimation";
       canSaveDynamicFields = "1";
-      Position = "-11.000 47.541";
+      Position = "-11.000 52.814";
       size = "12.000 17.125";
       Layer = "2";
       WorldLimitMin = "-50.000 -37.500";
@@ -470,10 +470,26 @@
    new t2dAnimatedSprite() {
       animationName = "NewspaperZombieCrazyAnimation";
       canSaveDynamicFields = "1";
-      Position = "3.688 46.500";
+      Position = "3.688 51.773";
       size = "12.625 17.000";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
          mountID = "32";
+   };
+   new t2dAnimatedSprite(FootballZombie) {
+      animationName = "FootballZombieAnimation";
+      canSaveDynamicFields = "1";
+      Position = "22.295 50.000";
+      size = "19.250 20.000";
+      Layer = "2";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+      CollisionActiveSend = "1";
+      CollisionActiveReceive = "1";
+      CollisionPhysicsSend = "1";
+      CollisionPhysicsReceive = "1";
+      CollisionLayers = "-5";
+      CollisionPolyList = "-0.464 0.015 0.985 0.005 1.000 1.000 -0.464 1.000";
+         mountID = "33";
    };
 };
