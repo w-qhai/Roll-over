@@ -198,11 +198,9 @@ void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const floa
 					else if (sprite->get_type() == "WallNutCard") {
 						seed = g_GameMain.create_wall_nut(fMouseX, fMouseY);
 					}
-					std::cout << card->GetName() << " ready" << std::endl;
 					seed->SetSpriteColorAlpha(100);
 				}
 				else {
-					std::cout << card->GetName() << " not ready" << std::endl;
 					card = nullptr;
 				}
 				break;
