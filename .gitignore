@@ -32,7 +32,6 @@
 
 *.log
 *.dso
-*.t2d
 
 # dirs
 Bin/game/data/audio/
