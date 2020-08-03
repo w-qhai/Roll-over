@@ -40,7 +40,7 @@ void Zombie::set_eating_plant(Plant* eating_plant) {
 /////////////////////////
 // ÆÕÍ¨½©Ê¬
 
-OrdinaryZombie::OrdinaryZombie(const char* zombie_name) : Zombie(zombie_name, 200, 4, 50)
+OrdinaryZombie::OrdinaryZombie(const char* zombie_name) : Zombie(zombie_name, 200, 3, 50)
 {
 
 }
@@ -151,7 +151,7 @@ void OrdinaryZombie::set_status() {
 /////////////////////////
 // Â·ÕÏ½©Ê¬
 
-BarricadeZombie::BarricadeZombie(const char* zombie_name) : Zombie(zombie_name, 640, 4, 50)
+BarricadeZombie::BarricadeZombie(const char* zombie_name) : Zombie(zombie_name, 640, 3, 50)
 {
 
 }
@@ -298,7 +298,7 @@ void BarricadeZombie::set_status() {
 /////////////////////////
 // ÌúÍ°½©Ê¬
 
-BucketheadZombie::BucketheadZombie(const char* zombie_name) : Zombie(zombie_name, 1370, 4, 50)
+BucketheadZombie::BucketheadZombie(const char* zombie_name) : Zombie(zombie_name, 1370, 3, 50)
 {
 
 }
@@ -433,6 +433,175 @@ void BucketheadZombie::set_status() {
 
                                 this->SetSpriteWidth(10.000);
                                 this->SetSpriteHeight(11.875);
+                                float currentPositionY = this->GetSpritePositionY();
+                                this->SetSpritePositionY(currentPositionY + 1);
+                        }
+
+                }
+        }
+}
+
+
+/////////////////////////
+// ¶þ´óÒ¯
+
+NewspaperZombie::NewspaperZombie(const char* zombie_name) : Zombie(zombie_name, 450, 3, 50)
+{
+        this->hasnewspaper = true;
+}
+
+/// <summary>
+/// ÈÃ½©Ê¬¿ªÊ¼ÒÆ¶¯
+/// </summary>
+void NewspaperZombie::move() {
+        this->eating = false;
+        this->set_status();
+        this->SetSpriteLinearVelocityX(-this->move_speed);
+}
+
+void NewspaperZombie::stop() {
+        this->set_status();
+        this->SetSpriteLinearVelocityX(0);
+}
+
+void NewspaperZombie::eat_plant(Plant* plant, long double delta_time) {
+        if (delta_time - next_attack > attack_interval) {
+                std::cout << "eating" << std::endl;
+                plant->attacked_by(this);
+                next_attack = delta_time;
+        }
+}
+
+
+
+void NewspaperZombie::attacked_by(Arms* arms) {
+        this->health -= arms->get_power();
+
+        std::cout << "±¨Ö½½©Ê¬µ±Ç°ÑªÁ¿£º" << this->health << std::endl;
+
+        if (this->health <= 0) {
+                this->die(arms->get_power());
+        }
+        else {
+                this->set_status();
+        }
+        arms->after_hit();
+}
+
+/// <summary>
+/// ±»»÷µ¹ºó
+/// </summary>
+void NewspaperZombie::die(int power) {
+        if (power < 1800) {
+                this->SetSpriteWidth(20.625);
+                this->SetSpriteHeight(10.625);
+                this->SetSpriteLinearVelocityX(0);
+                this->AnimateSpritePlayAnimation("NewspaperZombieDieAnimation", false);
+        }
+        else {
+                this->SetSpriteLinearVelocityX(0);
+                this->SetSpriteWidth(9.875);
+                this->SetSpriteHeight(14.125);
+                this->SetSpriteLinearVelocityX(0);
+                this->AnimateSpritePlayAnimation("BoomDieAnimation", false);
+        }
+        this->SetSpriteCollisionActive(false, false);
+        // ²¥·ÅËÀÍö¶¯»­
+        this->SetSpriteLifeTime(1);
+        exist = false;
+}
+
+double NewspaperZombie::get_power() {
+        return power;
+}
+
+NewspaperZombie::~NewspaperZombie() {
+        
+}
+
+void NewspaperZombie::set_status() {
+        std::string currentAnimation = this->GetAnimateSpriteAnimationName();
+        float currentPositionY = this->GetSpritePositionY();
+        if (this->health > 350) {
+                if (eating_plant && eating_plant->is_exist()) {
+                        if (currentAnimation != "NewspaperZombieAttackAnimation") {
+                                this->AnimateSpritePlayAnimation("NewspaperZombieAttackAnimation", false);
+                                this->SetSpriteWidth(12.0);
+                                this->SetSpriteHeight(17.125);
+                        }
+
+
+                }
+                else {
+                        if (currentAnimation != "NewspaperZombieAnimation") {
+                                this->AnimateSpritePlayAnimation("NewspaperZombieAnimation", false);
+                                this->SetSpriteWidth(12.0);
+                                this->SetSpriteHeight(17.125);
+                        }
+
+                }
+        }
+        else if (this->health >= 90) {
+
+                if (this->hasnewspaper) {
+                        if (currentAnimation != "NewspaperZombieLoseNewspaperAnimation")
+                        {
+                                this->SetSpriteLinearVelocityX(0);
+                                this->power = 0;
+                                this->AnimateSpritePlayAnimation("NewspaperZombieLoseNewspaperAnimation", false);
+                                std::thread t([=] {
+                                        while (!this->IsAnimateSpriteAnimationFinished())
+                                                Sleep(50);
+                                        this->power = 70;
+                                        this->move_speed = this->move_speed + 2;
+                                        this->SetSpriteLinearVelocityX(-this->move_speed);
+                                        this->hasnewspaper = false;
+                                        this->AnimateSpritePlayAnimation("NewspaperZombieCrazyAnimation", false);
+                                        this->SetSpriteWidth(12.0);
+                                        this->SetSpriteHeight(15.5);
+
+                                });
+                                t.detach();
+                        }
+
+                }
+                else if (eating_plant && eating_plant->is_exist()) {
+                        if (currentAnimation != "NewspaperZombieCrazyAttackAnimation" && currentAnimation != "NewspaperZombieLoseNewspaperAnimation") {
+                                this->AnimateSpritePlayAnimation("NewspaperZombieCrazyAttackAnimation", false);
+                                this->SetSpriteWidth(11.5);
+                                this->SetSpriteHeight(15.5);
+                                this->SetSpritePositionY(currentPositionY + 1);
+                        }
+
+                }
+                else {
+                        if (currentAnimation != "NewspaperZombieCrazyAnimation" && currentAnimation != "NewspaperZombieLoseNewspaperAnimation") {
+                                this->AnimateSpritePlayAnimation("NewspaperZombieCrazyAnimation", false);
+                                this->SetSpriteWidth(12.0);
+                                this->SetSpriteHeight(15.5);
+                                this->SetSpritePositionY(currentPositionY + 1);
+                        }
+
+                }
+        }
+        else
+        {
+                if (eating_plant && eating_plant->is_exist()) {
+                        if (currentAnimation != "NewspaperZombieLoseHeadAttackAnimation" && currentAnimation != "NewspaperZombieLoseNewspaperAnimation") {
+                                this->AnimateSpritePlayAnimation("NewspaperZombieLoseHeadAttackAnimation", false);
+                                this->SetSpriteWidth(10.8);
+                                this->SetSpriteHeight(12.5);
+                                float currentPositionY = this->GetSpritePositionY();
+                                this->SetSpritePositionY(currentPositionY + 1);
+                        }
+
+
+                }
+                else {
+                        if (currentAnimation != "NewspaperZombieLoseHeadAnimation" && currentAnimation != "NewspaperZombieLoseNewspaperAnimation") {
+                                this->AnimateSpritePlayAnimation("NewspaperZombieLoseHeadAnimation", false);
+                                this->SetSpriteWidth(10.8);
+                                this->SetSpriteHeight(12.5);
                                 float currentPositionY = this->GetSpritePositionY();
                                 this->SetSpritePositionY(currentPositionY + 1);
                         }

@@ -40,7 +40,9 @@ private:
 	std::vector<OrdinaryZombie*>	vec_ord_zombie;
 	std::vector<BarricadeZombie*>	vec_bar_zombie;
 	std::vector<BucketheadZombie*>	vec_buc_zombie;
-	
+	std::vector<NewspaperZombie*>	vec_new_zombie;
+
+
 	std::vector<Pea*>				vec_pea;
 	std::vector<PeaShooter*>		vec_pea_shooter;
 	std::vector<Range*>				vec_range;
@@ -60,6 +62,7 @@ private:
 	OrdinaryZombie* t_ord_zombie;
 	BarricadeZombie* t_bar_zombie;
 	BucketheadZombie* t_buc_zombie;
+	NewspaperZombie* t_new_zombie;
 	PeaShooter* t_pea_shooter;
 	Pea* t_pea;
 	Boom* t_boom;
@@ -97,7 +100,7 @@ public:
 	Zombie* create_ord_zombie(int y);
 	Zombie* create_bar_zombie(int y);
 	Zombie* create_buc_zombie(int y);
-
+	Zombie* create_new_zombie(int y);
 	
 	Car* create_car(float x, float y);
 	Plant*	create_pea_shooter(float x, float y);

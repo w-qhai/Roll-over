@@ -1052,8 +1052,8 @@ $managedDatablockSet = new SimSet() {
       animationPingPong = "0";
       animationReverse = "0";
    };
-   new t2dImageMapDatablock(PotatoMine1ImageMap) {
-      imageName = "~/data/images/PotatoMine1.png";
+   new t2dImageMapDatablock(NewspaperZombieImageMap) {
+      imageName = "~/data/images/NewspaperZombie.png";
       imageMode = "CELL";
       frameCount = "-1";
       filterMode = "SMOOTH";
@@ -1064,16 +1064,16 @@ $managedDatablockSet = new SimSet() {
       cellOffsetY = "0";
       cellStrideX = "0";
       cellStrideY = "0";
-      cellCountX = "1";
+      cellCountX = "19";
       cellCountY = "1";
-      cellWidth = "36";
-      cellHeight = "30";
+      cellWidth = "96";
+      cellHeight = "137";
       preload = "0";
       allowUnload = "0";
       force16Bit = "0";
    };
-   new t2dImageMapDatablock(PotatoMine2ImageMap) {
-      imageName = "~/data/images/PotatoMine2.png";
+   new t2dImageMapDatablock(NewspaperZombieAttackImageMap) {
+      imageName = "~/data/images/NewspaperZombieAttack.png";
       imageMode = "CELL";
       frameCount = "-1";
       filterMode = "SMOOTH";
@@ -1086,14 +1086,14 @@ $managedDatablockSet = new SimSet() {
       cellStrideY = "0";
       cellCountX = "8";
       cellCountY = "1";
-      cellWidth = "74";
-      cellHeight = "55";
+      cellWidth = "101";
+      cellHeight = "141";
       preload = "0";
       allowUnload = "0";
       force16Bit = "0";
    };
-   new t2dImageMapDatablock(PotatoMineBoomImageMap) {
-      imageName = "~/data/images/PotatoMineBoom.png";
+   new t2dImageMapDatablock(NewspaperZombieCrazyImageMap) {
+      imageName = "~/data/images/NewspaperZombieCrazy.png";
       imageMode = "CELL";
       frameCount = "-1";
       filterMode = "SMOOTH";
@@ -1104,47 +1104,157 @@ $managedDatablockSet = new SimSet() {
       cellOffsetY = "0";
       cellStrideX = "0";
       cellStrideY = "0";
-      cellCountX = "1";
+      cellCountX = "14";
       cellCountY = "1";
-      cellWidth = "131";
-      cellHeight = "92";
+      cellWidth = "101";
+      cellHeight = "136";
       preload = "0";
       allowUnload = "0";
       force16Bit = "0";
    };
-   new t2dImageMapDatablock(PotatoMineCardImageMap) {
-      imageName = "~/data/images/PotatoMineCard.png";
-      imageMode = "FULL";
+   new t2dImageMapDatablock(NewspaperZombieCrazyAttackImageMap) {
+      imageName = "~/data/images/NewspaperZombieCrazyAttack.png";
+      imageMode = "CELL";
       frameCount = "-1";
       filterMode = "SMOOTH";
-      filterPad = "1";
-      preferPerf = "1";
+      filterPad = "0";
+      preferPerf = "0";
       cellRowOrder = "1";
       cellOffsetX = "0";
       cellOffsetY = "0";
       cellStrideX = "0";
       cellStrideY = "0";
-      cellCountX = "-1";
-      cellCountY = "-1";
-      cellWidth = "0";
-      cellHeight = "0";
-      preload = "1";
+      cellCountX = "7";
+      cellCountY = "1";
+      cellWidth = "102";
+      cellHeight = "142";
+      preload = "0";
       allowUnload = "0";
       force16Bit = "0";
    };
-   new t2dAnimationDatablock(PotatoMine1Animation) {
-      imageMap = "PotatoMine1ImageMap";
-      animationFrames = "0";
-      animationTime = "0.125";
+   new t2dImageMapDatablock(NewspaperZombieDieImageMap) {
+      imageName = "~/data/images/NewspaperZombieDie.png";
+      imageMode = "CELL";
+      frameCount = "-1";
+      filterMode = "SMOOTH";
+      filterPad = "0";
+      preferPerf = "0";
+      cellRowOrder = "1";
+      cellOffsetX = "0";
+      cellOffsetY = "0";
+      cellStrideX = "0";
+      cellStrideY = "0";
+      cellCountX = "11";
+      cellCountY = "1";
+      cellWidth = "140";
+      cellHeight = "106";
+      preload = "0";
+      allowUnload = "0";
+      force16Bit = "0";
+   };
+   new t2dImageMapDatablock(NewspaperZombieLoseHeadImageMap) {
+      imageName = "~/data/images/NewspaperZombieLoseHead.png";
+      imageMode = "CELL";
+      frameCount = "-1";
+      filterMode = "SMOOTH";
+      filterPad = "0";
+      preferPerf = "0";
+      cellRowOrder = "1";
+      cellOffsetX = "0";
+      cellOffsetY = "0";
+      cellStrideX = "0";
+      cellStrideY = "0";
+      cellCountX = "16";
+      cellCountY = "1";
+      cellWidth = "101";
+      cellHeight = "98";
+      preload = "0";
+      allowUnload = "0";
+      force16Bit = "0";
+   };
+   new t2dImageMapDatablock(NewspaperZombieLoseHeadAttackImageMap1) {
+      imageName = "~/data/images/NewspaperZombieLoseHeadAttack.png";
+      imageMode = "CELL";
+      frameCount = "-1";
+      filterMode = "SMOOTH";
+      filterPad = "0";
+      preferPerf = "0";
+      cellRowOrder = "1";
+      cellOffsetX = "0";
+      cellOffsetY = "0";
+      cellStrideX = "0";
+      cellStrideY = "0";
+      cellCountX = "7";
+      cellCountY = "1";
+      cellWidth = "94";
+      cellHeight = "100";
+      preload = "0";
+      allowUnload = "0";
+      force16Bit = "0";
+   };
+   new t2dImageMapDatablock(NewspaperZombieLoseNewspaperImageMap) {
+      imageName = "~/data/images/NewspaperZombieLoseNewspaper.png";
+      imageMode = "CELL";
+      frameCount = "-1";
+      filterMode = "SMOOTH";
+      filterPad = "0";
+      preferPerf = "0";
+      cellRowOrder = "1";
+      cellOffsetX = "0";
+      cellOffsetY = "0";
+      cellStrideX = "0";
+      cellStrideY = "0";
+      cellCountX = "11";
+      cellCountY = "1";
+      cellWidth = "103";
+      cellHeight = "159";
+      preload = "0";
+      allowUnload = "0";
+      force16Bit = "0";
+   };
+   new t2dAnimationDatablock(NewspaperZombieAnimation) {
+      imageMap = "NewspaperZombieImageMap";
+      animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18";
+      animationTime = "1";
       animationCycle = "1";
-      randomStart = "0";
+      randomStart = "1";
       startFrame = "0";
       animationPingPong = "0";
       animationReverse = "0";
    };
-   new t2dAnimationDatablock(PotatoMine2Animation) {
-      imageMap = "PotatoMine2ImageMap";
+   new t2dAnimationDatablock(NewspaperZombieAttackAnimation) {
+      imageMap = "NewspaperZombieAttackImageMap";
       animationFrames = "0 1 2 3 4 5 6 7";
+      animationTime = "1";
+      animationCycle = "1";
+      randomStart = "1";
+      startFrame = "0";
+      animationPingPong = "0";
+      animationReverse = "0";
+   };
+   new t2dAnimationDatablock(NewspaperZombieCrazyAnimation) {
+      imageMap = "NewspaperZombieCrazyImageMap";
+      animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13";
+      animationTime = "1";
+      animationCycle = "1";
+      randomStart = "1";
+      startFrame = "0";
+      animationPingPong = "0";
+      animationReverse = "0";
+   };
+   new t2dAnimationDatablock(NewspaperZombieCrazyAttackAnimation) {
+      imageMap = "NewspaperZombieCrazyAttackImageMap";
+      animationFrames = "0 1 2 3 4 5 6";
+      animationTime = "0.7";
+      animationCycle = "1";
+      randomStart = "1";
+      startFrame = "0";
+      animationPingPong = "0";
+      animationReverse = "0";
+   };
+   new t2dAnimationDatablock(NewspaperZombieDieAnimation) {
+      imageMap = "NewspaperZombieDieImageMap";
+      animationFrames = "0 1 2 3 4 5 6 7 8 9 10";
       animationTime = "1";
       animationCycle = "1";
       randomStart = "0";
@@ -1152,11 +1262,31 @@ $managedDatablockSet = new SimSet() {
       animationPingPong = "0";
       animationReverse = "0";
    };
-   new t2dAnimationDatablock(PotatoMineBoomAnimation) {
-      imageMap = "PotatoMineBoomImageMap";
-      animationFrames = "0";
-      animationTime = "0.0333333";
+   new t2dAnimationDatablock(NewspaperZombieLoseHeadAnimation) {
+      imageMap = "NewspaperZombieLoseHeadImageMap";
+      animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
+      animationTime = "1";
       animationCycle = "1";
+      randomStart = "1";
+      startFrame = "0";
+      animationPingPong = "0";
+      animationReverse = "0";
+   };
+   new t2dAnimationDatablock(NewspaperZombieLoseHeadAttackAnimation) {
+      imageMap = "NewspaperZombieLoseHeadAttackImageMap1";
+      animationFrames = "0 1 2 3 4 5 6";
+      animationTime = "0.7";
+      animationCycle = "1";
+      randomStart = "1";
+      startFrame = "0";
+      animationPingPong = "0";
+      animationReverse = "0";
+   };
+   new t2dAnimationDatablock(NewspaperZombieLoseNewspaperAnimation) {
+      imageMap = "NewspaperZombieLoseNewspaperImageMap";
+      animationFrames = "0 1 2 3 4 5 6 7 8 9 10";
+      animationTime = "1.83333";
+      animationCycle = "0";
       randomStart = "0";
       startFrame = "0";
       animationPingPong = "0";

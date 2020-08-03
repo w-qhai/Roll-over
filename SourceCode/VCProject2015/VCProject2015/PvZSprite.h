@@ -2,6 +2,7 @@
 #include "CommonClass.h"
 #include <iostream>
 #include <set>
+#include <thread>
 class PvZSprite : public CAnimateSprite
 {
 public:

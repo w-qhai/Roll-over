@@ -30,6 +30,7 @@ CGameMain::CGameMain() :
 	t_ord_zombie(new OrdinaryZombie("OrdinaryZombie")),
 	t_bar_zombie(new BarricadeZombie("BarricadeZombie")),
 	t_buc_zombie(new BucketheadZombie("BucketheadZombie")),
+	t_new_zombie(new NewspaperZombie("NewspaperZombie")),
 	t_pea_shooter(new PeaShooter("PeaShooter", nullptr)),
 	t_pea(new Pea("Pea")),
 	t_range(new Range("AttackRange")),
@@ -144,7 +145,6 @@ void CGameMain::GameInit()
 	create_car(-47.5, -5 + 20)->set_exist(true);
 	create_car(-47.5, -5 + 32)->set_exist(true);
 
-	create_buc_zombie(1);
 
 	sun_num->SetTextValue(sun_count);
 }
@@ -160,8 +160,18 @@ void CGameMain::GameRun(float fDeltaTime)
 	
 
 
-	if (fDeltaTime - timer > 10) {
-		create_buc_zombie(1);
+	if (fDeltaTime - timer > 4) {
+
+
+
+		int a = CSystem::RandomRange(0, 2);
+		
+		if (a == 0)
+			create_ord_zombie(CSystem::RandomRange(0, 4));
+		else if(a == 1)
+			create_bar_zombie(CSystem::RandomRange(0, 4));
+		else
+			create_new_zombie(CSystem::RandomRange(0, 4));
 		
 		timer = fDeltaTime;
 		output_sun();
@@ -252,6 +262,19 @@ Zombie* CGameMain::create_buc_zombie(int y) {
 	vec_buc_zombie.push_back(zombie);
 	name_to_sprite[zombie->GetName()] = zombie;
 	zombie->CloneSprite(t_buc_zombie->GetName());
+	zombie->set_exist(true);
+	zombie->SetSpritePosition(CSystem::GetScreenRight(), y_slot[y] - zombie->GetSpriteHeight() / 2);
+	zombie->move();
+
+	return zombie;
+}
+
+Zombie* CGameMain::create_new_zombie(int y) {
+	float y_slot[5] = { -17, -5, 9, 20, 32 };
+	NewspaperZombie* zombie = new NewspaperZombie(CSystem::MakeSpriteName(t_new_zombie->GetName(), vec_new_zombie.size()));
+	vec_new_zombie.push_back(zombie);
+	name_to_sprite[zombie->GetName()] = zombie;
+	zombie->CloneSprite(t_new_zombie->GetName());
 	zombie->set_exist(true);
 	zombie->SetSpritePosition(CSystem::GetScreenRight(), y_slot[y] - zombie->GetSpriteHeight() / 2);
 	zombie->move();
