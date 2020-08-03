@@ -318,8 +318,8 @@
    new t2dAnimatedSprite(CherryBoom) {
       animationName = "CherryBoomAnimation";
       canSaveDynamicFields = "1";
-      Position = "16.345 -53.950";
-      size = "32.690 27.899";
+      Position = "16.695 -52.234";
+      size = "26.610 22.156";
       Layer = "1";
       WorldLimitMin = "-50.000 -37.500";
       WorldLimitMax = "50.000 37.500";
@@ -493,5 +493,25 @@
       fillColor = "1 1 1 0.784314";
       FillMode = "1";
          mountID = "32";
+   };
+   new t2dAnimatedSprite() {
+      animationName = "PotatoMine2Animation";
+      canSaveDynamicFields = "1";
+      Position = "10.163 -21.598";
+      size = "9.250 6.875";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+         mountID = "34";
+   };
+   new t2dShapeVector() {
+      canSaveDynamicFields = "1";
+      Position = "28.629 -9.510";
+      size = "22.742 24.819";
+      WorldLimitMin = "-50.000 -37.500";
+      WorldLimitMax = "50.000 37.500";
+      LineColor = "1 1 1 1";
+      fillColor = "0.5 0.5 0.5 1";
+      FillMode = "0";
+         mountID = "35";
    };
 };

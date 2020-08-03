@@ -189,7 +189,7 @@ void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const floa
 						seed = g_GameMain.create_sunflower(fMouseX, fMouseY);
 					}
 					else if (sprite->get_type() == "CherryBombCard") {
-						seed = g_GameMain.create_cherry_bomb(fMouseX, fMouseY);
+						seed = g_GameMain.create_cherry_bomb(fMouseX, fMouseY, fTimeDelta);
 					}
 					else if (sprite->get_type() == "PotatoMineCard") {
 						// 种下的时间

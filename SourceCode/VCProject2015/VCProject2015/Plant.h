@@ -51,10 +51,12 @@ private:
 class CherryBomb : public Plant {
 
 public:
-    CherryBomb(const char* plant_name, Boom* boom);
+    CherryBomb(const char* plant_name, Boom* boom, long double plant_time);
     int attack(float delta_time) override;
+    bool preparation(float delta_time);
 private:
     Boom* boom;
+    long double plant_time;
 };
 
 

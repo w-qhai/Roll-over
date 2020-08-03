@@ -122,23 +122,32 @@ int Sunflower::attack(float delta_time) {
 
 /* --------------------------------------------------- */
 // 	樱桃炸弹 CherryBomb
-CherryBomb::CherryBomb(const char* plant_name, Boom* boom) :
+CherryBomb::CherryBomb(const char* plant_name, Boom* boom, long double plant_time) :
 	Plant(plant_name, 300, 2, 150),
-	boom(boom){
+	boom(boom),
+	plant_time(plant_time)
+{
 
 }
 
 int CherryBomb::attack(float delta_time) {
 	if (this->is_exist()) {
-		if (delta_time - next_attack > attack_interval) {
-			boom->set_exist(true);
-			boom->CloneSprite("CherryBoom");
-			boom->SpriteMountToSprite(this->GetName(), 0, 0);
-			this->SetSpriteLifeTime(0.5);
-			next_attack = delta_time;
-		}
+		boom->set_exist(true);
+		boom->CloneSprite("CherryBoom");
+		boom->SpriteMountToSprite(this->GetName(), 0, 0);
+		this->SetSpriteLifeTime(0.5);
+		this->set_exist(false);
+		next_attack = delta_time;
 	}
 	return 1;
+}
+
+bool CherryBomb::preparation(float delta_time) {
+	if (delta_time - plant_time >= 2) {
+		this->attack(delta_time);
+		return true;
+	}
+	return false;
 }
 
 /* --------------------------------------------------- */
@@ -161,6 +170,7 @@ int PotatoMine::attack(float delta_time) {
 				boom->CloneSprite("PotatoMineBoom");
 				boom->SpriteMountToSprite(this->GetName(), 0, 0);
 				this->SetSpriteLifeTime(0.5);
+				this->set_exist(false);
 				next_attack = delta_time;
 			}
 		}
@@ -169,6 +179,7 @@ int PotatoMine::attack(float delta_time) {
 }
 
 bool PotatoMine::preparation(float delta_time) {
+	// 时间到了 出头
 	if (delta_time - plant_time >= preparation_time) {
 		if (std::string(this->GetAnimateSpriteAnimationName()) != "PotatoMine2Animation") {
 			this->AnimateSpritePlayAnimation("PotatoMine2Animation", false);

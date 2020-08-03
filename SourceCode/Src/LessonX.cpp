@@ -36,7 +36,7 @@ CGameMain::CGameMain() :
 	t_sun(new Sun("Sun", 25)),
 	t_sunflower(new Sunflower("Sunflower", nullptr)),
 	t_boom(new Boom("Boom")),
-	t_cherry_bomb(new CherryBomb("CherryBomb", nullptr)),
+	t_cherry_bomb(new CherryBomb("CherryBomb", nullptr, 0)),
 	t_wall_nut(new WallNut("WallNut")),
 	t_potato_mine(new PotatoMine("PotatoMine", nullptr, 0)),
 
@@ -175,9 +175,17 @@ void CGameMain::GameRun(float fDeltaTime)
 		}
 	}
 
+	// »½ÐÑÍÁ¶¹
 	for (PotatoMine* pm : vec_potato_mine) {
 		if (pm->is_exist()) {
 			pm->preparation(fDeltaTime);
+		}
+	}
+
+	// Ó£ÌÒ±¬Õ¨
+	for (CherryBomb* cb : vec_cherry_bomb) {
+		if (cb->is_exist()) {
+			cb->preparation(fDeltaTime);
 		}
 	}
 
@@ -296,15 +304,15 @@ Plant* CGameMain::create_sunflower(float x, float y) {
 	return sf;
 }
 
-Plant* CGameMain::create_cherry_bomb(float x, float y) {
+Plant* CGameMain::create_cherry_bomb(float x, float y, long double plant_time) {
 	// ´´½¨Ó£ÌÒÕ¨µ¯µÄ ¹¥»÷·¶Î§
 	Range* rect = new Range(CSystem::MakeSpriteName(t_range->GetName(), vec_range.size()));
 	vec_range.push_back(rect);
 	name_to_sprite[rect->GetName()] = rect;
 	rect->CloneSprite(t_range->GetName());
 	rect->set_exist(true);
-	rect->SetSpriteWidth(30);
-	rect->SetSpriteHeight(35);
+	rect->SetSpriteWidth(26.610);
+	rect->SetSpriteHeight(22.156);
 
 	// ´´½¨Ó£ÌÒÕ¨µ¯µÄ ±¬Õ¨
 	Boom* boom = new Boom(CSystem::MakeSpriteName("Boom", vec_boom.size()));
@@ -312,7 +320,7 @@ Plant* CGameMain::create_cherry_bomb(float x, float y) {
 	name_to_sprite[boom->GetName()] = boom;
 	boom->set_exist(false);
 
-	CherryBomb* cb = new CherryBomb(CSystem::MakeSpriteName(t_cherry_bomb->GetName(), vec_cherry_bomb.size()), boom);
+	CherryBomb* cb = new CherryBomb(CSystem::MakeSpriteName(t_cherry_bomb->GetName(), vec_cherry_bomb.size()), boom, plant_time);
 	std::cout << cb->get_type();
 	vec_cherry_bomb.push_back(cb);
 	name_to_sprite[cb->GetName()] = cb;
