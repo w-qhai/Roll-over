@@ -79,8 +79,7 @@ bool Card::ready(long double now) {
     // 点击两次的时间间隔
     if (now - pre_select >= cooldown) {
         if (gray_mask && gray_mask->IsSpriteVisible() != false) {
-            // 会闪
-            /*gray_mask->SetSpriteHeight(0);
+            /*gray_mask->SetSpriteHeight(0); // 会闪
             gray_mask->SetSpriteVisible(false);*/
 
             // 移出屏幕外 爱去哪闪去哪闪
@@ -145,6 +144,18 @@ CherryBombCard::CherryBombCard(const char* card_name) :
 }
 
 const char* CherryBombCard::get_type() {
+    return type;
+}
+
+/*土豆地雷*/
+const char* PotatoMineCard::type = "PotatoMineCard";
+PotatoMineCard::PotatoMineCard(const char* card_name) :
+    Card(card_name, 2)
+{
+
+}
+
+const char* PotatoMineCard::get_type() {
     return type;
 }
 

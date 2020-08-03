@@ -88,6 +88,14 @@ protected:
     static const char* type;
 };
 
+class PotatoMineCard : public Card {
+public:
+    PotatoMineCard(const char* card_name);
+    const char* get_type() override;
+protected:
+    static const char* type;
+};
+
 
 class WallNutCard : public Card {
 public:

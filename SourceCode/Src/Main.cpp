@@ -191,6 +191,10 @@ void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const floa
 					else if (sprite->get_type() == "CherryBombCard") {
 						seed = g_GameMain.create_cherry_bomb(fMouseX, fMouseY);
 					}
+					else if (sprite->get_type() == "PotatoMineCard") {
+						// 种下的时间
+						seed = g_GameMain.create_potato_mine(fMouseX, fMouseY, fTimeDelta);
+					}
 					else if (sprite->get_type() == "WallNutCard") {
 						seed = g_GameMain.create_wall_nut(fMouseX, fMouseY);
 					}
@@ -232,13 +236,14 @@ void CSystem::OnMouseUp(const int iMouseType, const float fMouseX, const float f
 			seed->SetSpriteColorAlpha(255);
 			bool planting = true;
 
-			// 如果位置中有植物 或 僵尸，则不能种
 			for (const auto& sprite : sprites) {
+				// 下面有植物 不能种
 				if (sprite->get_type() == "Plant") {
 					planting = false;
 					break;
 				}
 
+				// 有僵尸 分情况
 				if (sprite->get_type() == "Zombie") {
 					if (card->get_type() == "CherryBombCard") {
 						planting = true;
@@ -260,15 +265,10 @@ void CSystem::OnMouseUp(const int iMouseType, const float fMouseX, const float f
 			}
 		}
 		else if (left_pressed && shovel) {
-			for (int i = 1; i < 5; i++) {
-				if (abs(fMouseY - y_slot[y] + shovel->GetSpriteHeight() / 2) > abs(fMouseY - y_slot[i] + shovel->GetSpriteHeight() / 2)) {
-					y = i;
-				}
-			}
-			std::vector<PvZSprite*>&& sprites = g_GameMain.get_sprites_by_position(x_slot[x], y_slot[y] - shovel->GetSpriteHeight() / 2);
-
+			std::vector<PvZSprite*>&& sprites = g_GameMain.get_sprites_by_position(fMouseX, fMouseY);
 			// 位置上有植物 挖走
 			for (const auto& sprite : sprites) {
+				std::cout << sprite->GetName() << std::endl;
 				if (sprite->get_type() == "Plant") {
 					Plant* p = reinterpret_cast<Plant*>(sprite);
 					p->die();

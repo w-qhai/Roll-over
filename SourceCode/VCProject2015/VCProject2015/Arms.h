@@ -21,12 +21,10 @@ public:
     void after_hit() override;
 };
 
-// Íã¶¹ ¼Ì³Ğ×ÔÎäÆ÷
+// ±¬Õ¨ ¼Ì³Ğ×ÔÎäÆ÷
 class Boom : public Arms
 {
 public:
     Boom(const char* arms_name);
     void after_hit() override;
 };
-
-

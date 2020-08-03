@@ -58,6 +58,18 @@ private:
 };
 
 
+// 土豆地雷 继承自植物基类
+class PotatoMine : public Plant {
+
+public:
+    PotatoMine(const char* plant_name, Boom* boom, long double plant_time);
+    int attack(float delta_time) override;
+    bool preparation(float delta_time);
+private:
+    Boom* boom;
+    long double plant_time;
+    const float preparation_time;
+};
 
 // 坚果 继承自植物基类
 class WallNut : public Plant {

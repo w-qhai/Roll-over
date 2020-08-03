@@ -38,6 +38,8 @@ CGameMain::CGameMain() :
 	t_boom(new Boom("Boom")),
 	t_cherry_bomb(new CherryBomb("CherryBomb", nullptr)),
 	t_wall_nut(new WallNut("WallNut")),
+	t_potato_mine(new PotatoMine("PotatoMine", nullptr, 0)),
+
 	// 小车初始化
 	tool_car(new Car("Car")),
 	tool_shovel(new Shovel("Shovel")),
@@ -45,6 +47,7 @@ CGameMain::CGameMain() :
 	pea_shooter_card(new PeaShooterCard("PeaShooterCard")), // 虚手动加入map
 	sunflower_card(new SunflowerCard("SunflowerCard")),
 	cherry_bomb_card(new CherryBombCard("CherryBombCard")),
+	potato_mine_card(new PotatoMineCard("PotatoMineCard")),
 	wall_nut_card(new WallNutCard("WallNutCard"))
 {
 	name_to_sprite[pea_shooter_card->GetName()] = pea_shooter_card;
@@ -58,6 +61,9 @@ CGameMain::CGameMain() :
 	
 	name_to_sprite[wall_nut_card->GetName()] = wall_nut_card;
 	vec_card.push_back(wall_nut_card);
+
+	name_to_sprite[potato_mine_card->GetName()] = potato_mine_card;
+	vec_card.push_back(potato_mine_card);
 
 	name_to_sprite[tool_shovel->GetName()] = tool_shovel;
 }
@@ -119,8 +125,8 @@ void CGameMain::GameInit()
 	create_gray_mask(pea_shooter_card);
 	create_gray_mask(sunflower_card);
 	create_gray_mask(cherry_bomb_card);
+	create_gray_mask(potato_mine_card);
 	create_gray_mask(wall_nut_card);
-
 
 
 	// welcome.t2d
@@ -161,8 +167,18 @@ void CGameMain::GameRun(float fDeltaTime)
 		output_sun();
 	}
 
+
+	// 向日葵产生阳光
 	for (Sunflower* sunflower : vec_sunflower) {
-		sunflower->attack(fDeltaTime);
+		if (sunflower->is_exist()) {
+			sunflower->attack(fDeltaTime);
+		}
+	}
+
+	for (PotatoMine* pm : vec_potato_mine) {
+		if (pm->is_exist()) {
+			pm->preparation(fDeltaTime);
+		}
 	}
 
 	for (Card* card : vec_card) {
@@ -319,6 +335,37 @@ Plant* CGameMain::create_wall_nut(float x, float y) {
 	wn->SetSpriteImmovable(true);
 	wn->set_exist(false);
 	return wn;
+}
+
+Plant* CGameMain::create_potato_mine(float x, float y, long double plant_time) {
+	std::cout << "Potato Mine" << std::endl;
+	// 创建土豆地雷的 攻击范围
+	Range* rect = new Range(CSystem::MakeSpriteName(t_range->GetName(), vec_range.size()));
+	vec_range.push_back(rect);
+	name_to_sprite[rect->GetName()] = rect;
+	rect->CloneSprite(t_range->GetName());
+	rect->set_exist(true);
+	rect->SetSpriteWidth(16.375);
+	rect->SetSpriteHeight(11.500);
+
+	// 创建土豆地雷的 爆炸
+	Boom* boom = new Boom(CSystem::MakeSpriteName("Boom", vec_boom.size()));
+	vec_boom.push_back(boom);
+	name_to_sprite[boom->GetName()] = boom;
+	boom->set_exist(false);
+
+	PotatoMine* pm = new PotatoMine(CSystem::MakeSpriteName(t_potato_mine->GetName(), vec_potato_mine.size()), boom, plant_time);
+	std::cout << pm->get_type();
+	vec_potato_mine.push_back(pm);
+	name_to_sprite[pm->GetName()] = pm;
+
+	pm->CloneSprite(t_potato_mine->GetName());
+	pm->SetSpritePosition(x, y);
+	pm->SetSpriteImmovable(true);
+	
+	rect->SpriteMountToSprite(pm->GetName(), 0, 0);
+	pm->set_exist(false);
+	return pm;
 }
 
 void CGameMain::create_gray_mask(Card* card) {

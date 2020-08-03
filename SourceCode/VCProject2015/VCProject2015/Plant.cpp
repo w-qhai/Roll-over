@@ -123,7 +123,7 @@ int Sunflower::attack(float delta_time) {
 /* --------------------------------------------------- */
 // 	Ó£ÌÒÕ¨µ¯ CherryBomb
 CherryBomb::CherryBomb(const char* plant_name, Boom* boom) :
-	Plant(plant_name, 1000, 2, 150),
+	Plant(plant_name, 300, 2, 150),
 	boom(boom){
 
 }
@@ -131,15 +131,53 @@ CherryBomb::CherryBomb(const char* plant_name, Boom* boom) :
 int CherryBomb::attack(float delta_time) {
 	if (this->is_exist()) {
 		if (delta_time - next_attack > attack_interval) {
-			std::cout << "Boom" << std::endl;
 			boom->set_exist(true);
-			boom->CloneSprite("Boom");
+			boom->CloneSprite("CherryBoom");
 			boom->SpriteMountToSprite(this->GetName(), 0, 0);
 			this->SetSpriteLifeTime(0.5);
 			next_attack = delta_time;
 		}
 	}
 	return 1;
+}
+
+/* --------------------------------------------------- */
+// 	ÍÁ¶¹µØÀ× PotatoMine
+PotatoMine::PotatoMine(const char* plant_name, Boom* boom, long double plant_time) :
+	Plant(plant_name, 300, 2, 25),
+	boom(boom),
+	plant_time(plant_time),
+	preparation_time(2)
+{
+
+}
+
+int PotatoMine::attack(float delta_time) {
+	if (this->preparation(delta_time)) {
+		if (this->is_exist()) {
+			if (delta_time - next_attack > attack_interval) {
+				std::cout << "Boom" << std::endl;
+				boom->set_exist(true);
+				boom->CloneSprite("PotatoMineBoom");
+				boom->SpriteMountToSprite(this->GetName(), 0, 0);
+				this->SetSpriteLifeTime(0.5);
+				next_attack = delta_time;
+			}
+		}
+	}
+	return 1;
+}
+
+bool PotatoMine::preparation(float delta_time) {
+	if (delta_time - plant_time >= preparation_time) {
+		if (std::string(this->GetAnimateSpriteAnimationName()) != "PotatoMine2Animation") {
+			this->AnimateSpritePlayAnimation("PotatoMine2Animation", false);
+			this->SetSpriteWidth(9.250);
+			this->SetSpriteHeight(6.875);
+		}
+		return true;
+	}
+	return false;
 }
 
 /* --------------------------------------------------- */
@@ -151,7 +189,6 @@ WallNut::WallNut(const char* plant_name) :
 }
 
 int WallNut::attack(float delta_time) {
-
 	return 0;
 }
 
