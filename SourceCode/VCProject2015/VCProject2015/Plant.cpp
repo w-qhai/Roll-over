@@ -104,7 +104,7 @@ int PeaShooter::attack(float delta_time) {
 Sunflower::Sunflower(const char* sprite_name, Sun* sun) :
 	Plant(sprite_name, 300, 10, 50),
 	sun(sun) {
-
+	
 }
 
 int Sunflower::attack(float delta_time) {
@@ -148,6 +148,14 @@ bool CherryBomb::preparation(float delta_time) {
 		return true;
 	}
 	return false;
+}
+
+void CherryBomb::set_exist(bool exist) {
+	this->exist = exist;
+	this->SetSpriteCollisionSend(exist);
+	this->SetSpriteCollisionReceive(false);
+	this->SetSpriteCollisionPhysicsReceive(false);
+	this->SetSpriteCollisionPhysicsSend(false);
 }
 
 /* --------------------------------------------------- */
@@ -228,4 +236,45 @@ bool WallNut::attacked_by(Zombie* zombie) {
 	}
 	// 设置完动画 交给父类处理
 	return Plant::attacked_by(zombie);
+}
+
+/* --------------------------------------------------- */
+// 	樱桃炸弹 CherryBomb
+Jalapeno::Jalapeno(const char* plant_name, Boom* boom, long double plant_time) :
+	Plant(plant_name, 300, 2, 150),
+	boom(boom),
+	plant_time(plant_time)
+{
+
+}
+
+int Jalapeno::attack(float delta_time) {
+	if (this->is_exist()) {
+		this->SetSpriteVisible(false);
+		boom->set_exist(true);
+		boom->CloneSprite("JalapenoAttack");
+		boom->SetSpritePosition(0, this->GetSpritePositionY());
+		boom->SetSpriteLifeTime(0.5);
+		// 晚点删除，怕出bug
+		this->SetSpriteLifeTime(0.6);
+		this->set_exist(false);
+		next_attack = delta_time;
+	}
+	return 1;
+}
+
+bool Jalapeno::preparation(float delta_time) {
+	if (delta_time - plant_time >= 2) {
+		this->attack(delta_time);
+		return true;
+	}
+	return false;
+}
+
+void Jalapeno::set_exist(bool exist) {
+	this->exist = exist;
+	this->SetSpriteCollisionSend(exist);
+	this->SetSpriteCollisionReceive(false);
+	this->SetSpriteCollisionPhysicsReceive(false);
+	this->SetSpriteCollisionPhysicsSend(false);
 }

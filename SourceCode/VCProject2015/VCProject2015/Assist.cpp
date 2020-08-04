@@ -6,6 +6,10 @@ Assist::Assist(const char* sprite_name) :
     this->exist = true;
 }
 
+void Assist::set_exist(bool exist) {
+    this->exist = exist;
+}
+
 const char* Assist::get_type() {
     return type;
 }
@@ -156,6 +160,18 @@ PotatoMineCard::PotatoMineCard(const char* card_name) :
 }
 
 const char* PotatoMineCard::get_type() {
+    return type;
+}
+
+/*»ð±¬À±½·*/
+const char* JalapenoCard::type = "JalapenoCard";
+JalapenoCard::JalapenoCard(const char* card_name) :
+    Card(card_name, 2)
+{
+
+}
+
+const char* JalapenoCard::get_type() {
     return type;
 }
 

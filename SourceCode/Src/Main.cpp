@@ -180,8 +180,8 @@ void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const floa
 				// 鼠标按下 选中植物卡
 				card = reinterpret_cast<Card*>(sprite);
 				// 如果选中的卡 冷却完毕
-				//if (card->ready(fTimeDelta)) {
-				if(true){
+				if (card->ready(fTimeDelta)) {
+				//if(true){
 					if (sprite->get_type() == "PeaShooterCard") {
 						seed = g_GameMain.create_pea_shooter(fMouseX, fMouseY);
 					}
@@ -189,14 +189,19 @@ void CSystem::OnMouseClick(const int iMouseType, const float fMouseX, const floa
 						seed = g_GameMain.create_sunflower(fMouseX, fMouseY);
 					}
 					else if (sprite->get_type() == "CherryBombCard") {
+						// 种下的时间 用来判断是否自动爆炸
 						seed = g_GameMain.create_cherry_bomb(fMouseX, fMouseY, fTimeDelta);
 					}
 					else if (sprite->get_type() == "PotatoMineCard") {
-						// 种下的时间
+						// 种下的时间 用来判断是否出头
 						seed = g_GameMain.create_potato_mine(fMouseX, fMouseY, fTimeDelta);
 					}
 					else if (sprite->get_type() == "WallNutCard") {
 						seed = g_GameMain.create_wall_nut(fMouseX, fMouseY);
+					}
+					else if (sprite->get_type() == "JalapenoCard") {
+						// 种下的时间 用来判断是否自动爆炸
+						seed = g_GameMain.create_jalapeno(fMouseX, fMouseY, fTimeDelta);
 					}
 					seed->SetSpriteColorAlpha(100);
 				}

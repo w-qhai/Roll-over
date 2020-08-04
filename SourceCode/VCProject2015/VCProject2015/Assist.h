@@ -6,6 +6,7 @@ class Assist :
 public:
     Assist(const char* sprite_name);
     const char* get_type() override;
+    void set_exist(bool exist) override;
 protected:
     static const char* type;
 };
@@ -96,6 +97,13 @@ protected:
     static const char* type;
 };
 
+class JalapenoCard : public Card {
+public:
+    JalapenoCard(const char* card_name);
+    const char* get_type() override;
+protected:
+    static const char* type;
+};
 
 class WallNutCard : public Card {
 public:

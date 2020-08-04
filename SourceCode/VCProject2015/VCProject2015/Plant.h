@@ -54,6 +54,7 @@ public:
     CherryBomb(const char* plant_name, Boom* boom, long double plant_time);
     int attack(float delta_time) override;
     bool preparation(float delta_time);
+    void set_exist(bool exist) override;
 private:
     Boom* boom;
     long double plant_time;
@@ -80,6 +81,19 @@ public:
     WallNut(const char* plant_name);
     virtual bool attacked_by(Zombie* zombie) override;
     int attack(float delta_time) override; // 纯虚函数 坚果无攻击行为，所以是个空函数
+};
+
+// 火爆辣椒 继承自植物基类
+class Jalapeno : public Plant {
+
+public:
+    Jalapeno(const char* plant_name, Boom* boom, long double plant_time);
+    int attack(float delta_time) override;
+    bool preparation(float delta_time);
+    void set_exist(bool exist) override;
+private:
+    Boom* boom;
+    long double plant_time;
 };
 
 

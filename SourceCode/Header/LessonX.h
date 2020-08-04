@@ -52,7 +52,7 @@ private:
 	std::vector<Sun*>				vec_sun;
 	std::vector<WallNut*>			vec_wall_nut;
 	std::vector<PotatoMine*>		vec_potato_mine;
-
+	std::vector<Jalapeno*>			vec_jalapeno;
 	std::vector<Card*>				vec_card;
 
 	// 小车 铲子
@@ -73,6 +73,7 @@ private:
 	Sun* t_sun;
 	WallNut* t_wall_nut;
 	PotatoMine* t_potato_mine;
+	Jalapeno* t_jalapeno;
 
 	// 植物卡
 	PeaShooterCard* pea_shooter_card;
@@ -80,6 +81,7 @@ private:
 	CherryBombCard* cherry_bomb_card;
 	PotatoMineCard* potato_mine_card;
 	WallNutCard* wall_nut_card;
+	JalapenoCard* jalapeno_card;
 
 public:
 	CGameMain();            //构造函数
@@ -110,6 +112,7 @@ public:
 	Plant*	create_cherry_bomb(float x, float y, long double plant_time);
 	Plant*	create_wall_nut (float x, float y);
 	Plant*	create_potato_mine(float x, float y, long double plant_time);
+	Plant*	create_jalapeno(float x, float y, long double plant_time);
 	void create_gray_mask(Card* card);
 	bool	planting(Plant* plant);
 	void	output_sun(int num = 25);	// 空值则由场景产出，否则为植物产出

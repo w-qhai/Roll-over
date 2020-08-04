@@ -41,6 +41,7 @@ CGameMain::CGameMain() :
 	t_cherry_bomb(new CherryBomb("CherryBomb", nullptr, 0)),
 	t_wall_nut(new WallNut("WallNut")),
 	t_potato_mine(new PotatoMine("PotatoMine", nullptr, 0)),
+	t_jalapeno(new Jalapeno("Jalapeno", nullptr, 0)),
 
 	// Ğ¡³µ³õÊ¼»¯
 	tool_car(new Car("Car")),
@@ -50,7 +51,8 @@ CGameMain::CGameMain() :
 	sunflower_card(new SunflowerCard("SunflowerCard")),
 	cherry_bomb_card(new CherryBombCard("CherryBombCard")),
 	potato_mine_card(new PotatoMineCard("PotatoMineCard")),
-	wall_nut_card(new WallNutCard("WallNutCard"))
+	wall_nut_card(new WallNutCard("WallNutCard")),
+	jalapeno_card(new JalapenoCard("JalapenoCard"))
 {
 	name_to_sprite[pea_shooter_card->GetName()] = pea_shooter_card;
 	vec_card.push_back(pea_shooter_card);
@@ -66,6 +68,9 @@ CGameMain::CGameMain() :
 
 	name_to_sprite[potato_mine_card->GetName()] = potato_mine_card;
 	vec_card.push_back(potato_mine_card);
+
+	name_to_sprite[jalapeno_card->GetName()] = jalapeno_card;
+	vec_card.push_back(jalapeno_card);
 
 	name_to_sprite[tool_shovel->GetName()] = tool_shovel;
 }
@@ -129,6 +134,7 @@ void CGameMain::GameInit()
 	create_gray_mask(cherry_bomb_card);
 	create_gray_mask(potato_mine_card);
 	create_gray_mask(wall_nut_card);
+	create_gray_mask(jalapeno_card);
 
 
 	// welcome.t2d
@@ -147,6 +153,8 @@ void CGameMain::GameInit()
 	create_car(-47.5, -5 + 32)->set_exist(true);
 	create_fot_zombie(1);
 	create_fot_zombie(2);
+	create_fot_zombie(3);
+	create_fot_zombie(4);
 	sun_num->SetTextValue(sun_count);
 }
 //=============================================================================
@@ -187,6 +195,13 @@ void CGameMain::GameRun(float fDeltaTime)
 	for (CherryBomb* cb : vec_cherry_bomb) {
 		if (cb->is_exist()) {
 			cb->preparation(fDeltaTime);
+		}
+	}
+
+	// Ó£ÌÒ±¬Õ¨
+	for (Jalapeno* jp : vec_jalapeno) {
+		if (jp->is_exist()) {
+			jp->preparation(fDeltaTime);
 		}
 	}
 
@@ -317,8 +332,8 @@ Plant* CGameMain::create_sunflower(float x, float y) {
 	Sun* sun = new Sun(CSystem::MakeSpriteName(t_sun->GetName(), vec_sun.size()), 25);
 	vec_sun.push_back(sun);
 	name_to_sprite[sun->GetName()] = sun;
-	sun->CloneSprite(t_sun->GetName());
 	sun->set_exist(false);
+	std::cout << sun->is_exist() << std::endl;
 
 	Sunflower* sf = new Sunflower(CSystem::MakeSpriteName(t_sunflower->GetName(), vec_sunflower.size()), sun);
 	vec_sunflower.push_back(sf);
@@ -333,13 +348,13 @@ Plant* CGameMain::create_sunflower(float x, float y) {
 
 Plant* CGameMain::create_cherry_bomb(float x, float y, long double plant_time) {
 	// ´´½¨Ó£ÌÒÕ¨µ¯µÄ ¹¥»÷·¶Î§
-	Range* rect = new Range(CSystem::MakeSpriteName(t_range->GetName(), vec_range.size()));
-	vec_range.push_back(rect);
-	name_to_sprite[rect->GetName()] = rect;
-	rect->CloneSprite(t_range->GetName());
-	rect->set_exist(true);
-	rect->SetSpriteWidth(26.610);
-	rect->SetSpriteHeight(22.156);
+	//Range* rect = new Range(CSystem::MakeSpriteName(t_range->GetName(), vec_range.size()));
+	//vec_range.push_back(rect);
+	//name_to_sprite[rect->GetName()] = rect;
+	//rect->CloneSprite(t_range->GetName());
+	//rect->set_exist(true);
+	//rect->SetSpriteWidth(26.610);
+	//rect->SetSpriteHeight(22.156);
 
 	// ´´½¨Ó£ÌÒÕ¨µ¯µÄ ±¬Õ¨
 	Boom* boom = new Boom(CSystem::MakeSpriteName("Boom", vec_boom.size()));
@@ -355,7 +370,7 @@ Plant* CGameMain::create_cherry_bomb(float x, float y, long double plant_time) {
 	cb->CloneSprite(t_cherry_bomb->GetName());
 	cb->SetSpritePosition(x, y);
 	cb->SetSpriteImmovable(true);
-	rect->SpriteMountToSprite(cb->GetName(), 0, 0);
+	//rect->SpriteMountToSprite(cb->GetName(), 0, 0);
 	cb->set_exist(false);
 	return cb;
 }
@@ -402,6 +417,36 @@ Plant* CGameMain::create_potato_mine(float x, float y, long double plant_time) {
 	pm->set_exist(false);
 	return pm;
 }
+
+Plant* CGameMain::create_jalapeno(float x, float y, long double plant_time) {
+	// ´´½¨»ğ±¬À±½·µÄ ¹¥»÷·¶Î§
+	//Range* rect = new Range(CSystem::MakeSpriteName(t_range->GetName(), vec_range.size()));
+	//vec_range.push_back(rect);
+	//name_to_sprite[rect->GetName()] = rect;
+	//rect->CloneSprite(t_range->GetName());
+	//rect->set_exist(true);
+	//rect->SetSpriteWidth(26.610);
+	//rect->SetSpriteHeight(22.156);
+
+	// ´´½¨»ğ±¬À±½·µÄ ±¬Õ¨
+	Boom* boom = new Boom(CSystem::MakeSpriteName("Boom", vec_boom.size()));
+	vec_boom.push_back(boom);
+	name_to_sprite[boom->GetName()] = boom;
+	boom->set_exist(false);
+
+	Jalapeno* jp = new Jalapeno(CSystem::MakeSpriteName(t_jalapeno->GetName(), vec_jalapeno.size()), boom, plant_time);
+	vec_jalapeno.push_back(jp);
+	name_to_sprite[jp->GetName()] = jp;
+
+	jp->CloneSprite(t_jalapeno->GetName());
+	jp->SetSpritePosition(x, y);
+	jp->SetSpriteImmovable(true);
+	//rect->SpriteMountToSprite(jp->GetName(), 0, 0);
+	jp->set_exist(false);
+	return jp;
+}
+
+
 
 void CGameMain::create_gray_mask(Card* card) {
 	CSprite* gray_mask;
